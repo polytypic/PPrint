@@ -119,10 +119,10 @@ module PPrint =
 
   // == List Combinators ==
 
-  /// `sep` is equivalent to `group o vsep`
+  /// `sep` is equivalent to `group << vsep`
   val sep: seq<Doc> -> Doc
 
-  /// `cat` is equivalent to `group o vcat`
+  /// `cat` is equivalent to `group << vcat`
   val cat: seq<Doc> -> Doc
 
   /// `punctuate sep docs` concatenates `sep` to the right of each document in
