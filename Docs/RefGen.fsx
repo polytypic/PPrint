@@ -144,6 +144,8 @@ let rec itemize ls =
             nest docs (attr::attrs) kind id i (t::ts)
           | T"static"::T"member"::T id::T":"::_ ->
             nest docs attrs "static member" id i tokens
+          | T"static"::T"member"::T "("::T id::T ")"::T":"::_ ->
+            nest docs attrs "static member" id i tokens
           | T("val" as kind)::T"("::T id::T")"::T":"::_
           | T("module"|"namespace" as kind)::T id::[T"="]
           | T("abstract"|"member"|"val" as kind)::T id::T":"::_
@@ -250,7 +252,7 @@ let printTokens wr id2items space inSection toSection linkId path kind ts =
         | [item] when cmp (idPath, item.Path) ->
           let link = linkName id item.Path item.Kind
           fprintf wr "<a href=\"#%s:%s\">%s</a>"
-           "def" link id
+           "def" link (asText id)
         | _ ->
           let longId = String.concat "." (List.rev (id::idPath))
           printf "Failed to resolve: %s\n" longId
