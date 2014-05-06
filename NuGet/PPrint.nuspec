@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>PPrint</id>
+    <version>0.0.0</version>
+    <title>PPrint</title>
+    <summary>A pretty printing library for F# based on Wadler's and Leijen's work.</summary>
+    <authors>Vesa Karvonen</authors>
+    <owners>Vesa Karvonen</owners>
+    <licenseUrl>https://github.com/VesaKarvonen/PPrint/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/VesaKarvonen/PPrint</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A pretty printing library for F# based on Wadler's and Leijen's work.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>© Vesa Karvonen</copyright>
+    <tags>f# fsharp text formatting layout</tags>
+  </metadata>
+  <files>
+    <file src="..\Libs\PPrint\bin\Release\PPrint.dll" target="lib\net451" />
+    <file src="..\Libs\PPrint\bin\Release\PPrint.xml" target="lib\net451" />
+  </files>
+</package>
