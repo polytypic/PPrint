@@ -102,7 +102,7 @@ module Combinators =
   val fillBreak: int -> Doc -> Doc
   val fill: int -> Doc -> Doc
 
-  /// == Operators ==
+  // == Operators ==
 
   /// Concatenates with a `space`.
   val (<+>): Doc -> Doc -> Doc
@@ -186,10 +186,10 @@ module Combinators =
   /// `txt ">"`
   val rangle: Doc
 
-  /// `txt "`"`
+  /// `txt "{"`
   val lbrace: Doc
 
-  /// `txt "`"`
+  /// `txt "}"`
   val rbrace: Doc
 
   /// `txt "["`
