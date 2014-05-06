@@ -6,15 +6,21 @@ open System
 open System.IO
 
 type Doc =
- | EMPTY
- | LAZY of Lazy<Doc>
- | LINE of bool
- | JOIN of Doc * Doc
- | NEST of int * Doc
- | TEXT of string
- | CHOICE of wide: Doc * narrow: Doc
- | COLUMN of (int -> Doc)
- | NESTING of (int -> Doc)
+  | EMPTY
+  | LAZY of Lazy<Doc>
+  | LINE of bool
+  | JOIN of Doc * Doc
+  | NEST of int * Doc
+  | TEXT of string
+  | CHOICE of wide: Doc * narrow: Doc
+  | COLUMN of (int -> Doc)
+  | NESTING of (int -> Doc)
+  static member (<^>) (l: Doc, r: Doc) = JOIN (l, r)
+  static member (<+>) (l: Doc, r: Doc) = JOIN (l, JOIN (TEXT " ", r))
+  static member (<.>) (l: Doc, r: Doc) = JOIN (l, JOIN (LINE false, r))
+  static member (</>) (l: Doc, r: Doc) = JOIN (l, JOIN (CHOICE (TEXT " ", LINE false), r))
+  static member (<..>) (l: Doc, r: Doc) = JOIN (l, JOIN (LINE true, r))
+  static member (<//>) (l: Doc, r: Doc) = JOIN (l, JOIN (CHOICE (EMPTY, LINE true), r))
 
 [<AutoOpen>]
 module Util =
@@ -31,7 +37,7 @@ module Seq =
     Seq.fold (fun ys x -> x::ys) ys xs
 
 [<AutoOpen>]
-module Combinators =
+module PPrint =
   let delay th = LAZY (Lazy.Create th)
 
   let empty = EMPTY
@@ -113,13 +119,6 @@ module Combinators =
 
   let softline = group line
   let softbreak = group linebreak
-
-  let mkJoin m l r = l <^> m <^> r
-  let (<+>) l r = mkJoin space l r
-  let (<.>) l r = mkJoin line l r
-  let (</>) l r = mkJoin softline l r
-  let (<..>) l r = mkJoin linebreak l r
-  let (<//>) l r = mkJoin softbreak l r
 
   let mkCat bop xs =
     match Seq.revAppendToList xs [] with

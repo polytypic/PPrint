@@ -6,10 +6,31 @@ namespace PPrint
 open System.IO
 
 /// The abstract type of documents.
-type [<NoEquality; NoComparison>] Doc
+type [<Sealed; NoEquality; NoComparison>] Doc =
+  /// `l <^> r` is the concatenation of the documents `l` and `r`.
+  ///
+  /// Note: This is the same as the operator `<>` used in the original Haskell
+  /// libraries.  In F#, the `<>` operator is already used.
+  static member (<^>): Doc * Doc -> Doc
 
+  /// Concatenates with a `space`.
+  static member (<+>): Doc * Doc -> Doc
+
+  /// Concatenates with a `line`.
+  static member (<.>): Doc * Doc -> Doc
+
+  /// Concatenates with a `softline`.
+  static member (</>): Doc * Doc -> Doc
+
+  /// Concatenates with a `linebreak`.
+  static member (<..>): Doc * Doc -> Doc
+
+  /// Concatenates with a `softbreak`.
+  static member (<//>): Doc * Doc -> Doc
+
+/// Operations on pretty print documents.
 [<AutoOpen>]
-module Combinators =
+module PPrint =
   /// Renders the document using the given output function.
   val renderer: option<int> -> (string -> unit) -> Doc -> unit
 
@@ -33,12 +54,6 @@ module Combinators =
   /// `txt s` contains the string `s`.  The string shouldn't contain any newline
   /// characters.
   val txt: string -> Doc
-
-  /// `l <^> r` is the concatenation of the documents `l` and `r`.
-  ///
-  /// Note: This is the same as the operator <> used in the original Haskell
-  /// libraries.  In F#, <> is already used.
-  val (<^>): Doc -> Doc -> Doc
 
   /// `nest n d` renders document `d` indented by `n` more columns.
   ///
@@ -102,23 +117,6 @@ module Combinators =
   val fillBreak: int -> Doc -> Doc
   val fill: int -> Doc -> Doc
 
-  // == Operators ==
-
-  /// Concatenates with a `space`.
-  val (<+>): Doc -> Doc -> Doc
-
-  /// Concatenates with a `line`.
-  val (<.>): Doc -> Doc -> Doc
-
-  /// Concatenates with a `softline`.
-  val (</>): Doc -> Doc -> Doc
-
-  /// Concatenates with a `linebreak`.
-  val (<..>): Doc -> Doc -> Doc
-
-  /// Concatenates with a `softbreak`.
-  val (<//>): Doc -> Doc -> Doc
-
   // == List Combinators ==
 
   /// `sep` is equivalent to `group o vsep`
@@ -134,7 +132,7 @@ module Combinators =
   /// Concatenates with `<+>`.
   val hsep: seq<Doc> -> Doc
 
-  /// Concatenates with `<$>`.
+  /// Concatenates with `<.>`.
   val vsep: seq<Doc> -> Doc
 
   /// Concatenates with `</>`.
@@ -143,7 +141,7 @@ module Combinators =
   /// Concatenates with `<^>`.
   val hcat: seq<Doc> -> Doc
 
-  /// Concatenates with `<$$>`.
+  /// Concatenates with `<..>`.
   val vcat: seq<Doc> -> Doc
 
   /// Concatenates with `<//>`.
