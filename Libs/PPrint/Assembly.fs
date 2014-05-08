@@ -5,6 +5,11 @@ namespace PPrint
 open System.Reflection
 open System.Runtime.InteropServices
 
+[<AutoOpen>]
+module AssemblyInfo =
+  [<Literal>]
+  let Version = "1.1.0"
+
 [<assembly: AssemblyTitle("PPrint")>]
 [<assembly: AssemblyDescription("A pretty printing library for F# based on Wadler's and Leijen's work.")>]
 [<assembly: AssemblyConfiguration("")>]
@@ -18,7 +23,7 @@ open System.Runtime.InteropServices
 
 [<assembly: Guid("e7e47cf6-b20e-4ae8-aa62-898658deec04")>]
 
-[<assembly: AssemblyVersion("1.0.0")>]
-[<assembly: AssemblyFileVersion("1.0.0")>]
+[<assembly: AssemblyVersion(Version)>]
+[<assembly: AssemblyFileVersion(Version)>]
 
 ()
