@@ -45,6 +45,18 @@ font-weight: bold;
 </pre>
 <pre><b>[&lt;</b>AutoOpen<b>&gt;]</b>
 <b>module</b> <a id="dec:module PPrint.PPrint" href="#def:module PPrint.PPrint">PPrint</a> <b>=</b>
+  <b>[&lt;</b>AbstractClass<b>&gt;]</b> 
+  <b>type</b> <a id="dec:type PPrint.PPrint.Actions" href="#def:type PPrint.PPrint.Actions">Actions</a> <b>=</b>
+    <b>new</b><b>:</b> unit <b>-&gt;</b> <a href="#def:type PPrint.PPrint.Actions">Actions</a>
+    <b>abstract</b> <a id="dec:abstract PPrint.PPrint.Actions.Line" href="#def:abstract PPrint.PPrint.Actions.Line">Line</a><b>:</b> unit <b>-&gt;</b> unit
+    <b>default</b> <a id="dec:default PPrint.PPrint.Actions.Line" href="#def:default PPrint.PPrint.Actions.Line">Line</a><b>:</b> unit <b>-&gt;</b> unit
+    <b>abstract</b> <a id="dec:abstract PPrint.PPrint.Actions.User" href="#def:abstract PPrint.PPrint.Actions.User">User</a><b>:</b> obj <b>-&gt;</b> unit
+    <b>default</b> <a id="dec:default PPrint.PPrint.Actions.User" href="#def:default PPrint.PPrint.Actions.User">User</a><b>:</b> obj <b>-&gt;</b> unit
+    <b>abstract</b> <a id="dec:abstract PPrint.PPrint.Actions.Write" href="#def:abstract PPrint.PPrint.Actions.Write">Write</a><b>:</b> string <b>-&gt;</b> unit
+  <b>val</b> <a id="dec:val PPrint.PPrint.outputWithActions" href="#def:val PPrint.PPrint.outputWithActions">outputWithActions</a><b>:</b> <a href="#def:type PPrint.PPrint.Actions">Actions</a>
+                      <b>-&gt;</b> maxCols<b>:</b> option<b>&lt;</b>int<b>&gt;</b>
+                      <b>-&gt;</b> doc<b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+                      <b>-&gt;</b> unit
   <b>val</b> <a id="dec:val PPrint.PPrint.outputWithFun" href="#def:val PPrint.PPrint.outputWithFun">outputWithFun</a><b>:</b> write<b>:</b> (string <b>-&gt;</b> unit)
                   <b>-&gt;</b> maxCols<b>:</b> option<b>&lt;</b>int<b>&gt;</b>
                   <b>-&gt;</b> doc<b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
@@ -69,6 +81,7 @@ font-weight: bold;
   <b>val</b> <a id="dec:val PPrint.PPrint.delay" href="#def:val PPrint.PPrint.delay">delay</a><b>:</b> (unit <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>) <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.softline" href="#def:val PPrint.PPrint.softline">softline</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.softbreak" href="#def:val PPrint.PPrint.softbreak">softbreak</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.user" href="#def:val PPrint.PPrint.user">user</a><b>:</b> obj <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.column" href="#def:val PPrint.PPrint.column">column</a><b>:</b> (int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>) <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.nesting" href="#def:val PPrint.PPrint.nesting">nesting</a><b>:</b> (int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>) <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.indent" href="#def:val PPrint.PPrint.indent">indent</a><b>:</b> int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
@@ -139,7 +152,32 @@ font-weight: bold;
 <pre><b>[&lt;</b>AutoOpen<b>&gt;]</b>
 <b>module</b> <a id="def:module PPrint.PPrint" href="#dec:module PPrint.PPrint">PPrint</a> <b>=</b>
 </pre>
-<div class="nested"><p> Operations on pretty print documents.<pre><b>val</b> <a id="def:val PPrint.PPrint.outputWithFun" href="#dec:val PPrint.PPrint.outputWithFun">outputWithFun</a><b>:</b> write<b>:</b> (string <b>-&gt;</b> unit)
+<div class="nested"><p> Operations on pretty print documents.<pre><b>[&lt;</b>AbstractClass<b>&gt;]</b> 
+<b>type</b> <a id="def:type PPrint.PPrint.Actions" href="#dec:type PPrint.PPrint.Actions">Actions</a> <b>=</b>
+</pre>
+<div class="nested"><p> Output actions.<pre><b>abstract</b> <a id="def:abstract PPrint.PPrint.Actions.Line" href="#dec:abstract PPrint.PPrint.Actions.Line">Line</a><b>:</b> unit <b>-&gt;</b> unit
+</pre>
+<div class="nested"><p> Called to output a newline.</div>
+<pre><b>default</b> <a id="def:default PPrint.PPrint.Actions.Line" href="#dec:default PPrint.PPrint.Actions.Line">Line</a><b>:</b> unit <b>-&gt;</b> unit
+</pre>
+<div class="nested"><p> Default calls <code><a href="#def:abstract PPrint.PPrint.Actions.Write">Write</a>&nbsp;"\n"</code>.</div>
+<pre><b>abstract</b> <a id="def:abstract PPrint.PPrint.Actions.User" href="#dec:abstract PPrint.PPrint.Actions.User">User</a><b>:</b> obj <b>-&gt;</b> unit
+</pre>
+<div class="nested"><p> Called for each user attribute within the document.</div>
+<pre><b>default</b> <a id="def:default PPrint.PPrint.Actions.User" href="#dec:default PPrint.PPrint.Actions.User">User</a><b>:</b> obj <b>-&gt;</b> unit
+</pre>
+<div class="nested"><p> Default does nothing.</div>
+<pre><b>abstract</b> <a id="def:abstract PPrint.PPrint.Actions.Write" href="#dec:abstract PPrint.PPrint.Actions.Write">Write</a><b>:</b> string <b>-&gt;</b> unit
+</pre>
+<div class="nested"><p> Called to write a string of characters.</div>
+</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.outputWithActions" href="#dec:val PPrint.PPrint.outputWithActions">outputWithActions</a><b>:</b> <a href="#def:type PPrint.PPrint.Actions">Actions</a>
+                    <b>-&gt;</b> maxCols<b>:</b> option<b>&lt;</b>int<b>&gt;</b>
+                    <b>-&gt;</b> doc<b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+                    <b>-&gt;</b> unit
+</pre>
+<div class="nested"><p> Outputs the document using the given output actions.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.outputWithFun" href="#dec:val PPrint.PPrint.outputWithFun">outputWithFun</a><b>:</b> write<b>:</b> (string <b>-&gt;</b> unit)
                 <b>-&gt;</b> maxCols<b>:</b> option<b>&lt;</b>int<b>&gt;</b>
                 <b>-&gt;</b> doc<b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
                 <b>-&gt;</b> unit
@@ -203,6 +241,9 @@ font-weight: bold;
 <pre><b>val</b> <a id="def:val PPrint.PPrint.softbreak" href="#dec:val PPrint.PPrint.softbreak">softbreak</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
 </pre>
 <div class="nested"><p> Behaves like <code><a href="#def:val PPrint.PPrint.empty">empty</a></code> if the resulting output fits, otherwise behaves like <code><a href="#def:val PPrint.PPrint.line">line</a></code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.user" href="#dec:val PPrint.PPrint.user">user</a><b>:</b> obj <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.user">user</a>&nbsp;any</code> is equivalent to <code><a href="#def:val PPrint.PPrint.empty">empty</a></code> except that the created document carries the given user attribute object <code>any</code>.  The object is otherwise ignored by the library, but is carried throughout the layout computation and passed to the <code><a href="#def:type PPrint.PPrint.Actions">Actions</a><b>.</b>User</code> rendering action at the point when everything before it has been rendered.  This can be used to implement features such outputing ANSI control sequences to produce output with special effects.</div>
 <pre><b>val</b> <a id="def:val PPrint.PPrint.column" href="#dec:val PPrint.PPrint.column">column</a><b>:</b> (int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>) <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
 </pre>
 <div class="nested"><p> <code><a href="#def:val PPrint.PPrint.column">column</a>&nbsp;f</code> calls <code>f</code> with the current column during rendering to create a document to render.</div>
