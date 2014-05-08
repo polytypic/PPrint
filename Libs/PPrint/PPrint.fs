@@ -92,10 +92,10 @@ module PPrint =
   let hang i d = align (nest i d)
   let indent i d = hang i (txt (spaces i) <^> d)
 
-  let width f d = column (fun l -> d <^> column (fun r -> f (r-l)))
+  let width d f = column (fun l -> d <^> column (fun r -> f (r-l)))
 
-  let mkFill p t f =
-    width (fun w -> if p f w then t f else txt (spaces (f-w)))
+  let mkFill p t f d =
+    width d (fun w -> if p f w then t f else txt (spaces (f-w)))
 
   let fillBreak n d = mkFill (<) (flip nest linebreak) n d
   let fill n d = mkFill (<=) (K empty) n d
