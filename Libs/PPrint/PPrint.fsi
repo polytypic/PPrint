@@ -5,7 +5,7 @@
 /// Philip Wadler's article ''A prettier printer'' is a good introduction to the
 /// motivation and basic usage of this library.  Daan Leijen's document
 /// ''PPrint, a prettier printer'' provides motivation for the additional
-/// primitives.
+/// primitives like `align`.
 namespace PPrint
 
 open System.IO
@@ -149,12 +149,20 @@ module PPrint =
 
   // == Alignment Combinators ==
 
+  /// `column f` calls `f` with the current column during rendering to create a
+  /// document to render.
   val column: (int -> Doc) -> Doc
+
+  /// `column f` calls `f` with the current nesting during the layout process to
+  /// create a document to render.
   val nesting: (int -> Doc) -> Doc
 
+  /// `indent n doc` indents `doc` by `n` columns.
   val indent: int -> Doc -> Doc
-  val hang: int -> Doc -> Doc
 
+  /// `hang n doc` renders `doc` with nesting level set to the current column
+  /// plus `n`.
+  val hang: int -> Doc -> Doc
 
   /// `align doc` renders `doc` with the nesting level set to the current
   /// column.
@@ -169,10 +177,19 @@ module PPrint =
   ///>    world!
   val align: Doc -> Doc
 
-  val width: (int -> Doc) -> Doc -> Doc
+  /// `width lhs rhs` calls `rhs` with the width of `lhs` to create the document
+  /// to concatenate to the right of `lhs`.
+  val width: Doc -> (int -> Doc) -> Doc
 
-  val fillBreak: int -> Doc -> Doc
-  val fill: int -> Doc -> Doc
+  /// `fillBreak width doc` first renders `doc` and then appends spaces until
+  /// the width of the output is at least `width`.  If the width is already more
+  /// than `width`, the nesting level is increased by `width` and a `line` is
+  /// appended after `doc`.
+  val fillBreak: width: int -> Doc -> Doc
+
+  /// `fill width doc` first renders `doc` and then appends spaces until the
+  /// width is at least `width`.
+  val fill: width: int -> Doc -> Doc
 
   // == Sequence Combinators ==
 
