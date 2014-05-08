@@ -44,7 +44,7 @@ let num = group ("[0-9]" + many "[0-9.sxuylLfF]")
 let symFirst = "!%&*+-./<=>@^|~"
 let symRest = symFirst + "?"
 let sym = group (chars symFirst + many (chars symRest))
-let str = "\\\".*\\\""
+let str = "\\\"(?:[^\\\\\"]|\\\\.)*\\\""
 let char = "\\'.*\\'"
 
 let tokenRegex =
