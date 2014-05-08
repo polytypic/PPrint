@@ -59,7 +59,8 @@ font-weight: bold;
   <b>val</b> <a id="dec:val PPrint.PPrint.chr" href="#def:val PPrint.PPrint.chr">chr</a><b>:</b> char <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.txt" href="#def:val PPrint.PPrint.txt">txt</a><b>:</b> string <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.fmt" href="#def:val PPrint.PPrint.fmt">fmt</a><b>:</b> Printf<b>.</b>StringFormat<b>&lt;</b><i>'a</i>, <a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <i>'a</i>
-  <b>val</b> <a id="dec:val PPrint.PPrint.nest" href="#def:val PPrint.PPrint.nest">nest</a><b>:</b> numCols<b>:</b> int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.nest" href="#def:val PPrint.PPrint.nest">nest</a><b>:</b> numCols<b>:</b> int <b>-&gt;</b> (<a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>)
+  <b>val</b> <a id="dec:val PPrint.PPrint.nestBy" href="#def:val PPrint.PPrint.nestBy">nestBy</a><b>:</b> prefix<b>:</b> string <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.line" href="#def:val PPrint.PPrint.line">line</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.linebreak" href="#def:val PPrint.PPrint.linebreak">linebreak</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.group" href="#def:val PPrint.PPrint.group">group</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
@@ -168,13 +169,16 @@ font-weight: bold;
 <pre><b>val</b> <a id="def:val PPrint.PPrint.fmt" href="#dec:val PPrint.PPrint.fmt">fmt</a><b>:</b> Printf<b>.</b>StringFormat<b>&lt;</b><i>'a</i>, <a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <i>'a</i>
 </pre>
 <div class="nested"><p> <code><a href="#def:val PPrint.PPrint.fmt">fmt</a>&nbsp;<b>...</b></code> is equivalent to <code><a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;(sprintf&nbsp;<b>...</b>)</code>.  For example, to format an integer <code>i</code>, one could write <code><a href="#def:val PPrint.PPrint.fmt">fmt</a>&nbsp;"%d"&nbsp;i</code>.</div>
-<pre><b>val</b> <a id="def:val PPrint.PPrint.nest" href="#dec:val PPrint.PPrint.nest">nest</a><b>:</b> numCols<b>:</b> int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.nest" href="#dec:val PPrint.PPrint.nest">nest</a><b>:</b> numCols<b>:</b> int <b>-&gt;</b> (<a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>)
 </pre>
-<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.nest">nest</a>&nbsp;n&nbsp;doc</code> renders document <code>doc</code> indented by <code>n</code> more columns.  See also <code><a href="#def:val PPrint.PPrint.gnest">gnest</a></code>.</p><p> For example</p><pre><a href="#def:val PPrint.PPrint.nest">nest</a> 2 (<a href="#def:val PPrint.PPrint.txt">txt</a> "Hello" <a href="#def:static member PPrint.Doc.&lt;.&gt;">&lt;.&gt;</a> <a href="#def:val PPrint.PPrint.txt">txt</a> "world") <a href="#def:static member PPrint.Doc.&lt;.&gt;">&lt;.&gt;</a> <a href="#def:val PPrint.PPrint.txt">txt</a> "!"
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.nest">nest</a>&nbsp;n&nbsp;doc</code> renders document <code>doc</code> indented by <code>n</code> more columns.  See also: <code><a href="#def:val PPrint.PPrint.gnest">gnest</a></code> and <code><a href="#def:val PPrint.PPrint.nestBy">nestBy</a></code>.</p><p> For example</p><pre><a href="#def:val PPrint.PPrint.nest">nest</a> 2 (<a href="#def:val PPrint.PPrint.txt">txt</a> "Hello" <a href="#def:static member PPrint.Doc.&lt;.&gt;">&lt;.&gt;</a> <a href="#def:val PPrint.PPrint.txt">txt</a> "world") <a href="#def:static member PPrint.Doc.&lt;.&gt;">&lt;.&gt;</a> <a href="#def:val PPrint.PPrint.txt">txt</a> "!"
 </pre><p> renders as</p><pre>Hello
   world
 <b>!</b>
 </pre><p> Note that in order for <code><a href="#def:val PPrint.PPrint.nest">nest</a>&nbsp;n&nbsp;doc</code> to have any effect, you must have <code><a href="#def:val PPrint.PPrint.line">line</a></code>s or <code><a href="#def:val PPrint.PPrint.linebreak">linebreak</a></code>s in the <code>doc</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.nestBy" href="#dec:val PPrint.PPrint.nestBy">nestBy</a><b>:</b> prefix<b>:</b> string <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.nest">nest</a>&nbsp;prefix&nbsp;doc</code> renders document <code>doc</code> with given prefix added after line breaks.  See also: <code><a href="#def:val PPrint.PPrint.nest">nest</a></code>.</div>
 <pre><b>val</b> <a id="def:val PPrint.PPrint.line" href="#dec:val PPrint.PPrint.line">line</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
 </pre>
 <div class="nested"><p> Advances to the next line and indents, unless undone by <code><a href="#def:val PPrint.PPrint.group">group</a></code> in which case <code><a href="#def:val PPrint.PPrint.line">line</a></code> behaves like <code><a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;" "</code>.</div>
