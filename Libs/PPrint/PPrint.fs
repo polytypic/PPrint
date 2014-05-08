@@ -38,10 +38,6 @@ module Util =
   let inline flip f x y = f y x
   let inline force (s: Lazy<_>) = s.Force ()
 
-module List =
-  let revAppend xs ys =
-    List.fold (fun ys x -> x::ys) ys xs
-
 module Seq =
   let revAppendToList xs ys =
     Seq.fold (fun ys x -> x::ys) ys xs
@@ -131,7 +127,7 @@ module PPrint =
   let mkCat bop xs =
     match Seq.revAppendToList xs [] with
      | [] -> empty
-     | x::xs -> List.fold bop x xs
+     | x::xs -> List.fold (fun r x -> bop x r) x xs
   let hsep xs = mkCat (<+>) xs
   let vsep xs = mkCat (<.>) xs
   let fillSep xs = mkCat (</>) xs
