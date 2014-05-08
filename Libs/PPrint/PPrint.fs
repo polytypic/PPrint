@@ -15,6 +15,7 @@ type Doc =
   | CHOICE of wide: Doc * narrow: Doc
   | COLUMN of (int -> Doc)
   | NESTING of (int -> Doc)
+  | USER of obj
 
 [<AutoOpen>]
 module Consts =
@@ -57,6 +58,7 @@ module PPrint =
   let nesting i2d = NESTING i2d
 
   let txt s = TEXT s
+  let user (x: obj) = USER x
   let fmt f = Printf.ksprintf TEXT f
   let chr (c: char) = TEXT (string c)
 
@@ -111,10 +113,9 @@ module PPrint =
   let rec flatten doc = delay <| fun () ->
     match doc with
      | LAZY doc -> flatten (force doc)
-     | EMPTY -> doc
      | JOIN (lhs, rhs) -> JOIN (flatten lhs, flatten rhs)
      | NEST (txt, doc) -> NEST (txt, flatten doc)
-     | TEXT _ -> doc
+     | EMPTY | TEXT _ | USER _ -> doc
      | LINE b -> if b then empty else space
      | CHOICE (wide, _) -> wide
      | COLUMN f -> COLUMN (flatten << f)
@@ -150,17 +151,28 @@ module PPrint =
    | NIL
    | PRINT of text: string * Lazy<t>
    | LINEFEED of prefix: string * Lazy<t>
+   | OBJ of obj: obj * Lazy<t>
 
-  let outputWithFun write maxCols doc =
+  type [<AbstractClass>] Actions () =
+    abstract Line: unit -> unit
+    abstract Write: string -> unit
+    abstract User: obj -> unit
+    default this.Line () = this.Write "\n"
+    default this.User _ = ()
+
+  let outputWithActions (actions: Actions) maxCols doc =
     let rec layout t =
       match t with
        | NIL -> ()
        | PRINT (str, doc) ->
-         write str
+         actions.Write str
+         layout (force doc)
+       | OBJ (obj, doc) ->
+         actions.User obj
          layout (force doc)
        | LINEFEED (prefix, doc) ->
-         write "\n"
-         write prefix
+         actions.Line ()
+         actions.Write prefix
          layout (force doc)
 
     let fits usedCols doc =
@@ -169,6 +181,7 @@ module PPrint =
          usedCols <= Option.get maxCols &&
          match force doc with
           | NIL | LINEFEED _ -> true
+          | OBJ (_, doc) -> lp usedCols doc
           | PRINT (str, doc) -> lp (usedCols + String.length str) doc
        lp usedCols (lazy doc))
 
@@ -186,6 +199,8 @@ module PPrint =
            best usedCols ((prefix + txt, doc)::rest)
          | TEXT str ->
            PRINT (str, lazy best (usedCols + String.length str) rest)
+         | USER obj ->
+           OBJ (obj, lazy best usedCols rest)
          | LINE _ ->
            LINEFEED (prefix, lazy best (String.length prefix) rest)
          | CHOICE (wide, narrow) ->
@@ -199,6 +214,13 @@ module PPrint =
            best usedCols ((prefix, f (String.length prefix))::rest)
     layout (best 0 [("", doc)])
 
+  let inline outputWithFun write maxCols doc =
+    outputWithActions
+      {new Actions () with
+        member this.Write s = write s}
+      maxCols
+      doc
+
   let outputToWriter (tw: TextWriter) maxCols doc =
     outputWithFun (fun s -> tw.Write s) maxCols doc
 
@@ -209,3 +231,4 @@ module PPrint =
 
   let println maxCols doc =
     outputWithFun (fun s -> Console.Write s) maxCols doc
+    Console.Write "\n"

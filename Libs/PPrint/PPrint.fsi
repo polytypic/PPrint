@@ -45,8 +45,33 @@ type [<Sealed; NoEquality; NoComparison>] Doc =
 module PPrint =
   // == Rendering ==
 
+  /// Output actions.
+  type [<AbstractClass>] Actions =
+    new: unit -> Actions
+
+    /// Called to output a newline.
+    abstract Line: unit -> unit
+
+    /// Default calls `Write "\n"`.
+    default Line: unit -> unit
+
+    /// Called for each user attribute within the document.
+    abstract User: obj -> unit
+
+    /// Default does nothing.
+    default User: obj -> unit
+
+    /// Called to write a string of characters.
+    abstract Write: string -> unit
+
+  /// Outputs the document using the given output actions.
+  val outputWithActions: Actions
+                      -> maxCols: option<int>
+                      -> doc: Doc
+                      -> unit
+
   /// Outputs the document using the given output function.
-  val outputWithFun: write: (string -> unit)
+  val inline outputWithFun: write: (string -> unit)
                   -> maxCols: option<int>
                   -> doc: Doc
                   -> unit
@@ -150,6 +175,17 @@ module PPrint =
   /// Behaves like `empty` if the resulting output fits, otherwise behaves like
   /// `line`.
   val softbreak: Doc
+
+  // == User Defined Attributes ==
+
+  /// `user any` is equivalent to `empty` except that the created document
+  /// carries the given user attribute object `any`.  The object is otherwise
+  /// ignored by the library, but is carried throughout the layout computation
+  /// and passed to the `Actions.User` rendering action at the point when
+  /// everything before it has been rendered.  This can be used to implement
+  /// features such outputing ANSI control sequences to produce output with
+  /// special effects.
+  val user: obj -> Doc
 
   // == Alignment Combinators ==
 
