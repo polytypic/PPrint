@@ -81,7 +81,7 @@ module PPrint =
   val fmt: Printf.StringFormat<'a, Doc> -> 'a
 
   /// `nest n doc` renders document `doc` indented by `n` more columns.  See
-  /// also `gnest`.
+  /// also: `gnest` and `nestBy`.
 #if DOC
   ///
   /// For example
@@ -97,7 +97,11 @@ module PPrint =
   /// Note that in order for `nest n doc` to have any effect, you must have
   /// `line`s or `linebreak`s in the `doc`.
 #endif
-  val nest: numCols: int -> Doc -> Doc
+  val nest: numCols: int -> (Doc -> Doc)
+
+  /// `nest prefix doc` renders document `doc` with given prefix added after
+  /// line breaks.  See also: `nest`.
+  val nestBy: prefix: string -> Doc -> Doc
 
   /// Advances to the next line and indents, unless undone by `group` in which
   /// case `line` behaves like `txt " "`.

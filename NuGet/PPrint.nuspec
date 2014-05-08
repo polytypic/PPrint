@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>PPrint</id>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <title>PPrint</title>
     <summary>A pretty printing library for F# based on Wadler's and Leijen's work.</summary>
     <authors>Vesa Karvonen</authors>
@@ -11,7 +11,7 @@
     <projectUrl>https://github.com/VesaKarvonen/PPrint</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A pretty printing library for F# based on Wadler's and Leijen's work.</description>
-    <releaseNotes></releaseNotes>
+    <releaseNotes>1.1.0: Added nestBy; Minor optimization.</releaseNotes>
     <copyright>© Vesa Karvonen</copyright>
     <tags>f# fsharp text formatting layout</tags>
   </metadata>
