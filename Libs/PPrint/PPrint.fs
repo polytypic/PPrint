@@ -47,6 +47,7 @@ module PPrint =
   let nesting i2d = NESTING i2d
 
   let txt s = TEXT s
+  let fmt f = Printf.ksprintf TEXT f
   let chr (c: char) = TEXT (string c)
 
   let lparen = TEXT "("
@@ -111,11 +112,12 @@ module PPrint =
      | CHOICE (wide, _) -> wide
      | COLUMN f -> COLUMN (flatten << f)
      | NESTING f -> NESTING (flatten << f)
-  type Choice = {wide: Doc; narrow: Doc}
-  let choice c =
-    CHOICE (flatten c.wide, c.narrow)
+  let choice wide narrow =
+    CHOICE (flatten wide, narrow)
   let group doc =
     CHOICE (flatten doc, doc)
+
+  let gnest n doc = nest n (group doc)
 
   let softline = group line
   let softbreak = group linebreak
@@ -134,7 +136,7 @@ module PPrint =
   let sep xs = group (vsep xs)
   let cat xs = group (vcat xs)
 
-  let enclose (l, r) d = l <^> d <^> r
+  let enclose (l, r) d = l <^> (d <^> r)
   let squotes d = enclose (squote, squote) d
   let dquotes d = enclose (dquote, dquote) d
   let parens d = enclose parens' d
@@ -147,16 +149,16 @@ module PPrint =
    | PRINT of string * Lazy<t>
    | LINEFEED of int * Lazy<t>
 
-  let renderer maxCols w doc =
+  let outputWithFun write maxCols doc =
     let rec layout t =
       match t with
        | NIL -> ()
        | PRINT (str, doc) ->
-         w str
+         write str
          layout (force doc)
        | LINEFEED (cols, doc) ->
-         w "\n"
-         w (spaces cols)
+         write "\n"
+         write (spaces cols)
          layout (force doc)
 
     let fits usedCols doc =
@@ -195,13 +197,13 @@ module PPrint =
            best usedCols ((nestCols, f nestCols)::rest)
     layout (best 0 [(0, doc)])
 
-  let output (tw: TextWriter) maxCols doc =
-    renderer maxCols (fun s -> tw.Write s) doc
+  let outputToWriter (tw: TextWriter) maxCols doc =
+    outputWithFun (fun s -> tw.Write s) maxCols doc
 
   let render maxCols doc =
     use tw = new StringWriter ()
-    output tw maxCols doc
+    outputToWriter tw maxCols doc
     tw.ToString ()
 
   let println maxCols doc =
-    renderer maxCols (fun s -> Console.Write s) doc
+    outputWithFun (fun s -> Console.Write s) maxCols doc
