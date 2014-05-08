@@ -18,7 +18,7 @@ let keywords =
   [|":>"; "->"; "="; 
     "[<"; ">]"; "[|"; "|]"; "?<-"; "??"; "?"; ":?>"; ":?"; ":>"; "::"; ":="; ":";
     "abstract";
-    "do!"; "downto"; "do";
+    "default"; "do!"; "downto"; "do";
     "else";
     "false"; "finally"; "for"; "fun";
     "if"; "inline"; "in";
@@ -148,7 +148,7 @@ let rec itemize ls =
             nest docs attrs "static member" id i tokens
           | T("val" as kind)::T"("::T id::T")"::T":"::_
           | T("module"|"namespace" as kind)::T id::[T"="]
-          | T("abstract"|"member"|"val" as kind)::T id::T":"::_
+          | T("abstract"|"default"|"member"|"val" as kind)::T id::T":"::_
           | T("type" as kind)::T id::([]|T"<"::_|T":>"::_|T"="::_)
           | T("new" as id as kind)::T":"::_ ->
             nest docs attrs kind id i tokens
