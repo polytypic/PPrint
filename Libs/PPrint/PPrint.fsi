@@ -99,11 +99,11 @@ module PPrint =
   val empty: Doc
 
   /// `chr c` renders to the character `c`.  The character shouldn't be a
-  /// newline.  For example, `chr 'x'` 
+  /// newline.  For example, `chr 'x'` renders to `x`.
   val chr: char -> Doc
 
   /// `txt s` renders to the string `s`.  The string shouldn't contain any
-  /// newline characters.
+  /// newline characters.  For example, `txt "hello"` renders to `hello`.
   val txt: string -> Doc
 
   /// `fmt ...` is equivalent to `txt (sprintf ...)`.  For example, to format an
