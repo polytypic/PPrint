@@ -351,17 +351,41 @@ module PPrint =
   ///
   /// For example
   ///
-  ///> txt "Hi" <+> align (txt "nice" <.> txt "world!")
+  ///> txt "foo" <^>
+  ///> parens
+  ///>  (align
+  ///>    (vsep (punctuate comma [txt "bar"; txt "baz"; txt "foobar"])))
   ///
   /// renders as
   ///
-  ///> Hi nice
-  ///>    world!
+  ///> foo(bar,
+  ///>     baz,
+  ///>     foobar)
 #endif
   val align: Doc -> Doc
 
   /// `width lhs rhs` calls `rhs` with the width of `lhs` to create the document
   /// to concatenate to the right of `lhs`.
+#if DOC
+  ///
+  /// For example
+  ///
+  ///> width (txt "foo") (fun n -> 
+  ///>  nest (n+1)
+  ///>   (parens
+  ///>     (vsep
+  ///>       (punctuate comma
+  ///>         [txt "bar"; txt "baz"; txt "foobar"]))))
+  ///
+  /// renders to
+  ///
+  ///> foo(bar,
+  ///>     baz,
+  ///>     foobar)
+  ///
+  /// Note that `align` can produce the above layout more directly, but other
+  /// effects can be achieved with width.
+#endif
   val width: Doc -> (int -> Doc) -> Doc
 
   /// `fillBreak width doc` first renders `doc` and then appends spaces until
@@ -388,7 +412,7 @@ module PPrint =
   ///
   /// For example
   ///
-  ///> punctuate comma [txt "a"; txt "b"; txt "c"]
+  ///> hsep (punctuate comma [txt "a"; txt "b"; txt "c"])
   ///
   /// renders to
   ///
@@ -397,15 +421,47 @@ module PPrint =
   val punctuate: punc: Doc -> docs: seq<Doc> -> seq<Doc>
 
   /// Concatenates the documents using `<+>`.
+#if DOC
+  ///
+  /// For example
+  ///
+  ///> hsep [txt "a"; txt "b"; txt "c"]
+  ///
+  /// renders to
+  ///
+  ///> a b c
+#endif
   val hsep: seq<Doc> -> Doc
 
   /// Concatenates the documents using `<.>`.
+#if DOC
+  ///
+  /// For example
+  ///
+  ///> vsep [txt "a"; txt "b"; txt "c"]
+  ///
+  /// renders to
+  ///
+  ///> a
+  ///> b
+  ///> c
+#endif
   val vsep: seq<Doc> -> Doc
 
   /// Concatenates the documents using `</>`.
   val fillSep: seq<Doc> -> Doc
 
   /// Concatenates the documents using `<^>`.
+#if DOC
+  ///
+  /// For example
+  ///
+  ///> hcat [txt "a"; txt "b"; txt "c"]
+  ///
+  /// renders to
+  ///
+  ///> abc
+#endif
   val hcat: seq<Doc> -> Doc
 
   /// Concatenates the documents using `<..>`.

@@ -30,3 +30,19 @@ do let wide = txt "\\\"a\\nb\\nc\\\""
    limit 3
     <| choice wide narrow
     <| "\"a\\n\"\n\"b\\n\"\n\"c\""
+
+do hsep [txt "a"; txt "b"; txt "c"] === "a b c"
+do vsep [txt "a"; txt "b"; txt "c"] === "a\nb\nc"
+do hcat [txt "a"; txt "b"; txt "c"] === "abc"
+
+do width (txt "foo") (fun n -> 
+    nest (n+1)
+     (parens
+       (vsep
+         (punctuate comma
+           [txt "bar"; txt "baz"; txt "foobar"])))) ===
+   "foo(bar,\n    baz,\n    foobar)"
+
+do txt "foo" <^>
+   parens (align (vsep (punctuate comma [txt "bar"; txt "baz"; txt "foobar"]))) ===
+   "foo(bar,\n    baz,\n    foobar)"
