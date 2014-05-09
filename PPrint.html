@@ -296,13 +296,26 @@ b
 <div class="nested"><p> <code><a href="#def:val PPrint.PPrint.hang">hang</a>&nbsp;n&nbsp;doc</code> renders <code>doc</code> with nesting level set to the current column plus <code>n</code>.</div>
 <pre><b>val</b> <a id="def:val PPrint.PPrint.align" href="#dec:val PPrint.PPrint.align">align</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
 </pre>
-<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.align">align</a>&nbsp;doc</code> renders <code>doc</code> with the nesting level set to the current column.</p><p> For example</p><pre><a href="#def:val PPrint.PPrint.txt">txt</a> "Hi" <a href="#def:static member PPrint.Doc.&lt;+&gt;">&lt;+&gt;</a> <a href="#def:val PPrint.PPrint.align">align</a> (<a href="#def:val PPrint.PPrint.txt">txt</a> "nice" <a href="#def:static member PPrint.Doc.&lt;.&gt;">&lt;.&gt;</a> <a href="#def:val PPrint.PPrint.txt">txt</a> "world!")
-</pre><p> renders as</p><pre>Hi nice
-   world<b>!</b>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.align">align</a>&nbsp;doc</code> renders <code>doc</code> with the nesting level set to the current column.</p><p> For example</p><pre><a href="#def:val PPrint.PPrint.txt">txt</a> "foo" <a href="#def:static member PPrint.Doc.&lt;^&gt;">&lt;^&gt;</a>
+<a href="#def:val PPrint.PPrint.parens">parens</a>
+ (<a href="#def:val PPrint.PPrint.align">align</a>
+   (<a href="#def:val PPrint.PPrint.vsep">vsep</a> (<a href="#def:val PPrint.PPrint.punctuate">punctuate</a> <a href="#def:val PPrint.PPrint.comma">comma</a> [<a href="#def:val PPrint.PPrint.txt">txt</a> "bar"; <a href="#def:val PPrint.PPrint.txt">txt</a> "baz"; <a href="#def:val PPrint.PPrint.txt">txt</a> "foobar"])))
+</pre><p> renders as</p><pre>foo(bar,
+    baz,
+    foobar)
 </pre></div>
 <pre><b>val</b> <a id="def:val PPrint.PPrint.width" href="#dec:val PPrint.PPrint.width">width</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> (int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>) <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
 </pre>
-<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.width">width</a>&nbsp;lhs&nbsp;rhs</code> calls <code>rhs</code> with the width of <code>lhs</code> to create the document to concatenate to the right of <code>lhs</code>.</div>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.width">width</a>&nbsp;lhs&nbsp;rhs</code> calls <code>rhs</code> with the width of <code>lhs</code> to create the document to concatenate to the right of <code>lhs</code>.</p><p> For example</p><pre><a href="#def:val PPrint.PPrint.width">width</a> (<a href="#def:val PPrint.PPrint.txt">txt</a> "foo") (<b>fun</b> n <b>-&gt;</b>
+ <a href="#def:val PPrint.PPrint.nest">nest</a> (n<b>+</b>1)
+  (<a href="#def:val PPrint.PPrint.parens">parens</a>
+    (<a href="#def:val PPrint.PPrint.vsep">vsep</a>
+      (<a href="#def:val PPrint.PPrint.punctuate">punctuate</a> <a href="#def:val PPrint.PPrint.comma">comma</a>
+        [<a href="#def:val PPrint.PPrint.txt">txt</a> "bar"; <a href="#def:val PPrint.PPrint.txt">txt</a> "baz"; <a href="#def:val PPrint.PPrint.txt">txt</a> "foobar"]))))
+</pre><p> renders to</p><pre>foo(bar,
+    baz,
+    foobar)
+</pre><p> Note that <code><a href="#def:val PPrint.PPrint.align">align</a></code> can produce the above layout more directly, but other effects can be achieved with width.</div>
 <pre><b>val</b> <a id="def:val PPrint.PPrint.fillBreak" href="#dec:val PPrint.PPrint.fillBreak">fillBreak</a><b>:</b> <a href="#def:val PPrint.PPrint.width">width</a><b>:</b> int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
 </pre>
 <div class="nested"><p> <code><a href="#def:val PPrint.PPrint.fillBreak">fillBreak</a>&nbsp;<a href="#def:val PPrint.PPrint.width">width</a>&nbsp;doc</code> first renders <code>doc</code> and then appends spaces until the width of the output is at least <code><a href="#def:val PPrint.PPrint.width">width</a></code>.  If the width is already more than <code><a href="#def:val PPrint.PPrint.width">width</a></code>, the nesting level is increased by <code><a href="#def:val PPrint.PPrint.width">width</a></code> and a <code><a href="#def:val PPrint.PPrint.line">line</a></code> is appended after <code>doc</code>.</div>
@@ -317,21 +330,29 @@ b
 <div class="nested"><p> <code><a href="#def:val PPrint.PPrint.cat">cat</a>&nbsp;docs</code> is equivalent to <code><a href="#def:val PPrint.PPrint.group">group</a>&nbsp;(<a href="#def:val PPrint.PPrint.vcat">vcat</a>&nbsp;docs)</code>.</div>
 <pre><b>val</b> <a id="def:val PPrint.PPrint.punctuate" href="#dec:val PPrint.PPrint.punctuate">punctuate</a><b>:</b> punc<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> docs<b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b>
 </pre>
-<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.punctuate">punctuate</a>&nbsp;punc&nbsp;docs</code> concatenates <code>punc</code> to the right of each document in <code>docs</code> except the last one.</p><p> For example</p><pre><a href="#def:val PPrint.PPrint.punctuate">punctuate</a> <a href="#def:val PPrint.PPrint.comma">comma</a> [<a href="#def:val PPrint.PPrint.txt">txt</a> "a"; <a href="#def:val PPrint.PPrint.txt">txt</a> "b"; <a href="#def:val PPrint.PPrint.txt">txt</a> "c"]
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.punctuate">punctuate</a>&nbsp;punc&nbsp;docs</code> concatenates <code>punc</code> to the right of each document in <code>docs</code> except the last one.</p><p> For example</p><pre><a href="#def:val PPrint.PPrint.hsep">hsep</a> (<a href="#def:val PPrint.PPrint.punctuate">punctuate</a> <a href="#def:val PPrint.PPrint.comma">comma</a> [<a href="#def:val PPrint.PPrint.txt">txt</a> "a"; <a href="#def:val PPrint.PPrint.txt">txt</a> "b"; <a href="#def:val PPrint.PPrint.txt">txt</a> "c"])
 </pre><p> renders to</p><pre>a, b, c
 </pre></div>
 <pre><b>val</b> <a id="def:val PPrint.PPrint.hsep" href="#dec:val PPrint.PPrint.hsep">hsep</a><b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
 </pre>
-<div class="nested"><p> Concatenates the documents using <code><a href="#def:static member PPrint.Doc.&lt;+&gt;">&lt;+&gt;</a></code>.</div>
+<div class="nested"><p> Concatenates the documents using <code><a href="#def:static member PPrint.Doc.&lt;+&gt;">&lt;+&gt;</a></code>.</p><p> For example</p><pre><a href="#def:val PPrint.PPrint.hsep">hsep</a> [<a href="#def:val PPrint.PPrint.txt">txt</a> "a"; <a href="#def:val PPrint.PPrint.txt">txt</a> "b"; <a href="#def:val PPrint.PPrint.txt">txt</a> "c"]
+</pre><p> renders to</p><pre>a b c
+</pre></div>
 <pre><b>val</b> <a id="def:val PPrint.PPrint.vsep" href="#dec:val PPrint.PPrint.vsep">vsep</a><b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
 </pre>
-<div class="nested"><p> Concatenates the documents using <code><a href="#def:static member PPrint.Doc.&lt;.&gt;">&lt;.&gt;</a></code>.</div>
+<div class="nested"><p> Concatenates the documents using <code><a href="#def:static member PPrint.Doc.&lt;.&gt;">&lt;.&gt;</a></code>.</p><p> For example</p><pre><a href="#def:val PPrint.PPrint.vsep">vsep</a> [<a href="#def:val PPrint.PPrint.txt">txt</a> "a"; <a href="#def:val PPrint.PPrint.txt">txt</a> "b"; <a href="#def:val PPrint.PPrint.txt">txt</a> "c"]
+</pre><p> renders to</p><pre>a
+b
+c
+</pre></div>
 <pre><b>val</b> <a id="def:val PPrint.PPrint.fillSep" href="#dec:val PPrint.PPrint.fillSep">fillSep</a><b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
 </pre>
 <div class="nested"><p> Concatenates the documents using <code><a href="#def:static member PPrint.Doc.&lt;/&gt;">&lt;/&gt;</a></code>.</div>
 <pre><b>val</b> <a id="def:val PPrint.PPrint.hcat" href="#dec:val PPrint.PPrint.hcat">hcat</a><b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
 </pre>
-<div class="nested"><p> Concatenates the documents using <code><a href="#def:static member PPrint.Doc.&lt;^&gt;">&lt;^&gt;</a></code>.</div>
+<div class="nested"><p> Concatenates the documents using <code><a href="#def:static member PPrint.Doc.&lt;^&gt;">&lt;^&gt;</a></code>.</p><p> For example</p><pre><a href="#def:val PPrint.PPrint.hcat">hcat</a> [<a href="#def:val PPrint.PPrint.txt">txt</a> "a"; <a href="#def:val PPrint.PPrint.txt">txt</a> "b"; <a href="#def:val PPrint.PPrint.txt">txt</a> "c"]
+</pre><p> renders to</p><pre>abc
+</pre></div>
 <pre><b>val</b> <a id="def:val PPrint.PPrint.vcat" href="#dec:val PPrint.PPrint.vcat">vcat</a><b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
 </pre>
 <div class="nested"><p> Concatenates the documents using <code><a href="#def:static member PPrint.Doc.&lt;..&gt;">&lt;..&gt;</a></code>.</div>
