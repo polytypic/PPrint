@@ -12,7 +12,8 @@ open System.IO
 
 /// The abstract type of documents.
 type [<Sealed; NoEquality; NoComparison>] Doc =
-  /// `lhs <^> rhs` is the concatenation of the documents `lhs` and `rhs`.
+  /// `lhs <^> rhs` is the concatenation of the documents `lhs` and `rhs`.  For
+  /// example, `txt "a" <^> txt "b"` renders as `ab`.
 #if DOC
   ///
   /// Note: This is the same as the operator `<>` used in the original Haskell
@@ -21,15 +22,33 @@ type [<Sealed; NoEquality; NoComparison>] Doc =
   static member (<^>): Doc * Doc -> Doc
 
   /// Concatenates the given documents with a `space` in between.  `lhs <+> rhs`
-  /// is equivalent to `lhs <^> space <^> rhs`.
+  /// is equivalent to `lhs <^> space <^> rhs`.  For example, `txt "a" <+> txt
+  /// "b"` renders as `a b`.
   static member (<+>): Doc * Doc -> Doc
 
   /// Concatenates the given documents with a `line` in between.  `lhs <.> rhs`
   /// is equivalent to `lhs <^> line <^> rhs`.
 #if DOC
   ///
-  /// Note: In the original Haskell libraries, the symbol "<$>" was used instead
-  /// of "<.>".  In F#, it is not allowed.
+  /// For example
+  ///
+  ///> txt "a" <.> txt "b"
+  ///
+  /// renders as
+  ///
+  ///> a
+  ///> b
+  ///
+  /// and
+  ///
+  ///> group (txt "a" <.> txt "b")
+  ///
+  /// renders as
+  ///
+  ///> a b
+  ///
+  /// Note: In the original Haskell libraries, the symbol <$> was used for this
+  /// operation, but it is not a legal symbol in F#.
 #endif
   static member (<.>): Doc * Doc -> Doc
 
@@ -39,6 +58,25 @@ type [<Sealed; NoEquality; NoComparison>] Doc =
 
   /// Concatenates the given documents with a `linebreak` in between.  `lhs <..>
   /// rhs` is equivalent to `lhs <^> linebreak <^> rhs`.
+#if DOC
+  ///
+  /// For example
+  ///
+  ///> txt "a" <..> txt "b"
+  ///
+  /// renders as
+  ///
+  ///> a
+  ///> b
+  ///
+  /// and
+  ///
+  ///> group (txt "a" <..> txt "b")
+  ///
+  /// renders as
+  ///
+  ///> ab
+#endif
   static member (<..>): Doc * Doc -> Doc
 
   /// Concatenates the given documents with a `softbreak` in between.  `lhs <//>
@@ -95,7 +133,7 @@ module PPrint =
 
   // == Basic Combinators ==
 
-  /// The empty document is semantically equivalent to `txt ""`.
+  /// The `empty` document is equivalent to `txt ""`.
   val empty: Doc
 
   /// `chr c` renders to the character `c`.  The character shouldn't be a
@@ -215,6 +253,8 @@ module PPrint =
   /// renders as
   ///
   ///> a b
+  ///
+  /// except when it wouldn't fit within the desired number of columns.
 #endif
   val group: Doc -> Doc
 
@@ -235,7 +275,7 @@ module PPrint =
   /// onto a single line or onto multiple lines using line continuation
   /// characters.
   ///
-  /// Given
+  /// For example, given
   ///
   ///> let wide = txt "\\\"a\\nb\\nc\\\""
   ///> let narrow = vsep [txt "\"a\\n\""; txt "\"b\\n\""; txt "\"c\""]
