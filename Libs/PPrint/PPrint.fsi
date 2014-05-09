@@ -26,6 +26,11 @@ type [<Sealed; NoEquality; NoComparison>] Doc =
 
   /// Concatenates the given documents with a `line` in between.  `lhs <.> rhs`
   /// is equivalent to `lhs <^> line <^> rhs`.
+#if DOC
+  ///
+  /// Note: In the original Haskell libraries, the symbol "<$>" was used instead
+  /// of "<.>".  In F#, it is not allowed.
+#endif
   static member (<.>): Doc * Doc -> Doc
 
   /// Concatenates the given documents with a `softline` in between.  `lhs </>
@@ -94,7 +99,7 @@ module PPrint =
   val empty: Doc
 
   /// `chr c` renders to the character `c`.  The character shouldn't be a
-  /// newline.
+  /// newline.  For example, `chr 'x'` 
   val chr: char -> Doc
 
   /// `txt s` renders to the string `s`.  The string shouldn't contain any
@@ -111,49 +116,145 @@ module PPrint =
   ///
   /// For example
   ///
-  ///> nest 2 (txt "Hello" <.> txt "world") <.> txt "!"
+  ///> nest 1 (parens (vsep (punctuate comma [txt "x"; txt "y"; txt "z"])))
   ///
   /// renders as
   ///
-  ///> Hello
-  ///>   world
-  ///> !
+  ///> (x,
+  ///>  y,
+  ///>  z)
   ///
   /// Note that in order for `nest n doc` to have any effect, you must have
   /// `line`s or `linebreak`s in the `doc`.
 #endif
   val nest: numCols: int -> (Doc -> Doc)
 
-  /// `nest prefix doc` renders document `doc` with given prefix added after
+  /// `nestBy prefix doc` renders document `doc` with given prefix added after
   /// line breaks.  See also: `nest`.
+#if DOC
+  ///
+  /// For example
+  ///
+  ///> enclose (txt "(* ", line <^> txt " *)")
+  ///>   (nestBy " * " (vsep [txt "a"; txt "b"; txt "c"]))
+  ///
+  /// renders as
+  ///
+  ///> (* a
+  ///>  * b
+  ///>  * c
+  ///>  *)
+#endif
   val nestBy: prefix: string -> Doc -> Doc
 
   /// Advances to the next line and indents, unless undone by `group` in which
   /// case `line` behaves like `txt " "`.
+#if DOC
+  ///
+  /// For example
+  ///
+  ///> nest 2 (hcat [txt "a"; line; txt "b"])
+  ///
+  /// renders as
+  ///
+  ///> a
+  ///>   b
+  ///
+  /// while
+  ///
+  ///> group (nest 2 (hcat [txt "a"; line; txt "b"]))
+  ///
+  /// renders as
+  ///
+  ///> a b
+#endif
   val line: Doc
 
   /// Advances to the next line and indents, unless undone by `group` in which
   /// case `linebreak` behaves like `empty`.
+#if DOC
+  ///
+  /// For example
+  ///
+  ///> nest 2 (hcat [txt "a"; linebreak; txt "b"])
+  ///
+  /// renders as
+  ///
+  ///> a
+  ///>   b
+  ///
+  /// while
+  ///
+  ///> group (nest 2 (hcat [txt "a"; linebreak; txt "b"]))
+  ///
+  /// renders as
+  ///
+  ///> ab
+#endif
   val linebreak: Doc
 
   /// Used to specify alternative layouts.  `group doc` undoes all line breaks
   /// in document `doc`.  The resulting line of text is added to the current
   /// output if it fits.  Otherwise, the document is rendered without changes
   /// (with line breaks).
+#if DOC
+  ///
+  /// For example
+  ///
+  ///> txt "a" <.> txt "b"
+  ///
+  /// renders as
+  ///
+  ///> a
+  ///> b
+  ///
+  /// while
+  ///
+  ///> group (txt "a" <.> txt "b")
+  ///
+  /// renders as
+  ///
+  ///> a b
+#endif
   val group: Doc -> Doc
 
   /// `gnest n doc` is equivalent to `nest n (group doc)` which is equivalent to
-  /// `group (nest n doc)`.  This combinator can be useful, because `nest` is
-  /// frequently combined with `group`.
+  /// `group (nest n doc)`.  `nest` is frequently combined with `group`.
   val gnest: numCols: int -> Doc -> Doc
 
-  /// Used to specify alternative documents.  The wider document is added to the
-  /// current output line if it fits.  Otherwise, the narrow document is
+  /// Used to specify alternative documents.  The `wide` document is added to
+  /// the current output line if it fits.  Otherwise, the `narrow` document is
   /// rendered.
 #if DOC
   ///
-  /// Warning: This operation allows one to create documents whose rendering may
-  /// not produce optimal or easily predictable results.
+  /// This combinator is not available in the original Haskell libraries.  It
+  /// allows one to create documents whose rendering may not produce optimal or
+  /// easily predictable results.  Nevertheless, careful use of this combinator
+  /// can produce useful results.  The initial use case for this combinator was
+  /// to format Standard ML string literals so that they are either formatted
+  /// onto a single line or onto multiple lines using line continuation
+  /// characters.
+  ///
+  /// Given
+  ///
+  ///> let wide = txt "\\\"a\\nb\\nc\\\""
+  ///> let narrow = vsep [txt "\"a\\n\""; txt "\"b\\n\""; txt "\"c\""]
+  ///
+  /// then
+  ///
+  ///> choice wide narrow
+  ///
+  /// renders as the wide version
+  ///
+  ///> "a\nb\nc"
+  ///
+  /// when it fits and as the narrow version
+  ///
+  ///> "a\n"
+  ///> "b\n"
+  ///> "c"
+  ///
+  /// when the wide version does not fit.
 #endif
   val choice: wide: Doc -> narrow: Doc -> Doc
 
@@ -206,6 +307,7 @@ module PPrint =
 
   /// `align doc` renders `doc` with the nesting level set to the current
   /// column.
+#if DOC
   ///
   /// For example
   ///
@@ -215,6 +317,7 @@ module PPrint =
   ///
   ///> Hi nice
   ///>    world!
+#endif
   val align: Doc -> Doc
 
   /// `width lhs rhs` calls `rhs` with the width of `lhs` to create the document
@@ -239,9 +342,19 @@ module PPrint =
   /// `cat docs` is equivalent to `group (vcat docs)`.
   val cat: seq<Doc> -> Doc
 
-  /// `punctuate sep docs` concatenates `sep` to the right of each document in
-  /// `docs` except the last one.
-  val punctuate: sep: Doc -> docs: seq<Doc> -> seq<Doc>
+  /// `punctuate punc docs` concatenates `punc` to the right of each document
+  /// in `docs` except the last one.
+#if DOC
+  ///
+  /// For example
+  ///
+  ///> punctuate comma [txt "a"; txt "b"; txt "c"]
+  ///
+  /// renders to
+  ///
+  ///> a, b, c
+#endif
+  val punctuate: punc: Doc -> docs: seq<Doc> -> seq<Doc>
 
   /// Concatenates the documents using `<+>`.
   val hsep: seq<Doc> -> Doc
