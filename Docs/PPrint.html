@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>PPrint Library Reference</title>
+<style>
+pre {
+border: 1px solid #e0e0e0;
+border-radius: 3px;
+padding: 5px;
+line-height: 160%;
+background: #f7f7f7;
+font-family: "Lucida Console", Monaco, monospace;
+font-size: 72%;
+}
+code {
+border: 1px solid #e0e0e0;
+border-radius: 3px;
+padding: 2px;
+background: #f7f7f7;
+font-family: "Lucida Console", Monaco, monospace;
+font-size: 72%;
+}
+div.nested {
+padding-left: 1.5em;
+}
+a {
+text-decoration: none;
+font-weight: bold;
+}
+</style>
+</head>
+<body><table width="80%" align="center"><tr><td>
+<h1>PPrint Library Reference</h1>
+<p>This document provides a reference manual for the PPrint library and is generated from the library source code.</p>
+<h2>Synopsis</h2>
+<pre><b>namespace</b> <a id="dec:namespace PPrint" href="#def:namespace PPrint">PPrint</a></pre>
+<pre><b>[&lt;</b>Sealed; NoEquality; NoComparison<b>&gt;]</b> 
+<b>type</b> <a id="dec:type PPrint.Doc" href="#def:type PPrint.Doc">Doc</a> <b>=</b>
+  <b>static</b> <b>member</b> (<a id="dec:static member PPrint.Doc.&lt;^&gt;" href="#def:static member PPrint.Doc.&lt;^&gt;">&lt;^&gt;</a>)<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>*</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>static</b> <b>member</b> (<a id="dec:static member PPrint.Doc.&lt;+&gt;" href="#def:static member PPrint.Doc.&lt;+&gt;">&lt;+&gt;</a>)<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>*</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>static</b> <b>member</b> (<a id="dec:static member PPrint.Doc.&lt;.&gt;" href="#def:static member PPrint.Doc.&lt;.&gt;">&lt;.&gt;</a>)<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>*</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>static</b> <b>member</b> (<a id="dec:static member PPrint.Doc.&lt;/&gt;" href="#def:static member PPrint.Doc.&lt;/&gt;">&lt;/&gt;</a>)<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>*</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>static</b> <b>member</b> (<a id="dec:static member PPrint.Doc.&lt;..&gt;" href="#def:static member PPrint.Doc.&lt;..&gt;">&lt;..&gt;</a>)<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>*</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>static</b> <b>member</b> (<a id="dec:static member PPrint.Doc.&lt;//&gt;" href="#def:static member PPrint.Doc.&lt;//&gt;">&lt;//&gt;</a>)<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>*</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<pre><b>[&lt;</b>AutoOpen<b>&gt;]</b>
+<b>module</b> <a id="dec:module PPrint.PPrint" href="#def:module PPrint.PPrint">PPrint</a> <b>=</b>
+  <b>[&lt;</b>AbstractClass<b>&gt;]</b> 
+  <b>type</b> <a id="dec:type PPrint.PPrint.Actions" href="#def:type PPrint.PPrint.Actions">Actions</a> <b>=</b>
+    <b>new</b><b>:</b> unit <b>-&gt;</b> <a href="#def:type PPrint.PPrint.Actions">Actions</a>
+    <b>abstract</b> <a id="dec:abstract PPrint.PPrint.Actions.Line" href="#def:abstract PPrint.PPrint.Actions.Line">Line</a><b>:</b> unit <b>-&gt;</b> unit
+    <b>default</b> <a id="dec:default PPrint.PPrint.Actions.Line" href="#def:default PPrint.PPrint.Actions.Line">Line</a><b>:</b> unit <b>-&gt;</b> unit
+    <b>abstract</b> <a id="dec:abstract PPrint.PPrint.Actions.User" href="#def:abstract PPrint.PPrint.Actions.User">User</a><b>:</b> obj <b>-&gt;</b> unit
+    <b>default</b> <a id="dec:default PPrint.PPrint.Actions.User" href="#def:default PPrint.PPrint.Actions.User">User</a><b>:</b> obj <b>-&gt;</b> unit
+    <b>abstract</b> <a id="dec:abstract PPrint.PPrint.Actions.Write" href="#def:abstract PPrint.PPrint.Actions.Write">Write</a><b>:</b> string <b>-&gt;</b> unit
+  <b>val</b> <a id="dec:val PPrint.PPrint.outputWithActions" href="#def:val PPrint.PPrint.outputWithActions">outputWithActions</a><b>:</b> <a href="#def:type PPrint.PPrint.Actions">Actions</a>
+                      <b>-&gt;</b> maxCols<b>:</b> option<b>&lt;</b>int<b>&gt;</b>
+                      <b>-&gt;</b> doc<b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+                      <b>-&gt;</b> unit
+  <b>val</b> <a id="dec:val PPrint.PPrint.outputWithFun" href="#def:val PPrint.PPrint.outputWithFun">outputWithFun</a><b>:</b> write<b>:</b> (string <b>-&gt;</b> unit)
+                  <b>-&gt;</b> maxCols<b>:</b> option<b>&lt;</b>int<b>&gt;</b>
+                  <b>-&gt;</b> doc<b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+                  <b>-&gt;</b> unit
+  <b>val</b> <a id="dec:val PPrint.PPrint.outputToWriter" href="#def:val PPrint.PPrint.outputToWriter">outputToWriter</a><b>:</b> writer<b>:</b> TextWriter
+                   <b>-&gt;</b> maxCols<b>:</b> option<b>&lt;</b>int<b>&gt;</b>
+                   <b>-&gt;</b> doc<b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+                   <b>-&gt;</b> unit
+  <b>val</b> <a id="dec:val PPrint.PPrint.render" href="#def:val PPrint.PPrint.render">render</a><b>:</b> maxCols<b>:</b> option<b>&lt;</b>int<b>&gt;</b> <b>-&gt;</b> doc<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> string
+  <b>val</b> <a id="dec:val PPrint.PPrint.println" href="#def:val PPrint.PPrint.println">println</a><b>:</b> maxCols<b>:</b> option<b>&lt;</b>int<b>&gt;</b> <b>-&gt;</b> doc<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> unit
+  <b>val</b> <a id="dec:val PPrint.PPrint.empty" href="#def:val PPrint.PPrint.empty">empty</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.chr" href="#def:val PPrint.PPrint.chr">chr</a><b>:</b> char <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.txt" href="#def:val PPrint.PPrint.txt">txt</a><b>:</b> string <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.fmt" href="#def:val PPrint.PPrint.fmt">fmt</a><b>:</b> Printf<b>.</b>StringFormat<b>&lt;</b><i>'a</i>, <a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <i>'a</i>
+  <b>val</b> <a id="dec:val PPrint.PPrint.nest" href="#def:val PPrint.PPrint.nest">nest</a><b>:</b> numCols<b>:</b> int <b>-&gt;</b> (<a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>)
+  <b>val</b> <a id="dec:val PPrint.PPrint.nestBy" href="#def:val PPrint.PPrint.nestBy">nestBy</a><b>:</b> prefix<b>:</b> string <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.line" href="#def:val PPrint.PPrint.line">line</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.linebreak" href="#def:val PPrint.PPrint.linebreak">linebreak</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.group" href="#def:val PPrint.PPrint.group">group</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.gnest" href="#def:val PPrint.PPrint.gnest">gnest</a><b>:</b> numCols<b>:</b> int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.choice" href="#def:val PPrint.PPrint.choice">choice</a><b>:</b> wide<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> narrow<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.delay" href="#def:val PPrint.PPrint.delay">delay</a><b>:</b> (unit <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>) <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.softline" href="#def:val PPrint.PPrint.softline">softline</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.softbreak" href="#def:val PPrint.PPrint.softbreak">softbreak</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.user" href="#def:val PPrint.PPrint.user">user</a><b>:</b> obj <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.column" href="#def:val PPrint.PPrint.column">column</a><b>:</b> (int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>) <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.nesting" href="#def:val PPrint.PPrint.nesting">nesting</a><b>:</b> (int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>) <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.indent" href="#def:val PPrint.PPrint.indent">indent</a><b>:</b> int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.hang" href="#def:val PPrint.PPrint.hang">hang</a><b>:</b> int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.align" href="#def:val PPrint.PPrint.align">align</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.width" href="#def:val PPrint.PPrint.width">width</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> (int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>) <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.fillBreak" href="#def:val PPrint.PPrint.fillBreak">fillBreak</a><b>:</b> <a href="#def:val PPrint.PPrint.width">width</a><b>:</b> int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.fill" href="#def:val PPrint.PPrint.fill">fill</a><b>:</b> <a href="#def:val PPrint.PPrint.width">width</a><b>:</b> int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.sep" href="#def:val PPrint.PPrint.sep">sep</a><b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.cat" href="#def:val PPrint.PPrint.cat">cat</a><b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.punctuate" href="#def:val PPrint.PPrint.punctuate">punctuate</a><b>:</b> punc<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> docs<b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b>
+  <b>val</b> <a id="dec:val PPrint.PPrint.hsep" href="#def:val PPrint.PPrint.hsep">hsep</a><b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.vsep" href="#def:val PPrint.PPrint.vsep">vsep</a><b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.fillSep" href="#def:val PPrint.PPrint.fillSep">fillSep</a><b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.hcat" href="#def:val PPrint.PPrint.hcat">hcat</a><b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.vcat" href="#def:val PPrint.PPrint.vcat">vcat</a><b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.fillCat" href="#def:val PPrint.PPrint.fillCat">fillCat</a><b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.enclose" href="#def:val PPrint.PPrint.enclose">enclose</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>*</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.squotes" href="#def:val PPrint.PPrint.squotes">squotes</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.dquotes" href="#def:val PPrint.PPrint.dquotes">dquotes</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.parens" href="#def:val PPrint.PPrint.parens">parens</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.angles" href="#def:val PPrint.PPrint.angles">angles</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.braces" href="#def:val PPrint.PPrint.braces">braces</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.brackets" href="#def:val PPrint.PPrint.brackets">brackets</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.lparen" href="#def:val PPrint.PPrint.lparen">lparen</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.rparen" href="#def:val PPrint.PPrint.rparen">rparen</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.langle" href="#def:val PPrint.PPrint.langle">langle</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.rangle" href="#def:val PPrint.PPrint.rangle">rangle</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.lbrace" href="#def:val PPrint.PPrint.lbrace">lbrace</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.rbrace" href="#def:val PPrint.PPrint.rbrace">rbrace</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.lbracket" href="#def:val PPrint.PPrint.lbracket">lbracket</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.rbracket" href="#def:val PPrint.PPrint.rbracket">rbracket</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.squote" href="#def:val PPrint.PPrint.squote">squote</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.dquote" href="#def:val PPrint.PPrint.dquote">dquote</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.semi" href="#def:val PPrint.PPrint.semi">semi</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.colon" href="#def:val PPrint.PPrint.colon">colon</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.comma" href="#def:val PPrint.PPrint.comma">comma</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.space" href="#def:val PPrint.PPrint.space">space</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.dot" href="#def:val PPrint.PPrint.dot">dot</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.backslash" href="#def:val PPrint.PPrint.backslash">backslash</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <b>val</b> <a id="dec:val PPrint.PPrint.equals" href="#def:val PPrint.PPrint.equals">equals</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<h2>Description</h2>
+<pre><b>namespace</b> <a id="def:namespace PPrint" href="#dec:namespace PPrint">PPrint</a>
+</pre>
+<div class="nested"><p> A pretty printing library for F# based on Wadler's and Leijen's work.</p><p> Philip Wadler's article ''A prettier printer'' is a good introduction to the motivation and basic usage of this library.  Daan Leijen's document ''PPrint, a prettier printer'' provides motivation for the additional primitives like <code><a href="#def:val PPrint.PPrint.align">align</a></code>.<pre><b>[&lt;</b>Sealed; NoEquality; NoComparison<b>&gt;]</b> 
+<b>type</b> <a id="def:type PPrint.Doc" href="#dec:type PPrint.Doc">Doc</a> <b>=</b>
+</pre>
+<div class="nested"><p> The abstract type of documents.<pre><b>static</b> <b>member</b> (<a id="def:static member PPrint.Doc.&lt;^&gt;" href="#dec:static member PPrint.Doc.&lt;^&gt;">&lt;^&gt;</a>)<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>*</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> <code>lhs&nbsp;<a href="#def:static member PPrint.Doc.&lt;^&gt;">&lt;^&gt;</a>&nbsp;rhs</code> is the concatenation of the documents <code>lhs</code> and <code>rhs</code>.  For example, <code><a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;"a"&nbsp;<a href="#def:static member PPrint.Doc.&lt;^&gt;">&lt;^&gt;</a>&nbsp;<a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;"b"</code> renders as <code>ab</code>.</p><p> Note: This is the same as the operator <code><b>&lt;&gt;</b></code> used in the original Haskell libraries.  In F#, the <code><b>&lt;&gt;</b></code> operator is already used.</div>
+<pre><b>static</b> <b>member</b> (<a id="def:static member PPrint.Doc.&lt;+&gt;" href="#dec:static member PPrint.Doc.&lt;+&gt;">&lt;+&gt;</a>)<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>*</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Concatenates the given documents with a <code><a href="#def:val PPrint.PPrint.space">space</a></code> in between.  <code>lhs&nbsp;<a href="#def:static member PPrint.Doc.&lt;+&gt;">&lt;+&gt;</a>&nbsp;rhs</code> is equivalent to <code>lhs&nbsp;<a href="#def:static member PPrint.Doc.&lt;^&gt;">&lt;^&gt;</a>&nbsp;<a href="#def:val PPrint.PPrint.space">space</a>&nbsp;<a href="#def:static member PPrint.Doc.&lt;^&gt;">&lt;^&gt;</a>&nbsp;rhs</code>.  For example, <code><a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;"a"&nbsp;<a href="#def:static member PPrint.Doc.&lt;+&gt;">&lt;+&gt;</a>&nbsp;<a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;"b"</code> renders as <code>a&nbsp;b</code>.</div>
+<pre><b>static</b> <b>member</b> (<a id="def:static member PPrint.Doc.&lt;.&gt;" href="#dec:static member PPrint.Doc.&lt;.&gt;">&lt;.&gt;</a>)<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>*</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Concatenates the given documents with a <code><a href="#def:val PPrint.PPrint.line">line</a></code> in between.  <code>lhs&nbsp;<a href="#def:static member PPrint.Doc.&lt;.&gt;">&lt;.&gt;</a>&nbsp;rhs</code> is equivalent to <code>lhs&nbsp;<a href="#def:static member PPrint.Doc.&lt;^&gt;">&lt;^&gt;</a>&nbsp;<a href="#def:val PPrint.PPrint.line">line</a>&nbsp;<a href="#def:static member PPrint.Doc.&lt;^&gt;">&lt;^&gt;</a>&nbsp;rhs</code>.</p><p> For example</p><pre><a href="#def:val PPrint.PPrint.txt">txt</a> "a" <a href="#def:static member PPrint.Doc.&lt;.&gt;">&lt;.&gt;</a> <a href="#def:val PPrint.PPrint.txt">txt</a> "b"
+</pre><p> renders as</p><pre>a
+b
+</pre><p> and</p><pre><a href="#def:val PPrint.PPrint.group">group</a> (<a href="#def:val PPrint.PPrint.txt">txt</a> "a" <a href="#def:static member PPrint.Doc.&lt;.&gt;">&lt;.&gt;</a> <a href="#def:val PPrint.PPrint.txt">txt</a> "b")
+</pre><p> renders as</p><pre>a b
+</pre><p> Note: In the original Haskell libraries, the symbol <$> was used for this operation, but it is not a legal symbol in F#.</div>
+<pre><b>static</b> <b>member</b> (<a id="def:static member PPrint.Doc.&lt;/&gt;" href="#dec:static member PPrint.Doc.&lt;/&gt;">&lt;/&gt;</a>)<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>*</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Concatenates the given documents with a <code><a href="#def:val PPrint.PPrint.softline">softline</a></code> in between.  <code>lhs&nbsp;<a href="#def:static member PPrint.Doc.&lt;/&gt;">&lt;/&gt;</a>&nbsp;rhs</code> is equivalent to <code>lhs&nbsp;<a href="#def:static member PPrint.Doc.&lt;^&gt;">&lt;^&gt;</a>&nbsp;<a href="#def:val PPrint.PPrint.softline">softline</a>&nbsp;<a href="#def:static member PPrint.Doc.&lt;^&gt;">&lt;^&gt;</a>&nbsp;rhs</code>.</div>
+<pre><b>static</b> <b>member</b> (<a id="def:static member PPrint.Doc.&lt;..&gt;" href="#dec:static member PPrint.Doc.&lt;..&gt;">&lt;..&gt;</a>)<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>*</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Concatenates the given documents with a <code><a href="#def:val PPrint.PPrint.linebreak">linebreak</a></code> in between.  <code>lhs&nbsp;<a href="#def:static member PPrint.Doc.&lt;..&gt;">&lt;..&gt;</a>&nbsp;rhs</code> is equivalent to <code>lhs&nbsp;<a href="#def:static member PPrint.Doc.&lt;^&gt;">&lt;^&gt;</a>&nbsp;<a href="#def:val PPrint.PPrint.linebreak">linebreak</a>&nbsp;<a href="#def:static member PPrint.Doc.&lt;^&gt;">&lt;^&gt;</a>&nbsp;rhs</code>.</p><p> For example</p><pre><a href="#def:val PPrint.PPrint.txt">txt</a> "a" <a href="#def:static member PPrint.Doc.&lt;..&gt;">&lt;..&gt;</a> <a href="#def:val PPrint.PPrint.txt">txt</a> "b"
+</pre><p> renders as</p><pre>a
+b
+</pre><p> and</p><pre><a href="#def:val PPrint.PPrint.group">group</a> (<a href="#def:val PPrint.PPrint.txt">txt</a> "a" <a href="#def:static member PPrint.Doc.&lt;..&gt;">&lt;..&gt;</a> <a href="#def:val PPrint.PPrint.txt">txt</a> "b")
+</pre><p> renders as</p><pre>ab
+</pre></div>
+<pre><b>static</b> <b>member</b> (<a id="def:static member PPrint.Doc.&lt;//&gt;" href="#dec:static member PPrint.Doc.&lt;//&gt;">&lt;//&gt;</a>)<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>*</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Concatenates the given documents with a <code><a href="#def:val PPrint.PPrint.softbreak">softbreak</a></code> in between.  <code>lhs&nbsp;<a href="#def:static member PPrint.Doc.&lt;//&gt;">&lt;//&gt;</a>&nbsp;rhs</code> is equivalent to <code>lhs&nbsp;<a href="#def:static member PPrint.Doc.&lt;^&gt;">&lt;^&gt;</a>&nbsp;<a href="#def:val PPrint.PPrint.softbreak">softbreak</a>&nbsp;<a href="#def:static member PPrint.Doc.&lt;^&gt;">&lt;^&gt;</a>&nbsp;rhs</code>.</div>
+</div>
+<pre><b>[&lt;</b>AutoOpen<b>&gt;]</b>
+<b>module</b> <a id="def:module PPrint.PPrint" href="#dec:module PPrint.PPrint">PPrint</a> <b>=</b>
+</pre>
+<div class="nested"><p> Operations on pretty print documents.<pre><b>[&lt;</b>AbstractClass<b>&gt;]</b> 
+<b>type</b> <a id="def:type PPrint.PPrint.Actions" href="#dec:type PPrint.PPrint.Actions">Actions</a> <b>=</b>
+</pre>
+<div class="nested"><p> Output actions.<pre><b>abstract</b> <a id="def:abstract PPrint.PPrint.Actions.Line" href="#dec:abstract PPrint.PPrint.Actions.Line">Line</a><b>:</b> unit <b>-&gt;</b> unit
+</pre>
+<div class="nested"><p> Called to output a newline.</div>
+<pre><b>default</b> <a id="def:default PPrint.PPrint.Actions.Line" href="#dec:default PPrint.PPrint.Actions.Line">Line</a><b>:</b> unit <b>-&gt;</b> unit
+</pre>
+<div class="nested"><p> Default calls <code><a href="#def:abstract PPrint.PPrint.Actions.Write">Write</a>&nbsp;"\n"</code>.</div>
+<pre><b>abstract</b> <a id="def:abstract PPrint.PPrint.Actions.User" href="#dec:abstract PPrint.PPrint.Actions.User">User</a><b>:</b> obj <b>-&gt;</b> unit
+</pre>
+<div class="nested"><p> Called for each user attribute within the document.</div>
+<pre><b>default</b> <a id="def:default PPrint.PPrint.Actions.User" href="#dec:default PPrint.PPrint.Actions.User">User</a><b>:</b> obj <b>-&gt;</b> unit
+</pre>
+<div class="nested"><p> Default does nothing.</div>
+<pre><b>abstract</b> <a id="def:abstract PPrint.PPrint.Actions.Write" href="#dec:abstract PPrint.PPrint.Actions.Write">Write</a><b>:</b> string <b>-&gt;</b> unit
+</pre>
+<div class="nested"><p> Called to write a string of characters.</div>
+</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.outputWithActions" href="#dec:val PPrint.PPrint.outputWithActions">outputWithActions</a><b>:</b> <a href="#def:type PPrint.PPrint.Actions">Actions</a>
+                    <b>-&gt;</b> maxCols<b>:</b> option<b>&lt;</b>int<b>&gt;</b>
+                    <b>-&gt;</b> doc<b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+                    <b>-&gt;</b> unit
+</pre>
+<div class="nested"><p> Outputs the document using the given output actions.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.outputWithFun" href="#dec:val PPrint.PPrint.outputWithFun">outputWithFun</a><b>:</b> write<b>:</b> (string <b>-&gt;</b> unit)
+                <b>-&gt;</b> maxCols<b>:</b> option<b>&lt;</b>int<b>&gt;</b>
+                <b>-&gt;</b> doc<b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+                <b>-&gt;</b> unit
+</pre>
+<div class="nested"><p> Outputs the document using the given output function.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.outputToWriter" href="#dec:val PPrint.PPrint.outputToWriter">outputToWriter</a><b>:</b> writer<b>:</b> TextWriter
+                 <b>-&gt;</b> maxCols<b>:</b> option<b>&lt;</b>int<b>&gt;</b>
+                 <b>-&gt;</b> doc<b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+                 <b>-&gt;</b> unit
+</pre>
+<div class="nested"><p> Outputs the document using the given text writer.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.render" href="#dec:val PPrint.PPrint.render">render</a><b>:</b> maxCols<b>:</b> option<b>&lt;</b>int<b>&gt;</b> <b>-&gt;</b> doc<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> string
+</pre>
+<div class="nested"><p> Renders the document as a string.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.println" href="#dec:val PPrint.PPrint.println">println</a><b>:</b> maxCols<b>:</b> option<b>&lt;</b>int<b>&gt;</b> <b>-&gt;</b> doc<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> unit
+</pre>
+<div class="nested"><p> Writes the document to standard output with a newline.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.empty" href="#dec:val PPrint.PPrint.empty">empty</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> The <code><a href="#def:val PPrint.PPrint.empty">empty</a></code> document is equivalent to <code><a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;""</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.chr" href="#dec:val PPrint.PPrint.chr">chr</a><b>:</b> char <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.chr">chr</a>&nbsp;c</code> renders to the character <code>c</code>.  The character shouldn't be a newline.  For example, <code><a href="#def:val PPrint.PPrint.chr">chr</a>&nbsp;<i>'x'</i></code> renders to <code>x</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.txt" href="#dec:val PPrint.PPrint.txt">txt</a><b>:</b> string <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;s</code> renders to the string <code>s</code>.  The string shouldn't contain any newline characters.  For example, <code><a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;"hello"</code> renders to <code>hello</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.fmt" href="#dec:val PPrint.PPrint.fmt">fmt</a><b>:</b> Printf<b>.</b>StringFormat<b>&lt;</b><i>'a</i>, <a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <i>'a</i>
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.fmt">fmt</a>&nbsp;<b>...</b></code> is equivalent to <code><a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;(sprintf&nbsp;<b>...</b>)</code>.  For example, to format an integer <code>i</code>, one could write <code><a href="#def:val PPrint.PPrint.fmt">fmt</a>&nbsp;"%d"&nbsp;i</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.nest" href="#dec:val PPrint.PPrint.nest">nest</a><b>:</b> numCols<b>:</b> int <b>-&gt;</b> (<a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>)
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.nest">nest</a>&nbsp;n&nbsp;doc</code> renders document <code>doc</code> indented by <code>n</code> more columns.  See also: <code><a href="#def:val PPrint.PPrint.gnest">gnest</a></code> and <code><a href="#def:val PPrint.PPrint.nestBy">nestBy</a></code>.</p><p> For example</p><pre><a href="#def:val PPrint.PPrint.nest">nest</a> 1 (<a href="#def:val PPrint.PPrint.parens">parens</a> (<a href="#def:val PPrint.PPrint.vsep">vsep</a> (<a href="#def:val PPrint.PPrint.punctuate">punctuate</a> <a href="#def:val PPrint.PPrint.comma">comma</a> [<a href="#def:val PPrint.PPrint.txt">txt</a> "x"; <a href="#def:val PPrint.PPrint.txt">txt</a> "y"; <a href="#def:val PPrint.PPrint.txt">txt</a> "z"])))
+</pre><p> renders as</p><pre>(x,
+ y,
+ z)
+</pre><p> Note that in order for <code><a href="#def:val PPrint.PPrint.nest">nest</a>&nbsp;n&nbsp;doc</code> to have any effect, you must have <code><a href="#def:val PPrint.PPrint.line">line</a></code>s or <code><a href="#def:val PPrint.PPrint.linebreak">linebreak</a></code>s in the <code>doc</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.nestBy" href="#dec:val PPrint.PPrint.nestBy">nestBy</a><b>:</b> prefix<b>:</b> string <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.nestBy">nestBy</a>&nbsp;prefix&nbsp;doc</code> renders document <code>doc</code> with given prefix added after line breaks.  See also: <code><a href="#def:val PPrint.PPrint.nest">nest</a></code>.</p><p> For example</p><pre><a href="#def:val PPrint.PPrint.enclose">enclose</a> (<a href="#def:val PPrint.PPrint.txt">txt</a> "(* ", <a href="#def:val PPrint.PPrint.line">line</a> <a href="#def:static member PPrint.Doc.&lt;^&gt;">&lt;^&gt;</a> <a href="#def:val PPrint.PPrint.txt">txt</a> " *)")
+  (<a href="#def:val PPrint.PPrint.nestBy">nestBy</a> " * " (<a href="#def:val PPrint.PPrint.vsep">vsep</a> [<a href="#def:val PPrint.PPrint.txt">txt</a> "a"; <a href="#def:val PPrint.PPrint.txt">txt</a> "b"; <a href="#def:val PPrint.PPrint.txt">txt</a> "c"]))
+</pre><p> renders as</p><pre>(<b>*</b> a
+ <b>*</b> b
+ <b>*</b> c
+ <b>*</b>)
+</pre></div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.line" href="#dec:val PPrint.PPrint.line">line</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Advances to the next line and indents, unless undone by <code><a href="#def:val PPrint.PPrint.group">group</a></code> in which case <code><a href="#def:val PPrint.PPrint.line">line</a></code> behaves like <code><a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;" "</code>.</p><p> For example</p><pre><a href="#def:val PPrint.PPrint.nest">nest</a> 2 (<a href="#def:val PPrint.PPrint.hcat">hcat</a> [<a href="#def:val PPrint.PPrint.txt">txt</a> "a"; <a href="#def:val PPrint.PPrint.line">line</a>; <a href="#def:val PPrint.PPrint.txt">txt</a> "b"])
+</pre><p> renders as</p><pre>a
+  b
+</pre><p> while</p><pre><a href="#def:val PPrint.PPrint.group">group</a> (<a href="#def:val PPrint.PPrint.nest">nest</a> 2 (<a href="#def:val PPrint.PPrint.hcat">hcat</a> [<a href="#def:val PPrint.PPrint.txt">txt</a> "a"; <a href="#def:val PPrint.PPrint.line">line</a>; <a href="#def:val PPrint.PPrint.txt">txt</a> "b"]))
+</pre><p> renders as</p><pre>a b
+</pre></div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.linebreak" href="#dec:val PPrint.PPrint.linebreak">linebreak</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Advances to the next line and indents, unless undone by <code><a href="#def:val PPrint.PPrint.group">group</a></code> in which case <code><a href="#def:val PPrint.PPrint.linebreak">linebreak</a></code> behaves like <code><a href="#def:val PPrint.PPrint.empty">empty</a></code>.</p><p> For example</p><pre><a href="#def:val PPrint.PPrint.nest">nest</a> 2 (<a href="#def:val PPrint.PPrint.hcat">hcat</a> [<a href="#def:val PPrint.PPrint.txt">txt</a> "a"; <a href="#def:val PPrint.PPrint.linebreak">linebreak</a>; <a href="#def:val PPrint.PPrint.txt">txt</a> "b"])
+</pre><p> renders as</p><pre>a
+  b
+</pre><p> while</p><pre><a href="#def:val PPrint.PPrint.group">group</a> (<a href="#def:val PPrint.PPrint.nest">nest</a> 2 (<a href="#def:val PPrint.PPrint.hcat">hcat</a> [<a href="#def:val PPrint.PPrint.txt">txt</a> "a"; <a href="#def:val PPrint.PPrint.linebreak">linebreak</a>; <a href="#def:val PPrint.PPrint.txt">txt</a> "b"]))
+</pre><p> renders as</p><pre>ab
+</pre></div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.group" href="#dec:val PPrint.PPrint.group">group</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Used to specify alternative layouts.  <code><a href="#def:val PPrint.PPrint.group">group</a>&nbsp;doc</code> undoes all line breaks in document <code>doc</code>.  The resulting line of text is added to the current output if it fits.  Otherwise, the document is rendered without changes (with line breaks).</p><p> For example</p><pre><a href="#def:val PPrint.PPrint.txt">txt</a> "a" <a href="#def:static member PPrint.Doc.&lt;.&gt;">&lt;.&gt;</a> <a href="#def:val PPrint.PPrint.txt">txt</a> "b"
+</pre><p> renders as</p><pre>a
+b
+</pre><p> while</p><pre><a href="#def:val PPrint.PPrint.group">group</a> (<a href="#def:val PPrint.PPrint.txt">txt</a> "a" <a href="#def:static member PPrint.Doc.&lt;.&gt;">&lt;.&gt;</a> <a href="#def:val PPrint.PPrint.txt">txt</a> "b")
+</pre><p> renders as</p><pre>a b
+</pre><p> except when it wouldn't fit within the desired number of columns.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.gnest" href="#dec:val PPrint.PPrint.gnest">gnest</a><b>:</b> numCols<b>:</b> int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.gnest">gnest</a>&nbsp;n&nbsp;doc</code> is equivalent to <code><a href="#def:val PPrint.PPrint.nest">nest</a>&nbsp;n&nbsp;(<a href="#def:val PPrint.PPrint.group">group</a>&nbsp;doc)</code> which is equivalent to <code><a href="#def:val PPrint.PPrint.group">group</a>&nbsp;(<a href="#def:val PPrint.PPrint.nest">nest</a>&nbsp;n&nbsp;doc)</code>.  <code><a href="#def:val PPrint.PPrint.nest">nest</a></code> is frequently combined with <code><a href="#def:val PPrint.PPrint.group">group</a></code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.choice" href="#dec:val PPrint.PPrint.choice">choice</a><b>:</b> wide<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> narrow<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Used to specify alternative documents.  The <code>wide</code> document is added to the current output line if it fits.  Otherwise, the <code>narrow</code> document is rendered.</p><p> This combinator is not available in the original Haskell libraries.  It allows one to create documents whose rendering may not produce optimal or easily predictable results.  Nevertheless, careful use of this combinator can produce useful results.  The initial use case for this combinator was to format Standard ML string literals so that they are either formatted onto a single line or onto multiple lines using line continuation characters.</p><p> For example, given</p><pre><b>let</b> wide <b>=</b> <a href="#def:val PPrint.PPrint.txt">txt</a> "\\\"a\\nb\\nc\\\""
+<b>let</b> narrow <b>=</b> <a href="#def:val PPrint.PPrint.vsep">vsep</a> [<a href="#def:val PPrint.PPrint.txt">txt</a> "\"a\\n\""; <a href="#def:val PPrint.PPrint.txt">txt</a> "\"b\\n\""; <a href="#def:val PPrint.PPrint.txt">txt</a> "\"c\""]
+</pre><p> then</p><pre><a href="#def:val PPrint.PPrint.choice">choice</a> wide narrow
+</pre><p> renders as the wide version</p><pre>"a\nb\nc"
+</pre><p> when it fits and as the narrow version</p><pre>"a\n"
+"b\n"
+"c"
+</pre><p> when the wide version does not fit.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.delay" href="#dec:val PPrint.PPrint.delay">delay</a><b>:</b> (unit <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>) <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Creates a lazily computed document.  <code><a href="#def:val PPrint.PPrint.delay">delay</a>&nbsp;<b>&lt;|</b>&nbsp;<b>fun</b>&nbsp;()&nbsp;<b>-&gt;</b>&nbsp;doc</code> is equivalent to <code>doc</code> except that the expression <code>doc</code> may not be evaluated at all.</p><p> Note: This is primarily useful for specifying the narrow alternative to <code><a href="#def:val PPrint.PPrint.choice">choice</a></code> - unless, of course, there is a chance that the whole document will not be rendered at all.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.softline" href="#dec:val PPrint.PPrint.softline">softline</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Behaves like <code><a href="#def:val PPrint.PPrint.space">space</a></code> if the resulting output fits, otherwise behaves like <code><a href="#def:val PPrint.PPrint.line">line</a></code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.softbreak" href="#dec:val PPrint.PPrint.softbreak">softbreak</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Behaves like <code><a href="#def:val PPrint.PPrint.empty">empty</a></code> if the resulting output fits, otherwise behaves like <code><a href="#def:val PPrint.PPrint.line">line</a></code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.user" href="#dec:val PPrint.PPrint.user">user</a><b>:</b> obj <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.user">user</a>&nbsp;any</code> is equivalent to <code><a href="#def:val PPrint.PPrint.empty">empty</a></code> except that the created document carries the given user attribute object <code>any</code>.  The object is otherwise ignored by the library, but is carried throughout the layout computation and passed to the <code><a href="#def:type PPrint.PPrint.Actions">Actions</a><b>.</b>User</code> rendering action at the point when everything before it has been rendered.  This can be used to implement features such outputing ANSI control sequences to produce output with special effects.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.column" href="#dec:val PPrint.PPrint.column">column</a><b>:</b> (int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>) <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.column">column</a>&nbsp;f</code> calls <code>f</code> with the current column during rendering to create a document to render.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.nesting" href="#dec:val PPrint.PPrint.nesting">nesting</a><b>:</b> (int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>) <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.column">column</a>&nbsp;f</code> calls <code>f</code> with the current nesting during the layout process to create a document to render.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.indent" href="#dec:val PPrint.PPrint.indent">indent</a><b>:</b> int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.indent">indent</a>&nbsp;n&nbsp;doc</code> indents <code>doc</code> by <code>n</code> columns.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.hang" href="#dec:val PPrint.PPrint.hang">hang</a><b>:</b> int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.hang">hang</a>&nbsp;n&nbsp;doc</code> renders <code>doc</code> with nesting level set to the current column plus <code>n</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.align" href="#dec:val PPrint.PPrint.align">align</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.align">align</a>&nbsp;doc</code> renders <code>doc</code> with the nesting level set to the current column.</p><p> For example</p><pre><a href="#def:val PPrint.PPrint.txt">txt</a> "foo" <a href="#def:static member PPrint.Doc.&lt;^&gt;">&lt;^&gt;</a>
+<a href="#def:val PPrint.PPrint.parens">parens</a>
+ (<a href="#def:val PPrint.PPrint.align">align</a>
+   (<a href="#def:val PPrint.PPrint.vsep">vsep</a> (<a href="#def:val PPrint.PPrint.punctuate">punctuate</a> <a href="#def:val PPrint.PPrint.comma">comma</a> [<a href="#def:val PPrint.PPrint.txt">txt</a> "bar"; <a href="#def:val PPrint.PPrint.txt">txt</a> "baz"; <a href="#def:val PPrint.PPrint.txt">txt</a> "foobar"])))
+</pre><p> renders as</p><pre>foo(bar,
+    baz,
+    foobar)
+</pre></div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.width" href="#dec:val PPrint.PPrint.width">width</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> (int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>) <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.width">width</a>&nbsp;lhs&nbsp;rhs</code> calls <code>rhs</code> with the width of <code>lhs</code> to create the document to concatenate to the right of <code>lhs</code>.</p><p> For example</p><pre><a href="#def:val PPrint.PPrint.width">width</a> (<a href="#def:val PPrint.PPrint.txt">txt</a> "foo") (<b>fun</b> n <b>-&gt;</b>
+ <a href="#def:val PPrint.PPrint.nest">nest</a> (n<b>+</b>1)
+  (<a href="#def:val PPrint.PPrint.parens">parens</a>
+    (<a href="#def:val PPrint.PPrint.vsep">vsep</a>
+      (<a href="#def:val PPrint.PPrint.punctuate">punctuate</a> <a href="#def:val PPrint.PPrint.comma">comma</a>
+        [<a href="#def:val PPrint.PPrint.txt">txt</a> "bar"; <a href="#def:val PPrint.PPrint.txt">txt</a> "baz"; <a href="#def:val PPrint.PPrint.txt">txt</a> "foobar"]))))
+</pre><p> renders to</p><pre>foo(bar,
+    baz,
+    foobar)
+</pre><p> Note that <code><a href="#def:val PPrint.PPrint.align">align</a></code> can produce the above layout more directly, but other effects can be achieved with width.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.fillBreak" href="#dec:val PPrint.PPrint.fillBreak">fillBreak</a><b>:</b> <a href="#def:val PPrint.PPrint.width">width</a><b>:</b> int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.fillBreak">fillBreak</a>&nbsp;<a href="#def:val PPrint.PPrint.width">width</a>&nbsp;doc</code> first renders <code>doc</code> and then appends spaces until the width of the output is at least <code><a href="#def:val PPrint.PPrint.width">width</a></code>.  If the width is already more than <code><a href="#def:val PPrint.PPrint.width">width</a></code>, the nesting level is increased by <code><a href="#def:val PPrint.PPrint.width">width</a></code> and a <code><a href="#def:val PPrint.PPrint.line">line</a></code> is appended after <code>doc</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.fill" href="#dec:val PPrint.PPrint.fill">fill</a><b>:</b> <a href="#def:val PPrint.PPrint.width">width</a><b>:</b> int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.fill">fill</a>&nbsp;<a href="#def:val PPrint.PPrint.width">width</a>&nbsp;doc</code> first renders <code>doc</code> and then appends spaces until the width is at least <code><a href="#def:val PPrint.PPrint.width">width</a></code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.sep" href="#dec:val PPrint.PPrint.sep">sep</a><b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.sep">sep</a>&nbsp;docs</code> is equivalent to <code><a href="#def:val PPrint.PPrint.group">group</a>&nbsp;(<a href="#def:val PPrint.PPrint.vsep">vsep</a>&nbsp;docs)</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.cat" href="#dec:val PPrint.PPrint.cat">cat</a><b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.cat">cat</a>&nbsp;docs</code> is equivalent to <code><a href="#def:val PPrint.PPrint.group">group</a>&nbsp;(<a href="#def:val PPrint.PPrint.vcat">vcat</a>&nbsp;docs)</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.punctuate" href="#dec:val PPrint.PPrint.punctuate">punctuate</a><b>:</b> punc<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> docs<b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b>
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.punctuate">punctuate</a>&nbsp;punc&nbsp;docs</code> concatenates <code>punc</code> to the right of each document in <code>docs</code> except the last one.</p><p> For example</p><pre><a href="#def:val PPrint.PPrint.hsep">hsep</a> (<a href="#def:val PPrint.PPrint.punctuate">punctuate</a> <a href="#def:val PPrint.PPrint.comma">comma</a> [<a href="#def:val PPrint.PPrint.txt">txt</a> "a"; <a href="#def:val PPrint.PPrint.txt">txt</a> "b"; <a href="#def:val PPrint.PPrint.txt">txt</a> "c"])
+</pre><p> renders to</p><pre>a, b, c
+</pre></div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.hsep" href="#dec:val PPrint.PPrint.hsep">hsep</a><b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Concatenates the documents using <code><a href="#def:static member PPrint.Doc.&lt;+&gt;">&lt;+&gt;</a></code>.</p><p> For example</p><pre><a href="#def:val PPrint.PPrint.hsep">hsep</a> [<a href="#def:val PPrint.PPrint.txt">txt</a> "a"; <a href="#def:val PPrint.PPrint.txt">txt</a> "b"; <a href="#def:val PPrint.PPrint.txt">txt</a> "c"]
+</pre><p> renders to</p><pre>a b c
+</pre></div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.vsep" href="#dec:val PPrint.PPrint.vsep">vsep</a><b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Concatenates the documents using <code><a href="#def:static member PPrint.Doc.&lt;.&gt;">&lt;.&gt;</a></code>.</p><p> For example</p><pre><a href="#def:val PPrint.PPrint.vsep">vsep</a> [<a href="#def:val PPrint.PPrint.txt">txt</a> "a"; <a href="#def:val PPrint.PPrint.txt">txt</a> "b"; <a href="#def:val PPrint.PPrint.txt">txt</a> "c"]
+</pre><p> renders to</p><pre>a
+b
+c
+</pre></div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.fillSep" href="#dec:val PPrint.PPrint.fillSep">fillSep</a><b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Concatenates the documents using <code><a href="#def:static member PPrint.Doc.&lt;/&gt;">&lt;/&gt;</a></code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.hcat" href="#dec:val PPrint.PPrint.hcat">hcat</a><b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Concatenates the documents using <code><a href="#def:static member PPrint.Doc.&lt;^&gt;">&lt;^&gt;</a></code>.</p><p> For example</p><pre><a href="#def:val PPrint.PPrint.hcat">hcat</a> [<a href="#def:val PPrint.PPrint.txt">txt</a> "a"; <a href="#def:val PPrint.PPrint.txt">txt</a> "b"; <a href="#def:val PPrint.PPrint.txt">txt</a> "c"]
+</pre><p> renders to</p><pre>abc
+</pre></div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.vcat" href="#dec:val PPrint.PPrint.vcat">vcat</a><b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Concatenates the documents using <code><a href="#def:static member PPrint.Doc.&lt;..&gt;">&lt;..&gt;</a></code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.fillCat" href="#dec:val PPrint.PPrint.fillCat">fillCat</a><b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Concatenates the documents using <code><a href="#def:static member PPrint.Doc.&lt;//&gt;">&lt;//&gt;</a></code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.enclose" href="#dec:val PPrint.PPrint.enclose">enclose</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>*</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.enclose">enclose</a>&nbsp;(lhs,&nbsp;rhs)&nbsp;doc</code> is equivalent to <code>lhs&nbsp;<a href="#def:static member PPrint.Doc.&lt;^&gt;">&lt;^&gt;</a>&nbsp;doc&nbsp;<a href="#def:static member PPrint.Doc.&lt;^&gt;">&lt;^&gt;</a>&nbsp;rhs</code></div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.squotes" href="#dec:val PPrint.PPrint.squotes">squotes</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.squotes">squotes</a>&nbsp;doc</code> is equivalent to <code><a href="#def:val PPrint.PPrint.enclose">enclose</a>&nbsp;(<a href="#def:val PPrint.PPrint.squote">squote</a>,&nbsp;<a href="#def:val PPrint.PPrint.squote">squote</a>)&nbsp;doc</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.dquotes" href="#dec:val PPrint.PPrint.dquotes">dquotes</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.dquotes">dquotes</a>&nbsp;doc</code> is equivalent to <code><a href="#def:val PPrint.PPrint.enclose">enclose</a>&nbsp;(<a href="#def:val PPrint.PPrint.dquote">dquote</a>,&nbsp;<a href="#def:val PPrint.PPrint.dquote">dquote</a>)&nbsp;doc</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.parens" href="#dec:val PPrint.PPrint.parens">parens</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.parens">parens</a>&nbsp;doc</code> is equivalent to <code><a href="#def:val PPrint.PPrint.enclose">enclose</a>&nbsp;(<a href="#def:val PPrint.PPrint.lparen">lparen</a>,&nbsp;<a href="#def:val PPrint.PPrint.rparen">rparen</a>)&nbsp;doc</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.angles" href="#dec:val PPrint.PPrint.angles">angles</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.angles">angles</a>&nbsp;doc</code> is equivalent to <code><a href="#def:val PPrint.PPrint.enclose">enclose</a>&nbsp;(<a href="#def:val PPrint.PPrint.langle">langle</a>,&nbsp;<a href="#def:val PPrint.PPrint.rangle">rangle</a>)&nbsp;doc</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.braces" href="#dec:val PPrint.PPrint.braces">braces</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.braces">braces</a>&nbsp;doc</code> is equivalent to <code><a href="#def:val PPrint.PPrint.enclose">enclose</a>&nbsp;(<a href="#def:val PPrint.PPrint.lbrace">lbrace</a>,&nbsp;<a href="#def:val PPrint.PPrint.rbrace">rbrace</a>)&nbsp;doc</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.brackets" href="#dec:val PPrint.PPrint.brackets">brackets</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.PPrint.brackets">brackets</a>&nbsp;doc</code> is equivalent to <code><a href="#def:val PPrint.PPrint.enclose">enclose</a>&nbsp;(<a href="#def:val PPrint.PPrint.lbracket">lbracket</a>,&nbsp;<a href="#def:val PPrint.PPrint.rbracket">rbracket</a>)&nbsp;doc</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.lparen" href="#dec:val PPrint.PPrint.lparen">lparen</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Equivalent to <code><a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;"("</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.rparen" href="#dec:val PPrint.PPrint.rparen">rparen</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Equivalent to <code><a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;")"</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.langle" href="#dec:val PPrint.PPrint.langle">langle</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Equivalent to <code><a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;"&lt;"</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.rangle" href="#dec:val PPrint.PPrint.rangle">rangle</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Equivalent to <code><a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;"&gt;"</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.lbrace" href="#dec:val PPrint.PPrint.lbrace">lbrace</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Equivalent to <code><a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;"{"</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.rbrace" href="#dec:val PPrint.PPrint.rbrace">rbrace</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Equivalent to <code><a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;"}"</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.lbracket" href="#dec:val PPrint.PPrint.lbracket">lbracket</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Equivalent to <code><a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;"["</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.rbracket" href="#dec:val PPrint.PPrint.rbracket">rbracket</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Equivalent to <code><a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;"]"</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.squote" href="#dec:val PPrint.PPrint.squote">squote</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Equivalent to <code><a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;"'"</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.dquote" href="#dec:val PPrint.PPrint.dquote">dquote</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Equivalent to <code><a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;"\""</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.semi" href="#dec:val PPrint.PPrint.semi">semi</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Equivalent to <code><a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;";"</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.colon" href="#dec:val PPrint.PPrint.colon">colon</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Equivalent to <code><a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;":"</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.comma" href="#dec:val PPrint.PPrint.comma">comma</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Equivalent to <code><a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;","</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.space" href="#dec:val PPrint.PPrint.space">space</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Equivalent to <code><a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;" "</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.dot" href="#dec:val PPrint.PPrint.dot">dot</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Equivalent to <code><a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;"."</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.backslash" href="#dec:val PPrint.PPrint.backslash">backslash</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Equivalent to <code><a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;"\\"</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.PPrint.equals" href="#dec:val PPrint.PPrint.equals">equals</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+</pre>
+<div class="nested"><p> Equivalent to <code><a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;"="</code>.</div>
+</div>
+</div>
+</td></tr></table></body>
+</html>
