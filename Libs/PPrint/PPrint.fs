@@ -25,13 +25,15 @@ module Consts =
   let softline = CHOICE (space, line)
   let softbreak = CHOICE (EMPTY, linebreak)
 
+  let inline joinWith d l r = JOIN (l, JOIN (d, r))
+
 type Doc with
   static member (<^>) (l: Doc, r: Doc) = JOIN (l, r)
-  static member (<+>) (l: Doc, r: Doc) = JOIN (l, JOIN (space, r))
-  static member (<.>) (l: Doc, r: Doc) = JOIN (l, JOIN (line, r))
-  static member (</>) (l: Doc, r: Doc) = JOIN (l, JOIN (softline, r))
-  static member (<..>) (l: Doc, r: Doc) = JOIN (l, JOIN (linebreak, r))
-  static member (<//>) (l: Doc, r: Doc) = JOIN (l, JOIN (softbreak, r))
+  static member (<+>) (l: Doc, r: Doc) = joinWith space l r
+  static member (<.>) (l: Doc, r: Doc) = joinWith line l r
+  static member (</>) (l: Doc, r: Doc) = joinWith softline l r
+  static member (<..>) (l: Doc, r: Doc) = joinWith linebreak l r
+  static member (<//>) (l: Doc, r: Doc) = joinWith softbreak l r
 
 [<AutoOpen>]
 module Util =
@@ -64,18 +66,20 @@ module PPrint =
 
   let lparen = TEXT "("
   let rparen = TEXT ")"
-  let parens' = (lparen, rparen)
+  let lrparen = (lparen, rparen)
   let langle = TEXT "<"
   let rangle = TEXT ">"
-  let angles' = (langle, rangle)
+  let lrangle = (langle, rangle)
   let lbrace = TEXT "{"
   let rbrace = TEXT "}"
-  let braces' = (lbrace, rbrace)
+  let lrbrace = (lbrace, rbrace)
   let lbracket = TEXT "["
   let rbracket = TEXT "]"
-  let brackets' = (lbracket, rbracket)
+  let lrbracket = (lbracket, rbracket)
   let squote = TEXT "'"
+  let lrsquote = (squote, squote)
   let dquote = TEXT "\""
+  let lrdquote = (dquote, dquote)
   let semi = TEXT ";"
   let colon = TEXT ":"
   let comma = TEXT ","
@@ -125,27 +129,27 @@ module PPrint =
 
   let gnest n doc = nest n (group doc)
 
-  let mkCat bop xs =
+  let catWith bop xs =
     match Seq.revAppendToList xs [] with
      | [] -> empty
      | x::xs -> List.fold (fun r x -> bop x r) x xs
-  let hsep xs = mkCat (<+>) xs
-  let vsep xs = mkCat (<.>) xs
-  let fillSep xs = mkCat (</>) xs
-  let hcat xs = mkCat (<^>) xs
-  let vcat xs = mkCat (<..>) xs
-  let fillCat xs = mkCat (<//>) xs
+  let hsep xs = catWith (<+>) xs
+  let hcat xs = catWith (<^>) xs
+  let vsep xs = catWith (<.>) xs
+  let vcat xs = catWith (<..>) xs
+  let fillSep xs = catWith (</>) xs
+  let fillCat xs = catWith (<//>) xs
 
   let sep xs = group (vsep xs)
   let cat xs = group (vcat xs)
 
   let enclose (l, r) d = l <^> (d <^> r)
-  let squotes d = enclose (squote, squote) d
-  let dquotes d = enclose (dquote, dquote) d
-  let parens d = enclose parens' d
-  let angles d = enclose angles' d
-  let braces d = enclose braces' d
-  let brackets d = enclose brackets' d
+  let squotes d = enclose lrsquote d
+  let dquotes d = enclose lrdquote d
+  let parens d = enclose lrparen d
+  let angles d = enclose lrangle d
+  let braces d = enclose lrbrace d
+  let brackets d = enclose lrbracket d
 
   type t =
    | NIL

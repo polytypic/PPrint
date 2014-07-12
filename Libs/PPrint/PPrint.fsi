@@ -406,6 +406,9 @@ module PPrint =
   /// `cat docs` is equivalent to `group (vcat docs)`.
   val cat: seq<Doc> -> Doc
 
+  /// Concatenate a sequence of documents using the given binary operator.
+  val catWith: (Doc -> Doc -> Doc) -> seq<Doc> -> Doc
+
   /// `punctuate punc docs` concatenates `punc` to the right of each document
   /// in `docs` except the last one.
 #if DOC
@@ -501,11 +504,17 @@ module PPrint =
   /// Equivalent to `txt ")"`.
   val rparen: Doc
 
+  /// Equivalent to `(lparen, rparen)`
+  val lrparen: Doc * Doc
+
   /// Equivalent to `txt "<"`.
   val langle: Doc
 
   /// Equivalent to `txt ">"`.
   val rangle: Doc
+
+  /// Equivalent to `(langle, rangle)`
+  val lrangle: Doc * Doc
 
   /// Equivalent to `txt "{"`.
   val lbrace: Doc
@@ -513,17 +522,29 @@ module PPrint =
   /// Equivalent to `txt "}"`.
   val rbrace: Doc
 
+  /// Equivalent to `(lbrace, rbrace)`
+  val lrbrace: Doc * Doc
+
   /// Equivalent to `txt "["`.
   val lbracket: Doc
 
   /// Equivalent to `txt "]"`.
   val rbracket: Doc
 
+  /// Equivalent to `(lbracket, rbracket)`
+  val lrbracket: Doc * Doc
+
   /// Equivalent to `txt "'"`.
   val squote: Doc
 
+  /// Equivalent to `(squote, squote)`
+  val lrsquote: Doc * Doc
+
   /// Equivalent to `txt "\""`.
   val dquote: Doc
+
+  /// Equivalent to `(dquote, dquote)`
+  val lrdquote: Doc * Doc
 
   /// Equivalent to `txt ";"`.
   val semi: Doc
