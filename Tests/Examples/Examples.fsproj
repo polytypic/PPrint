@@ -39,6 +39,22 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Infers">
+      <HintPath>..\..\packages\Infers.0.0.0.5\lib\net451\Infers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Infers.Basic">
+      <HintPath>..\..\packages\Infers.0.0.0.5\lib\net451\Infers.Basic.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Infers.Core">
+      <HintPath>..\..\packages\Infers.0.0.0.5\lib\net451\Infers.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Infers.Rep">
+      <HintPath>..\..\packages\Infers.0.0.0.5\lib\net451\Infers.Rep.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>True</Private>
@@ -50,8 +66,14 @@
   <ItemGroup>
     <None Include="App.config" />
     <Compile Include="Examples.fs" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Libs\PPrint.Pretty\PPrint.Pretty.fsproj">
+      <Name>PPrint.Pretty</Name>
+      <Project>{05b4de2e-6336-47c0-97c4-e8574857fa40}</Project>
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\Libs\PPrint\PPrint.fsproj">
       <Name>PPrint</Name>
       <Project>{2515fce3-cbd7-44e6-88a9-40526a0e646b}</Project>
