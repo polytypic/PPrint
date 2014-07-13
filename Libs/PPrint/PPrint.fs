@@ -127,7 +127,7 @@ module PPrint =
   let choice wide narrow = CHOICE (flatten wide, narrow)
   let group doc = CHOICE (flatten doc, doc)
 
-  let gnest n doc = nest n (group doc)
+  let gnest n = group >> nest n
 
   let catWith bop xs =
     match Seq.revAppendToList xs [] with
