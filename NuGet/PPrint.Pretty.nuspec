@@ -11,7 +11,7 @@
     <projectUrl>https://github.com/VesaKarvonen/PPrint</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A generic pretty printer for F# types using PPrint and Infers.</description>
-    <releaseNotes></releaseNotes>
+    <releaseNotes>This is an experimental version of PPrint.Pretty and is not recommended for production use.</releaseNotes>
     <copyright>© Vesa Karvonen</copyright>
     <tags>f# fsharp generic text formatting layout</tags>
     <dependencies>
