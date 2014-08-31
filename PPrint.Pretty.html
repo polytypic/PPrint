@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>PPrint.Pretty Library Reference</title>
+<style>
+pre {
+border: 1px solid #e0e0e0;
+border-radius: 3px;
+padding: 5px;
+line-height: 160%;
+background: #f7f7f7;
+font-family: "Lucida Console", Monaco, monospace;
+font-size: 72%;
+}
+code {
+border: 1px solid #e0e0e0;
+border-radius: 3px;
+padding: 2px;
+background: #f7f7f7;
+font-family: "Lucida Console", Monaco, monospace;
+font-size: 72%;
+}
+div.nested {
+padding-left: 1.5em;
+}
+a {
+text-decoration: none;
+font-weight: bold;
+}
+</style>
+</head>
+<body><table width="80%" align="center"><tr><td>
+<h1>PPrint.Pretty Library Reference</h1>
+<p>This document provides a reference manual for the PPrint.Pretty library and is generated from the library source code.</p>
+<h2>Synopsis</h2>
+<pre><b>namespace</b> PPrint<b>.</b><a id="dec:namespace PPrint.Pretty" href="#def:namespace PPrint.Pretty">Pretty</a></pre>
+<pre><b>type</b> <a id="dec:type PPrint.Pretty.Pretty" href="#def:type PPrint.Pretty.Pretty">Pretty</a><b>&lt;</b><i>'t</i><b>&gt;</b> <b>=</b> <i>'t</i> <b>-&gt;</b> Doc
+</pre>
+<pre><b>type</b> <a id="dec:type PPrint.Pretty.OpenPretty" href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b><i>'t</i><b>&gt;</b>
+</pre>
+<pre><b>type</b> <a id="dec:type PPrint.Pretty.ProductPretty" href="#def:type PPrint.Pretty.ProductPretty">ProductPretty</a><b>&lt;</b><i>'e</i>, <i>'es</i>, <i>'t</i><b>&gt;</b>
+</pre>
+<pre><b>type</b> <a id="dec:type PPrint.Pretty.UnionPretty" href="#def:type PPrint.Pretty.UnionPretty">UnionPretty</a><b>&lt;</b><i>'c</i>, <i>'cs</i>, <i>'t</i><b>&gt;</b>
+</pre>
+<pre><b>[&lt;</b>AutoOpen<b>&gt;]</b>
+<b>module</b> <a id="dec:module PPrint.Pretty.TopLevel" href="#def:module PPrint.Pretty.TopLevel">TopLevel</a>  <b>=</b>
+  <b>val</b> <a id="dec:val PPrint.Pretty.TopLevel.pretty" href="#def:val PPrint.Pretty.TopLevel.pretty">pretty</a><b>:</b> <i>'x</i> <b>-&gt;</b> Doc
+  <b>val</b> <a id="dec:val PPrint.Pretty.TopLevel.show" href="#def:val PPrint.Pretty.TopLevel.show">show</a><b>:</b> <i>'x</i> <b>-&gt;</b> string
+</pre>
+<pre><b>[&lt;</b>InferenceRules (StaticMap <b>=</b> StaticMap<b>.</b>Results)<b>&gt;]</b> 
+<b>type</b> Pretty <b>=</b>
+  <b>static</b> <b>member</b> <a id="dec:static member PPrint.Pretty.Pretty.Get" href="#def:static member PPrint.Pretty.Pretty.Get">Get</a><b>:</b> unit <b>-&gt;</b> <a href="#def:type PPrint.Pretty.Pretty">Pretty</a><b>&lt;</b><i>'t</i><b>&gt;</b>
+  <b>new</b><b>:</b> unit <b>-&gt;</b> Pretty
+  <b>member</b> toPretty<b>:</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b><i>'t</i><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Pretty.Pretty">Pretty</a><b>&lt;</b><i>'t</i><b>&gt;</b>
+  <b>member</b> fix<b>:</b> unit <b>-&gt;</b> Rec<b>&lt;</b><a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b><i>'t</i><b>&gt;&gt;</b>
+  <b>member</b> unit<b>:</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b>unit<b>&gt;</b>
+  <b>member</b> bool<b>:</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b>bool<b>&gt;</b>
+  <b>member</b> int8<b>:</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b>int8<b>&gt;</b>
+  <b>member</b> int16<b>:</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b>int16<b>&gt;</b>
+  <b>member</b> int32<b>:</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b>int32<b>&gt;</b>
+  <b>member</b> int64<b>:</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b>int64<b>&gt;</b>
+  <b>member</b> uint8<b>:</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b>uint8<b>&gt;</b>
+  <b>member</b> uint16<b>:</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b>uint16<b>&gt;</b>
+  <b>member</b> uint32<b>:</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b>uint32<b>&gt;</b>
+  <b>member</b> uint64<b>:</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b>uint64<b>&gt;</b>
+  <b>member</b> float32<b>:</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b>float32<b>&gt;</b>
+  <b>member</b> float64<b>:</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b>float<b>&gt;</b>
+  <b>member</b> char<b>:</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b>char<b>&gt;</b>
+  <b>member</b> string<b>:</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b>string<b>&gt;</b>
+  <b>member</b> option<b>:</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b><i>'t</i><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b>option<b>&lt;</b><i>'t</i><b>&gt;&gt;</b>
+  <b>member</b> ref<b>:</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b><i>'t</i><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b>ref<b>&lt;</b><i>'t</i><b>&gt;&gt;</b>
+  <b>member</b> list<b>:</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b><i>'t</i><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b>list<b>&lt;</b><i>'t</i><b>&gt;&gt;</b>
+  <b>member</b> array<b>:</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b><i>'t</i><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b>array<b>&lt;</b><i>'t</i><b>&gt;&gt;</b>
+  <b>member</b> case<b>:</b> Case<b>&lt;</b>Empty, <i>'cs</i>, <i>'t</i><b>&gt;</b>
+     <b>-&gt;</b> <a href="#def:type PPrint.Pretty.UnionPretty">UnionPretty</a><b>&lt;</b>Empty, <i>'cs</i>, <i>'t</i><b>&gt;</b>
+  <b>member</b> case<b>:</b> Case<b>&lt;</b><i>'ls</i>,      <i>'cs</i>, <i>'t</i><b>&gt;</b>
+    <b>*</b> <a href="#def:type PPrint.Pretty.ProductPretty">ProductPretty</a><b>&lt;</b><i>'ls</i>, <i>'ls</i>,      <i>'t</i><b>&gt;</b>
+     <b>-&gt;</b> <a href="#def:type PPrint.Pretty.UnionPretty">UnionPretty</a><b>&lt;</b><i>'ls</i>,      <i>'cs</i>, <i>'t</i><b>&gt;</b>
+  <b>member</b> plus<b>:</b> <a href="#def:type PPrint.Pretty.UnionPretty">UnionPretty</a><b>&lt;</b>       <i>'c</i>      , Choice<b>&lt;</b><i>'c</i>, <i>'cs</i><b>&gt;</b>, <i>'t</i><b>&gt;</b>
+             <b>*</b> <a href="#def:type PPrint.Pretty.UnionPretty">UnionPretty</a><b>&lt;</b>           <i>'cs</i> ,            <i>'cs</i> , <i>'t</i><b>&gt;</b>
+            <b>-&gt;</b> <a href="#def:type PPrint.Pretty.UnionPretty">UnionPretty</a><b>&lt;</b>Choice<b>&lt;</b><i>'c</i>, <i>'cs</i><b>&gt;</b>, Choice<b>&lt;</b><i>'c</i>, <i>'cs</i><b>&gt;</b>, <i>'t</i><b>&gt;</b>
+  <b>member</b> union<b>:</b> Rep
+            <b>*</b> Union<b>&lt;</b>          <i>'t</i><b>&gt;</b>
+         <b>*</b> AsChoice<b>&lt;</b><i>'cs</i>,      <i>'t</i><b>&gt;</b>
+      <b>*</b> <a href="#def:type PPrint.Pretty.UnionPretty">UnionPretty</a><b>&lt;</b><i>'cs</i>, <i>'cs</i>, <i>'t</i><b>&gt;</b>
+      <b>-&gt;</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b>          <i>'t</i><b>&gt;</b>
+  <b>member</b> item<b>:</b> Item<b>&lt;</b><i>'e</i>, <i>'es</i>, <i>'t</i><b>&gt;</b>
+       <b>*</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b><i>'e</i>         <b>&gt;</b>
+   <b>-&gt;</b> <a href="#def:type PPrint.Pretty.ProductPretty">ProductPretty</a><b>&lt;</b><i>'e</i>, <i>'es</i>, <i>'t</i><b>&gt;</b>
+  <b>member</b> labelled<b>:</b> Labelled<b>&lt;</b><i>'e</i>, <i>'es</i>, <i>'t</i><b>&gt;</b>
+               <b>*</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b><i>'e</i>         <b>&gt;</b>
+           <b>-&gt;</b> <a href="#def:type PPrint.Pretty.ProductPretty">ProductPretty</a><b>&lt;</b><i>'e</i>, <i>'es</i>, <i>'t</i><b>&gt;</b>
+  <b>member</b> times<b>:</b> <a href="#def:type PPrint.Pretty.ProductPretty">ProductPretty</a><b>&lt;</b>    <i>'e</i>      , And<b>&lt;</b><i>'e</i>, <i>'es</i><b>&gt;</b>, <i>'t</i><b>&gt;</b>
+              <b>*</b> <a href="#def:type PPrint.Pretty.ProductPretty">ProductPretty</a><b>&lt;</b>        <i>'es</i> ,         <i>'es</i> , <i>'t</i><b>&gt;</b>
+             <b>-&gt;</b> <a href="#def:type PPrint.Pretty.ProductPretty">ProductPretty</a><b>&lt;</b>And<b>&lt;</b><i>'e</i>, <i>'es</i><b>&gt;</b>, And<b>&lt;</b><i>'e</i>, <i>'es</i><b>&gt;</b>, <i>'t</i><b>&gt;</b>
+  <b>member</b> product<b>:</b> Rep
+            <b>*</b> Product<b>&lt;</b>          <i>'t</i><b>&gt;</b>
+          <b>*</b> AsProduct<b>&lt;</b><i>'es</i>,      <i>'t</i><b>&gt;</b>
+      <b>*</b> <a href="#def:type PPrint.Pretty.ProductPretty">ProductPretty</a><b>&lt;</b><i>'es</i>, <i>'es</i>, <i>'t</i><b>&gt;</b>
+        <b>-&gt;</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b>          <i>'t</i><b>&gt;</b>
+</pre>
+<h2>Description</h2>
+<pre><b>namespace</b> PPrint<b>.</b><a id="def:namespace PPrint.Pretty" href="#dec:namespace PPrint.Pretty">Pretty</a>
+</pre>
+<div class="nested"><p> A generic pretty printer for F# types using PPrint and Infers.<pre><b>type</b> <a id="def:type PPrint.Pretty.Pretty" href="#dec:type PPrint.Pretty.Pretty">Pretty</a><b>&lt;</b><i>'t</i><b>&gt;</b> <b>=</b> <i>'t</i> <b>-&gt;</b> Doc
+</pre>
+<div class="nested"><p> Represents a pretty printing function or a function that can convert values of a particular type to documents that can be rendered to a given maximum width.</div>
+<pre><b>type</b> <a id="def:type PPrint.Pretty.OpenPretty" href="#dec:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b><i>'t</i><b>&gt;</b>
+</pre>
+<div class="nested"><p> Represents a pretty printing function that is open to be extended.</div>
+<pre><b>type</b> <a id="def:type PPrint.Pretty.ProductPretty" href="#dec:type PPrint.Pretty.ProductPretty">ProductPretty</a><b>&lt;</b><i>'e</i>, <i>'es</i>, <i>'t</i><b>&gt;</b>
+</pre>
+<div class="nested"><p> Represents a pretty printing function for a part of a product type.</div>
+<pre><b>type</b> <a id="def:type PPrint.Pretty.UnionPretty" href="#dec:type PPrint.Pretty.UnionPretty">UnionPretty</a><b>&lt;</b><i>'c</i>, <i>'cs</i>, <i>'t</i><b>&gt;</b>
+</pre>
+<div class="nested"><p> Represents a pretty printing function for a part of a union type.</div>
+<pre><b>[&lt;</b>AutoOpen<b>&gt;]</b>
+<b>module</b> <a id="def:module PPrint.Pretty.TopLevel" href="#dec:module PPrint.Pretty.TopLevel">TopLevel</a>  <b>=</b>
+</pre>
+<div class="nested"><p> Convenience bindings for using PPrint.Pretty.<pre><b>val</b> <a id="def:val PPrint.Pretty.TopLevel.pretty" href="#dec:val PPrint.Pretty.TopLevel.pretty">pretty</a><b>:</b> <i>'x</i> <b>-&gt;</b> Doc
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.Pretty.TopLevel.pretty">pretty</a>&nbsp;x</code> is equivalent to <code>Pretty<b>.</b><a href="#def:static member PPrint.Pretty.Pretty.Get">Get</a>&nbsp;()&nbsp;x</code>.</div>
+<pre><b>val</b> <a id="def:val PPrint.Pretty.TopLevel.show" href="#dec:val PPrint.Pretty.TopLevel.show">show</a><b>:</b> <i>'x</i> <b>-&gt;</b> string
+</pre>
+<div class="nested"><p> <code><a href="#def:val PPrint.Pretty.TopLevel.show">show</a>&nbsp;x</code> is equivalent to <code>render&nbsp;None&nbsp;(<a href="#def:val PPrint.Pretty.TopLevel.pretty">pretty</a>&nbsp;x)</code>.</div>
+</div>
+<pre><b>[&lt;</b>InferenceRules (StaticMap <b>=</b> StaticMap<b>.</b>Results)<b>&gt;]</b> 
+<b>type</b> Pretty <b>=</b>
+</pre>
+<div class="nested"><pre><b>static</b> <b>member</b> <a id="def:static member PPrint.Pretty.Pretty.Get" href="#dec:static member PPrint.Pretty.Pretty.Get">Get</a><b>:</b> unit <b>-&gt;</b> <a href="#def:type PPrint.Pretty.Pretty">Pretty</a><b>&lt;</b><i>'t</i><b>&gt;</b>
+</pre>
+<div class="nested"><p> Returns a previous generated pretty printing function or attempts to generate one for the specified type <code><i>'t</i></code>.</div>
+<pre><b>member</b> case<b>:</b> Case<b>&lt;</b>Empty, <i>'cs</i>, <i>'t</i><b>&gt;</b>
+   <b>-&gt;</b> <a href="#def:type PPrint.Pretty.UnionPretty">UnionPretty</a><b>&lt;</b>Empty, <i>'cs</i>, <i>'t</i><b>&gt;</b>
+</pre>
+<div class="nested"></div>
+<pre><b>member</b> case<b>:</b> Case<b>&lt;</b><i>'ls</i>,      <i>'cs</i>, <i>'t</i><b>&gt;</b>
+  <b>*</b> <a href="#def:type PPrint.Pretty.ProductPretty">ProductPretty</a><b>&lt;</b><i>'ls</i>, <i>'ls</i>,      <i>'t</i><b>&gt;</b>
+   <b>-&gt;</b> <a href="#def:type PPrint.Pretty.UnionPretty">UnionPretty</a><b>&lt;</b><i>'ls</i>,      <i>'cs</i>, <i>'t</i><b>&gt;</b>
+</pre>
+<div class="nested"></div>
+<pre><b>member</b> plus<b>:</b> <a href="#def:type PPrint.Pretty.UnionPretty">UnionPretty</a><b>&lt;</b>       <i>'c</i>      , Choice<b>&lt;</b><i>'c</i>, <i>'cs</i><b>&gt;</b>, <i>'t</i><b>&gt;</b>
+           <b>*</b> <a href="#def:type PPrint.Pretty.UnionPretty">UnionPretty</a><b>&lt;</b>           <i>'cs</i> ,            <i>'cs</i> , <i>'t</i><b>&gt;</b>
+          <b>-&gt;</b> <a href="#def:type PPrint.Pretty.UnionPretty">UnionPretty</a><b>&lt;</b>Choice<b>&lt;</b><i>'c</i>, <i>'cs</i><b>&gt;</b>, Choice<b>&lt;</b><i>'c</i>, <i>'cs</i><b>&gt;</b>, <i>'t</i><b>&gt;</b>
+</pre>
+<div class="nested"></div>
+<pre><b>member</b> union<b>:</b> Rep
+          <b>*</b> Union<b>&lt;</b>          <i>'t</i><b>&gt;</b>
+       <b>*</b> AsChoice<b>&lt;</b><i>'cs</i>,      <i>'t</i><b>&gt;</b>
+    <b>*</b> <a href="#def:type PPrint.Pretty.UnionPretty">UnionPretty</a><b>&lt;</b><i>'cs</i>, <i>'cs</i>, <i>'t</i><b>&gt;</b>
+    <b>-&gt;</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b>          <i>'t</i><b>&gt;</b>
+</pre>
+<div class="nested"></div>
+<pre><b>member</b> item<b>:</b> Item<b>&lt;</b><i>'e</i>, <i>'es</i>, <i>'t</i><b>&gt;</b>
+     <b>*</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b><i>'e</i>         <b>&gt;</b>
+ <b>-&gt;</b> <a href="#def:type PPrint.Pretty.ProductPretty">ProductPretty</a><b>&lt;</b><i>'e</i>, <i>'es</i>, <i>'t</i><b>&gt;</b>
+</pre>
+<div class="nested"></div>
+<pre><b>member</b> labelled<b>:</b> Labelled<b>&lt;</b><i>'e</i>, <i>'es</i>, <i>'t</i><b>&gt;</b>
+             <b>*</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b><i>'e</i>         <b>&gt;</b>
+         <b>-&gt;</b> <a href="#def:type PPrint.Pretty.ProductPretty">ProductPretty</a><b>&lt;</b><i>'e</i>, <i>'es</i>, <i>'t</i><b>&gt;</b>
+</pre>
+<div class="nested"></div>
+<pre><b>member</b> times<b>:</b> <a href="#def:type PPrint.Pretty.ProductPretty">ProductPretty</a><b>&lt;</b>    <i>'e</i>      , And<b>&lt;</b><i>'e</i>, <i>'es</i><b>&gt;</b>, <i>'t</i><b>&gt;</b>
+            <b>*</b> <a href="#def:type PPrint.Pretty.ProductPretty">ProductPretty</a><b>&lt;</b>        <i>'es</i> ,         <i>'es</i> , <i>'t</i><b>&gt;</b>
+           <b>-&gt;</b> <a href="#def:type PPrint.Pretty.ProductPretty">ProductPretty</a><b>&lt;</b>And<b>&lt;</b><i>'e</i>, <i>'es</i><b>&gt;</b>, And<b>&lt;</b><i>'e</i>, <i>'es</i><b>&gt;</b>, <i>'t</i><b>&gt;</b>
+</pre>
+<div class="nested"></div>
+<pre><b>member</b> product<b>:</b> Rep
+          <b>*</b> Product<b>&lt;</b>          <i>'t</i><b>&gt;</b>
+        <b>*</b> AsProduct<b>&lt;</b><i>'es</i>,      <i>'t</i><b>&gt;</b>
+    <b>*</b> <a href="#def:type PPrint.Pretty.ProductPretty">ProductPretty</a><b>&lt;</b><i>'es</i>, <i>'es</i>, <i>'t</i><b>&gt;</b>
+      <b>-&gt;</b> <a href="#def:type PPrint.Pretty.OpenPretty">OpenPretty</a><b>&lt;</b>          <i>'t</i><b>&gt;</b>
+</pre>
+<div class="nested"></div>
+</div>
+</div>
+</td></tr></table></body>
+</html>
