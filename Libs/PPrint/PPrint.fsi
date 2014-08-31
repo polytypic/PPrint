@@ -10,7 +10,7 @@ namespace PPrint
 
 open System.IO
 
-/// The abstract type of documents.
+/// Represents a document that can be rendered to a given maximum width.
 type [<Sealed; NoEquality; NoComparison>] Doc =
   /// `lhs <^> rhs` is the concatenation of the documents `lhs` and `rhs`.  For
   /// example, `txt "a" <^> txt "b"` renders as `ab`.
