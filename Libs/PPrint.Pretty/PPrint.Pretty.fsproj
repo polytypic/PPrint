@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>PPrint.Pretty</RootNamespace>
     <AssemblyName>PPrint.Pretty</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFSharpCoreVersion>4.3.1.0</TargetFSharpCoreVersion>
     <Name>PPrint.Pretty</Name>
     <TargetFrameworkProfile />
@@ -53,23 +53,23 @@
     <Compile Include="Assembly.fs" />
     <Compile Include="Pretty.fsi" />
     <Compile Include="Pretty.fs" />
-    <None Include="packages.config" />
+    <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Infers">
-      <HintPath>..\..\packages\Infers.0.0.0.5\lib\net451\Infers.dll</HintPath>
+      <HintPath>..\..\packages\Infers.0.0.0.6\lib\net45\Infers.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Infers.Basic">
-      <HintPath>..\..\packages\Infers.0.0.0.5\lib\net451\Infers.Basic.dll</HintPath>
+      <HintPath>..\..\packages\Infers.0.0.0.6\lib\net45\Infers.Basic.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Infers.Core">
-      <HintPath>..\..\packages\Infers.0.0.0.5\lib\net451\Infers.Core.dll</HintPath>
+      <HintPath>..\..\packages\Infers.0.0.0.6\lib\net45\Infers.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Infers.Rep">
-      <HintPath>..\..\packages\Infers.0.0.0.5\lib\net451\Infers.Rep.dll</HintPath>
+      <HintPath>..\..\packages\Infers.0.0.0.6\lib\net45\Infers.Rep.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="mscorlib" />

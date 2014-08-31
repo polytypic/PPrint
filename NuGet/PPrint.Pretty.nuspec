@@ -16,11 +16,11 @@
     <tags>f# fsharp generic text formatting layout</tags>
     <dependencies>
       <dependency id="PPrint" version="1.3.0" />
-      <dependency id="Infers" version="0.0.0.5" />
+      <dependency id="Infers" version="0.0.0.6" />
     </dependencies>
   </metadata>
   <files>
-    <file src="..\Libs\PPrint.Pretty\bin\Release\PPrint.Pretty.dll" target="lib\net451" />
-    <file src="..\Libs\PPrint.Pretty\bin\Release\PPrint.Pretty.xml" target="lib\net451" />
+    <file src="..\Libs\PPrint.Pretty\bin\Release\PPrint.Pretty.dll" target="lib\net45" />
+    <file src="..\Libs\PPrint.Pretty\bin\Release\PPrint.Pretty.xml" target="lib\net45" />
   </files>
 </package>

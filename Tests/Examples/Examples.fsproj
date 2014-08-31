@@ -9,7 +9,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Examples</RootNamespace>
     <AssemblyName>Examples</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFSharpCoreVersion>4.3.1.0</TargetFSharpCoreVersion>
     <Name>Examples</Name>
@@ -38,48 +38,6 @@
     <DocumentationFile>bin\Release\Examples.XML</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Infers">
-      <HintPath>..\..\packages\Infers.0.0.0.5\lib\net451\Infers.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Infers.Basic">
-      <HintPath>..\..\packages\Infers.0.0.0.5\lib\net451\Infers.Basic.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Infers.Core">
-      <HintPath>..\..\packages\Infers.0.0.0.5\lib\net451\Infers.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Infers.Rep">
-      <HintPath>..\..\packages\Infers.0.0.0.5\lib\net451\Infers.Rep.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="mscorlib" />
-    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Numerics" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <Compile Include="Examples.fs" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Libs\PPrint.Pretty\PPrint.Pretty.fsproj">
-      <Name>PPrint.Pretty</Name>
-      <Project>{05b4de2e-6336-47c0-97c4-e8574857fa40}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Libs\PPrint\PPrint.fsproj">
-      <Name>PPrint</Name>
-      <Project>{2515fce3-cbd7-44e6-88a9-40526a0e646b}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
   </PropertyGroup>
@@ -96,6 +54,46 @@
     </Otherwise>
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
+  <ItemGroup>
+    <None Include="App.config" />
+    <Compile Include="Examples.fs" />
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Infers">
+      <HintPath>..\..\packages\Infers.0.0.0.6\lib\net45\Infers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Infers.Basic">
+      <HintPath>..\..\packages\Infers.0.0.0.6\lib\net45\Infers.Basic.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Infers.Core">
+      <HintPath>..\..\packages\Infers.0.0.0.6\lib\net45\Infers.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Infers.Rep">
+      <HintPath>..\..\packages\Infers.0.0.0.6\lib\net45\Infers.Rep.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <ProjectReference Include="..\..\Libs\PPrint.Pretty\PPrint.Pretty.fsproj">
+      <Name>PPrint.Pretty</Name>
+      <Project>{05b4de2e-6336-47c0-97c4-e8574857fa40}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libs\PPrint\PPrint.fsproj">
+      <Name>PPrint</Name>
+      <Project>{2515fce3-cbd7-44e6-88a9-40526a0e646b}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
