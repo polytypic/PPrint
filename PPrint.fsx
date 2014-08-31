@@ -1,4 +1,4 @@
-// Tip: Add --lib:<pprint-root-directory> to your F# interactive options
+#I __SOURCE_DIRECTORY__ ;;
 
 #r "Libs\\PPrint.Pretty\\bin\\Release\\PPrint.dll" ;;
 #r "Libs\\PPrint.Pretty\\bin\\Release\\Infers.dll" ;;
