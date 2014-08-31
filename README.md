@@ -10,11 +10,14 @@ has also been implemented.
 
 ## Download
 
-Prebuilt [PPrint](http://www.nuget.org/packages/PPrint/) package is available
-via [NuGet](http://www.nuget.org/).
+Prebuilt [PPrint](http://www.nuget.org/packages/PPrint/) and
+[PPrint.Pretty](http://www.nuget.org/packages/PPrint.Pretty/) packages are
+available via [NuGet](http://www.nuget.org/).  Note that PPrint.Pretty is
+currently considered experimental and is not recommended for production use.
 
 ## Documentation
 
-There is a
-[PPrint Library Reference](http://vesakarvonen.github.io/PPrint/PPrint.html)
-manual generated from the library sources.
+The [PPrint Library Reference](http://vesakarvonen.github.io/PPrint/PPrint.html)
+and
+[PPrint.Pretty Library Reference](http://vesakarvonen.github.io/PPrint/PPrint.Pretty.html)
+manuals are generated from the library sources.
