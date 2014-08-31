@@ -9,18 +9,32 @@ open Infers
 open Infers.Rep
 open PPrint
 
+/// Represents a pretty printing function or a function that can convert values
+/// of a particular type to documents that can be rendered to a given maximum
+/// width.
 type Pretty<'t> = 't -> Doc
 
+/// Represents a pretty printing function that is open to be extended.
 type OpenPretty<'t>
+
+/// Represents a pretty printing function for a part of a product type.
 type ProductPretty<'e, 'es, 't>
+
+/// Represents a pretty printing function for a part of a union type.
 type UnionPretty<'c, 'cs, 't>
 
+/// Convenience bindings for using PPrint.Pretty.
 [<AutoOpen>]
 module TopLevel =
+  /// `pretty x` is equivalent to `Pretty.Get () x`.
   val pretty: 'x -> Doc
+
+  /// `show x` is equivalent to `render None (pretty x)`.
   val show: 'x -> string
 
 type [<InferenceRules (StaticMap = StaticMap.Results)>] Pretty =
+  /// Returns a previous generated pretty printing function or attempts to
+  /// generate one for the specified type `'t`.
   static member Get: unit -> Pretty<'t>
 
   // ---------------------------------------------------------------------------
