@@ -11,3 +11,6 @@ install:
 platform: Any CPU
 
 configuration: Release
+
+test_script:
+  - Tests/Examples/bin/Release/Examples.exe
