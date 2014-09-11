@@ -13,4 +13,4 @@ platform: Any CPU
 configuration: Release
 
 test_script:
-  - cmd: Tests/Examples/bin/Release/Examples.exe
+  - Tests\Examples\bin\Release\Examples.exe
