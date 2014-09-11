@@ -1,0 +1,13 @@
+branches:
+  only:
+    - master
+
+matrix:
+  fast_finish: true
+
+install:
+  - NuGet restore PPrint.sln
+
+platform: Any CPU
+
+configuration: Release
