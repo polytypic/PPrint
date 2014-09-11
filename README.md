@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/447fpiqn9o2wcdk6)](https://ci.appveyor.com/project/VesaKarvonen/pprint)
+
 # PPrint
 
 PPrint is a pretty-printing library.  The design is primarily based on Philip
