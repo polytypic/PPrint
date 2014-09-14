@@ -14,8 +14,4 @@ install:
   - sudo installer -pkg "MonoFramework-MDK-${MONO_VERSION}.macos10.xamarin.x86.pkg" -target /
 
 script:
-  - nuget restore PPrint.sln
-  - xbuild /p:Configuration=Debug
-  - mono Tests/Examples/bin/Debug/Examples.exe
-  - xbuild /p:Configuration=Release
-  - mono Tests/Examples/bin/Release/Examples.exe
+  - ./build.sh
