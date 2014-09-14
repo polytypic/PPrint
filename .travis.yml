@@ -15,4 +15,5 @@ install:
 
 script:
   - nuget restore PPrint.sln
-  - xbuild
+  - xbuild /p:Configuration=Debug
+  - xbuild /p:Configuration=Release
