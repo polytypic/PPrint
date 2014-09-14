@@ -12,7 +12,10 @@ install:
 
 platform: Any CPU
 
-configuration: Release
+configuration:
+  - Debug
+  - Release
 
 test_script:
+  - Tests\Examples\bin\Debug\Examples.exe
   - Tests\Examples\bin\Release\Examples.exe
