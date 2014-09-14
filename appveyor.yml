@@ -17,5 +17,4 @@ configuration:
   - Release
 
 test_script:
-  - Tests\Examples\bin\Debug\Examples.exe
-  - Tests\Examples\bin\Release\Examples.exe
+  - Tests\Examples\bin\%CONFIGURATION%\Examples.exe
