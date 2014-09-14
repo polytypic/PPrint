@@ -1,4 +1,5 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/447fpiqn9o2wcdk6)](https://ci.appveyor.com/project/VesaKarvonen/pprint)
+> [![Build status](https://ci.appveyor.com/api/projects/status/447fpiqn9o2wcdk6)](https://ci.appveyor.com/project/VesaKarvonen/pprint) &#xb7; [![Build Status](https://travis-ci.org/VesaKarvonen/PPrint.svg?branch=master)](https://travis-ci.org/VesaKarvonen/PPrint)
+
 
 # PPrint
 
