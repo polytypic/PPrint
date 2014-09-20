@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -x
+set -e
 
 nuget restore PPrint.sln
 
