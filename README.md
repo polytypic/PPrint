@@ -1,6 +1,5 @@
 > [![Build status](https://ci.appveyor.com/api/projects/status/447fpiqn9o2wcdk6)](https://ci.appveyor.com/project/VesaKarvonen/pprint) &#xb7; [![Build Status](https://travis-ci.org/VesaKarvonen/PPrint.svg?branch=master)](https://travis-ci.org/VesaKarvonen/PPrint)
 
-
 # PPrint
 
 PPrint is a pretty-printing library.  The design is primarily based on Philip
@@ -13,10 +12,13 @@ has also been implemented.
 
 ## Download
 
-Prebuilt [PPrint](http://www.nuget.org/packages/PPrint/) and
-[PPrint.Pretty](http://www.nuget.org/packages/PPrint.Pretty/) packages are
-available via [NuGet](http://www.nuget.org/).  Note that PPrint.Pretty is
-currently considered experimental and is not recommended for production use.
+Prebuilt packages are available via [NuGet](http://www.nuget.org/):
+
+* [PPrint](http://www.nuget.org/packages/PPrint/) [![PPrint](http://img.shields.io/nuget/v/PPrint.svg?style=flat)](http://www.nuget.org/packages/PPrint.Pretty/)
+* [PPrint.Pretty](http://www.nuget.org/packages/PPrint.Pretty/) [![PPrint.Pretty](http://img.shields.io/nuget/v/PPrint.Pretty.svg?style=flat)](http://www.nuget.org/packages/PPrint.Pretty/)
+
+Note that PPrint.Pretty is currently considered experimental and is not
+recommended for production use.
 
 ## Documentation
 
