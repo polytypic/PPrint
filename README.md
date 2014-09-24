@@ -14,7 +14,7 @@ has also been implemented.
 
 Prebuilt packages are available via [NuGet](http://www.nuget.org/):
 
-* [![PPrint](http://img.shields.io/nuget/v/PPrint.svg?style=flat)](http://www.nuget.org/packages/PPrint.Pretty/) [PPrint](http://www.nuget.org/packages/PPrint/)
+* [![PPrint](http://img.shields.io/nuget/v/PPrint.svg?style=flat)](http://www.nuget.org/packages/PPrint/) [PPrint](http://www.nuget.org/packages/PPrint/)
 * [![PPrint.Pretty](http://img.shields.io/nuget/v/PPrint.Pretty.svg?style=flat)](http://www.nuget.org/packages/PPrint.Pretty/) [PPrint.Pretty](http://www.nuget.org/packages/PPrint.Pretty/)
 
 Note that PPrint.Pretty is currently considered experimental and is not
