@@ -11,7 +11,8 @@
     <projectUrl>https://github.com/VesaKarvonen/PPrint</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A pretty printing library for F# based on Wadler's and Leijen's work.</description>
-    <releaseNotes>1.3.0: Switched to framework 4.5 (was 4.5.1).
+    <releaseNotes>?.?.?: Renamed catWith -> joinWith.  Added joinSep.
+1.3.0: Switched to framework 4.5 (was 4.5.1).
 1.3.0: Minor additions.
 1.2.0: Added support for user attributes; Fixed println to output the newline.
 1.1.0: Added nestBy; Minor optimization; Fixed sequence order bug due to translation from SML.</releaseNotes>
@@ -19,7 +20,7 @@
     <tags>f# fsharp text formatting layout</tags>
   </metadata>
   <files>
-    <file src="..\Libs\PPrint\bin\Release\PPrint.dll" target="lib\net45" />
-    <file src="..\Libs\PPrint\bin\Release\PPrint.xml" target="lib\net45" />
+    <file src="../Libs/PPrint/bin/Release/PPrint.dll" target="lib\net45" />
+    <file src="../Libs/PPrint/bin/Release/PPrint.xml" target="lib\net45" />
   </files>
 </package>
