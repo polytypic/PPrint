@@ -400,14 +400,20 @@ module PPrint =
 
   // == Sequence Combinators ==
 
+  /// `joinSep sep` is equivalent to `joinWith (fun l r -> l <^> sep <^> r)`.
+  val joinSep: Doc -> seq<Doc> -> Doc
+
+  /// Concatenate a sequence of documents using the given binary operator.
+  val joinWith: (Doc -> Doc -> Doc) -> seq<Doc> -> Doc
+
+  [<System.Obsolete "Use joinWith instead.">]
+  val catWith: (Doc -> Doc -> Doc) -> seq<Doc> -> Doc
+
   /// `sep docs` is equivalent to `group (vsep docs)`.
   val sep: seq<Doc> -> Doc
 
   /// `cat docs` is equivalent to `group (vcat docs)`.
   val cat: seq<Doc> -> Doc
-
-  /// Concatenate a sequence of documents using the given binary operator.
-  val catWith: (Doc -> Doc -> Doc) -> seq<Doc> -> Doc
 
   /// `punctuate punc docs` concatenates `punc` to the right of each document
   /// in `docs` except the last one.

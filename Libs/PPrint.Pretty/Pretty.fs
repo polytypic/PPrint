@@ -54,9 +54,7 @@ module Util =
     else sprintf "\\U%08x" c
 
   let commaLine = comma <^> line
-
   let semiLine = choice (semi <^> line) line
-  let semiCat l r = l <^> (semiLine <^> r)
 
   let inline seq (o: string)
                  (c: string)
@@ -71,7 +69,7 @@ module Util =
          |> Seq.map (fun (x: 'x) ->
               let mutable x = x
               xP.Pretty (&x) |> snd)
-         |> catWith semiCat
+         |> joinSep semiLine
          |> gnest i
          |> enclose (o, c)
          |> atom}

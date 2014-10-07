@@ -129,16 +129,18 @@ module PPrint =
 
   let gnest n = group >> nest n
 
-  let catWith bop xs =
+  let joinWith bop xs =
     match Seq.revAppendToList xs [] with
      | [] -> empty
      | x::xs -> List.fold (fun r x -> bop x r) x xs
-  let hsep xs = catWith (<+>) xs
-  let hcat xs = catWith (<^>) xs
-  let vsep xs = catWith (<.>) xs
-  let vcat xs = catWith (<..>) xs
-  let fillSep xs = catWith (</>) xs
-  let fillCat xs = catWith (<//>) xs
+  let catWith bop xs = joinWith bop xs // XXX obsolete
+  let joinSep sep xs = joinWith (fun l r -> l <^> (sep <^> r)) xs
+  let hsep xs = joinWith (<+>) xs
+  let hcat xs = joinWith (<^>) xs
+  let vsep xs = joinWith (<.>) xs
+  let vcat xs = joinWith (<..>) xs
+  let fillSep xs = joinWith (</>) xs
+  let fillCat xs = joinWith (<//>) xs
 
   let sep xs = group (vsep xs)
   let cat xs = group (vcat xs)
