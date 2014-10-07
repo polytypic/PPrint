@@ -20,7 +20,7 @@
     <tags>f# fsharp text formatting layout</tags>
   </metadata>
   <files>
-    <file src="../Libs/PPrint/bin/Release/PPrint.dll" target="lib\net45" />
-    <file src="../Libs/PPrint/bin/Release/PPrint.xml" target="lib\net45" />
+    <file src="../Libs/PPrint/bin/Release/PPrint.dll" target="lib/net45" />
+    <file src="../Libs/PPrint/bin/Release/PPrint.xml" target="lib/net45" />
   </files>
 </package>
