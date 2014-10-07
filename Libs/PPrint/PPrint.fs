@@ -132,7 +132,7 @@ module PPrint =
   let joinWith bop xs =
     match Seq.revAppendToList xs [] with
      | [] -> empty
-     | x::xs -> List.fold (fun r x -> bop x r) x xs
+     | x::xs -> List.fold (flip bop) x xs
   let catWith bop xs = joinWith bop xs // XXX obsolete
   let joinSep sep xs = joinWith (fun l r -> l <^> (sep <^> r)) xs
   let hsep xs = joinWith (<+>) xs
@@ -182,14 +182,16 @@ module PPrint =
          layout (force doc)
 
     let fits usedCols doc =
-      Option.isNone maxCols ||
-      (let rec lp usedCols doc =
-         usedCols <= Option.get maxCols &&
-         match force doc with
-          | NIL | LINEFEED _ -> true
-          | OBJ (_, doc) -> lp usedCols doc
-          | PRINT (str, doc) -> lp (usedCols + String.length str) doc
-       lp usedCols (lazy doc))
+      match maxCols with
+       | None -> true
+       | Some maxCols ->
+         let rec lp usedCols doc =
+           usedCols <= maxCols &&
+           match force doc with
+            | NIL | LINEFEED _ -> true
+            | OBJ (_, doc) -> lp usedCols doc
+            | PRINT (str, doc) -> lp (usedCols + String.length str) doc
+         lp usedCols (lazy doc)
 
     let rec best usedCols = function
       | [] -> NIL
@@ -228,7 +230,7 @@ module PPrint =
       doc
 
   let outputToWriter (tw: TextWriter) maxCols doc =
-    outputWithFun (fun s -> tw.Write s) maxCols doc
+    outputWithFun tw.Write maxCols doc
 
   let render maxCols doc =
     use tw = new StringWriter ()
@@ -236,5 +238,5 @@ module PPrint =
     tw.ToString ()
 
   let println maxCols doc =
-    outputWithFun (fun s -> Console.Write s) maxCols doc
+    outputWithFun Console.Write maxCols doc
     Console.Write "\n"
