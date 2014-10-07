@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>PPrint</id>
-    <version>1.3.0</version>
+    <version>1.4.0</version>
     <title>PPrint</title>
     <summary>A pretty printing library for F# based on Wadler's and Leijen's work.</summary>
     <authors>Vesa Karvonen</authors>
@@ -11,7 +11,7 @@
     <projectUrl>https://github.com/VesaKarvonen/PPrint</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A pretty printing library for F# based on Wadler's and Leijen's work.</description>
-    <releaseNotes>?.?.?: Renamed catWith -> joinWith.  Added joinSep.
+    <releaseNotes>1.4.0: Renamed catWith -> joinWith.  Added joinSep.
 1.3.0: Switched to framework 4.5 (was 4.5.1).
 1.3.0: Minor additions.
 1.2.0: Added support for user attributes; Fixed println to output the newline.
