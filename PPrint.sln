@@ -3,6 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{23D9629C-E185-4ED9-BF7B-F2B369A694AA}"
+	ProjectSection(SolutionItems) = preProject
+		paket.dependencies = paket.dependencies
+	EndProjectSection
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{43B5134E-89E6-411E-A492-6FDA8BD441FC}"
 EndProject
 Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "PPrint", "Libs\PPrint\PPrint.fsproj", "{2515FCE3-CBD7-44E6-88A9-40526A0E646B}"
