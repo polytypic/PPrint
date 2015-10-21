@@ -11,3 +11,5 @@ function build () {
 
 build PPrint.sln Debug
 build PPrint.sln Release
+
+paket pack output . templatefile PPrint.paket.template
