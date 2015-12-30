@@ -1,4 +1,4 @@
-﻿// Copyright (C) by Vesa Karvonen
+// Copyright (C) by Vesa Karvonen
 
 /// A pretty printing library for F# based on Wadler's and Leijen's work.
 ///
@@ -41,7 +41,7 @@ type [<Sealed; NoEquality; NoComparison>] Doc =
   ///
   /// and
   ///
-  ///> group (txt "a" <.> txt "b")
+  ///> txt "a" <.> txt "b" |> group
   ///
   /// renders as
   ///
@@ -154,7 +154,11 @@ module PPrint =
   ///
   /// For example
   ///
-  ///> nest 1 (parens (vsep (punctuate comma [txt "x"; txt "y"; txt "z"])))
+  ///> [txt "x"; txt "y"; txt "z"]
+  ///> |> punctuate comma
+  ///> |> vsep
+  ///> |> parens
+  ///> |> nest 1
   ///
   /// renders as
   ///
@@ -173,8 +177,10 @@ module PPrint =
   ///
   /// For example
   ///
-  ///> enclose (txt "(* ", line <^> txt " *)")
-  ///>   (nestBy " * " (vsep [txt "a"; txt "b"; txt "c"]))
+  ///> [txt "a"; txt "b"; txt "c"]
+  ///> |> vsep
+  ///> |> nestBy " * "
+  ///> |> enclose (txt "(* ", line <^> txt " *)")
   ///
   /// renders as
   ///
@@ -191,7 +197,9 @@ module PPrint =
   ///
   /// For example
   ///
-  ///> nest 2 (hcat [txt "a"; line; txt "b"])
+  ///> [txt "a"; line; txt "b"]
+  ///> |> hcat
+  ///> |> nest 2
   ///
   /// renders as
   ///
@@ -200,7 +208,10 @@ module PPrint =
   ///
   /// while
   ///
-  ///> group (nest 2 (hcat [txt "a"; line; txt "b"]))
+  ///> [txt "a"; line; txt "b"]
+  ///> |> hcat
+  ///> |> nest 2
+  ///> |> group
   ///
   /// renders as
   ///
@@ -214,7 +225,9 @@ module PPrint =
   ///
   /// For example
   ///
-  ///> nest 2 (hcat [txt "a"; linebreak; txt "b"])
+  ///> [txt "a"; linebreak; txt "b"]
+  ///> |> hcat
+  ///> |> nest 2
   ///
   /// renders as
   ///
@@ -223,7 +236,10 @@ module PPrint =
   ///
   /// while
   ///
-  ///> group (nest 2 (hcat [txt "a"; linebreak; txt "b"]))
+  ///> [txt "a"; linebreak; txt "b"]
+  ///> |> hcat
+  ///> |> nest 2
+  ///> |> group
   ///
   /// renders as
   ///
@@ -248,7 +264,7 @@ module PPrint =
   ///
   /// while
   ///
-  ///> group (txt "a" <.> txt "b")
+  ///> txt "a" <.> txt "b" |> group
   ///
   /// renders as
   ///
@@ -352,9 +368,11 @@ module PPrint =
   /// For example
   ///
   ///> txt "foo" <^>
-  ///> parens
-  ///>  (align
-  ///>    (vsep (punctuate comma [txt "bar"; txt "baz"; txt "foobar"])))
+  ///> ([txt "bar"; txt "baz"; txt "foobar"]
+  ///>  |> punctuate comma
+  ///>  |> vsep
+  ///>  |> align
+  ///>  |> parens)
   ///
   /// renders as
   ///
@@ -370,12 +388,12 @@ module PPrint =
   ///
   /// For example
   ///
-  ///> width (txt "foo") (fun n -> 
-  ///>  nest (n+1)
-  ///>   (parens
-  ///>     (vsep
-  ///>       (punctuate comma
-  ///>         [txt "bar"; txt "baz"; txt "foobar"]))))
+  ///> width << txt "foo" <| fun n ->
+  ///>   [txt "bar"; txt "baz"; txt "foobar"]
+  ///>   |> punctuate comma
+  ///>   |> vsep
+  ///>   |> parens
+  ///>   |> nest (n+1)
   ///
   /// renders to
   ///
@@ -406,9 +424,6 @@ module PPrint =
   /// Concatenate a sequence of documents using the given binary operator.
   val joinWith: (Doc -> Doc -> Doc) -> seq<Doc> -> Doc
 
-  [<System.Obsolete "Use joinWith instead.">]
-  val catWith: (Doc -> Doc -> Doc) -> seq<Doc> -> Doc
-
   /// `sep docs` is equivalent to `group (vsep docs)`.
   val sep: seq<Doc> -> Doc
 
@@ -421,7 +436,9 @@ module PPrint =
   ///
   /// For example
   ///
-  ///> hsep (punctuate comma [txt "a"; txt "b"; txt "c"])
+  ///> [txt "a"; txt "b"; txt "c"]
+  ///> |> punctuate comma
+  ///> |> hsep
   ///
   /// renders to
   ///

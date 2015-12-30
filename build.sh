@@ -2,11 +2,9 @@
 
 set -e
 
-nuget restore PPrint.sln -Verbosity quiet
-
-function build () {
-    xbuild /nologo /verbosity:quiet /p:Configuration=$2 $1
-    mono Tests/Examples/bin/$2/Examples.exe
+function build() {
+  xbuild /nologo /verbosity:quiet /p:Configuration=$2 $1
+  mono Tests/Examples/bin/$2/Examples.exe
 }
 
 build PPrint.sln Debug

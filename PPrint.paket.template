@@ -1,7 +1,7 @@
 type
         file
 version
-        1.4.3
+        1.4.4
 id
         PPrint
 summary
@@ -19,6 +19,7 @@ projectUrl
 description
         A pretty printing library for F# based on Wadler's and Leijen's work.
 releaseNotes
+        1.4.4: Depend on older FSharp.Core.
         1.4.3: Actually specify the FSharp.Core dependency.
         1.4.2: Use FSharp.Core from NuGet.
         1.4.0: Renamed catWith -> joinWith.  Added joinSep.
@@ -31,7 +32,7 @@ copyright
 tags
         F# fsharp text formatting layout
 dependencies
-        FSharp.Core >= 4.0.0.1
+        FSharp.Core >= 3.1.2.5
 files
         Libs/PPrint/bin/Release/PPrint.dll ==> lib/net45
-        Libs/PPrint/bin/Release/PPrint.XML ==> lib/net45
+        Libs/PPrint/bin/Release/PPrint.xml ==> lib/net45

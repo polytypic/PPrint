@@ -1,4 +1,4 @@
-﻿// Copyright (C) by Vesa Karvonen
+// Copyright (C) by Vesa Karvonen
 
 namespace PPrint
 
@@ -8,7 +8,7 @@ open System.Runtime.InteropServices
 [<AutoOpen>]
 module AssemblyInfo =
   [<Literal>]
-  let Version = "1.4.3"
+  let Version = "1.4.4"
 
 [<assembly: AssemblyTitle("PPrint")>]
 [<assembly: AssemblyDescription("A pretty printing library for F# based on Wadler's and Leijen's work.")>]

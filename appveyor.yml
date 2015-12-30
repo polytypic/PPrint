@@ -7,9 +7,6 @@ branches:
 matrix:
   fast_finish: true
 
-install:
-  - NuGet restore PPrint.sln
-
 platform: Any CPU
 
 configuration:

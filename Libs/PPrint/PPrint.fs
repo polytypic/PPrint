@@ -1,4 +1,4 @@
-﻿// Copyright (C) by Vesa Karvonen
+// Copyright (C) by Vesa Karvonen
 
 namespace PPrint
 
@@ -9,7 +9,7 @@ type Doc =
   | EMPTY
   | LAZY of Lazy<Doc>
   | LINE of bool
-  | JOIN of Doc * Doc
+  | JOIN of lhs: Doc * rhs: Doc
   | NEST of string * Doc
   | TEXT of string
   | CHOICE of wide: Doc * narrow: Doc
@@ -37,6 +37,7 @@ type Doc with
 
 [<AutoOpen>]
 module Util =
+  let inline (^) x = x
   let inline K x _ = x
   let inline flip f x y = f y x
   let inline force (s: Lazy<_>) = s.Force ()
@@ -47,7 +48,7 @@ module Seq =
 
 [<AutoOpen>]
 module PPrint =
-  let delay th = LAZY (Lazy.Create th)
+  let delay th = LAZY ^ Lazy.Create th
 
   let empty = EMPTY
   let space = space
@@ -62,7 +63,7 @@ module PPrint =
   let txt s = TEXT s
   let user (x: obj) = USER x
   let fmt f = Printf.ksprintf TEXT f
-  let chr (c: char) = TEXT (string c)
+  let chr (c: char) = TEXT ^ string c
 
   let lparen = TEXT "("
   let rparen = TEXT ")"
@@ -100,23 +101,23 @@ module PPrint =
   let spaces n = String.replicate n " "
 
   let nestBy s d = NEST (s, d)
-  let nest n = nestBy (spaces n)
+  let nest n = nestBy ^ spaces n
 
-  let align d = column (fun k -> nesting (fun i -> nest (k-i) d))
-  let hang i d = align (nest i d)
-  let indent i d = hang i (txt (spaces i) <^> d)
+  let align d = column ^ fun k -> nesting ^ fun i -> d |> nest ^ k-i
+  let hang i d = align ^ nest i d
+  let indent i d = txt ^ spaces i <^> d |> hang i
 
-  let width d f = column (fun l -> d <^> column (fun r -> f (r-l)))
+  let width d f = column ^ fun l -> d <^> column ^ fun r -> f ^ r-l
 
   let mkFill p t f d =
-    width d (fun w -> if p f w then t f else txt (spaces (f-w)))
+    width d ^ fun w -> if p f w then t f else txt ^ spaces ^ f-w
 
   let fillBreak n d = mkFill (<) (flip nest linebreak) n d
   let fill n d = mkFill (<=) (K empty) n d
 
-  let rec flatten doc = delay <| fun () ->
+  let rec flatten doc = delay ^ fun () ->
     match doc with
-     | LAZY doc -> flatten (force doc)
+     | LAZY doc -> flatten ^ force doc
      | JOIN (lhs, rhs) -> JOIN (flatten lhs, flatten rhs)
      | NEST (txt, doc) -> NEST (txt, flatten doc)
      | EMPTY | TEXT _ | USER _ -> doc
@@ -133,8 +134,7 @@ module PPrint =
     match Seq.revAppendToList xs [] with
      | [] -> empty
      | x::xs -> List.fold (flip bop) x xs
-  let catWith bop xs = joinWith bop xs // XXX obsolete
-  let joinSep sep xs = joinWith (fun l r -> l <^> (sep <^> r)) xs
+  let joinSep sep xs = xs |> joinWith ^ fun l r -> l <^> (sep <^> r)
   let hsep xs = joinWith (<+>) xs
   let hcat xs = joinWith (<^>) xs
   let vsep xs = joinWith (<.>) xs
@@ -142,8 +142,8 @@ module PPrint =
   let fillSep xs = joinWith (</>) xs
   let fillCat xs = joinWith (<//>) xs
 
-  let sep xs = group (vsep xs)
-  let cat xs = group (vcat xs)
+  let sep xs = group ^ vsep xs
+  let cat xs = group ^ vcat xs
 
   let enclose (l, r) d = l <^> (d <^> r)
   let squotes d = enclose lrsquote d
@@ -172,14 +172,14 @@ module PPrint =
        | NIL -> ()
        | PRINT (str, doc) ->
          actions.Write str
-         layout (force doc)
+         layout ^ force doc
        | OBJ (obj, doc) ->
          actions.User obj
-         layout (force doc)
+         layout ^ force doc
        | LINEFEED (prefix, doc) ->
          actions.Line ()
          actions.Write prefix
-         layout (force doc)
+         layout ^ force doc
 
     let fits usedCols doc =
       match maxCols with
@@ -191,20 +191,20 @@ module PPrint =
             | NIL | LINEFEED _ -> true
             | OBJ (_, doc) -> lp usedCols doc
             | PRINT (str, doc) -> lp (usedCols + String.length str) doc
-         lp usedCols (lazy doc)
+         lp usedCols ^ lazy doc
 
     let rec best usedCols = function
       | [] -> NIL
       | (prefix, doc)::rest ->
         match doc with
          | LAZY doc ->
-           best usedCols ((prefix, force doc)::rest)
+           best usedCols ^ (prefix, force doc)::rest
          | EMPTY ->
            best usedCols rest
          | JOIN (lhs, rhs) ->
-           best usedCols ((prefix, lhs)::(prefix, rhs)::rest)
+           best usedCols ^ (prefix, lhs)::(prefix, rhs)::rest
          | NEST (txt, doc) ->
-           best usedCols ((prefix + txt, doc)::rest)
+           best usedCols ^ (prefix + txt, doc)::rest
          | TEXT str ->
            PRINT (str, lazy best (usedCols + String.length str) rest)
          | USER obj ->
@@ -212,15 +212,15 @@ module PPrint =
          | LINE _ ->
            LINEFEED (prefix, lazy best (String.length prefix) rest)
          | CHOICE (wide, narrow) ->
-           let wide = best usedCols ((prefix, wide)::rest)
+           let wide = best usedCols ^ (prefix, wide)::rest
            if fits usedCols wide
            then wide
-           else best usedCols ((prefix, narrow)::rest)
+           else best usedCols ^ (prefix, narrow)::rest
          | COLUMN f ->
-           best usedCols ((prefix, f usedCols)::rest)
+           best usedCols ^ (prefix, f usedCols)::rest
          | NESTING f ->
-           best usedCols ((prefix, f (String.length prefix))::rest)
-    layout (best 0 [("", doc)])
+           best usedCols ^ (prefix, f (String.length prefix))::rest
+    layout ^ best 0 [("", doc)]
 
   let inline outputWithFun write maxCols doc =
     outputWithActions
