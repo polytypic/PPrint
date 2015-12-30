@@ -5,5 +5,5 @@ Docs:
 * [PPrint reference](http://polytypic.github.io/PPrint/PPrint.html)
 
 Background:
-* [A Prettier Printer](http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf)
+* [A prettier printer](http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf)
 * [PPrint, a prettier printer](http://research.microsoft.com/en-us/um/people/daan/download/pprint/pprint.html)
