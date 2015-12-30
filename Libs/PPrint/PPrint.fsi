@@ -71,7 +71,7 @@ type [<Sealed; NoEquality; NoComparison>] Doc =
   ///
   /// and
   ///
-  ///> group (txt "a" <..> txt "b")
+  ///> txt "a" <..> txt "b" |> group
   ///
   /// renders as
   ///
@@ -144,11 +144,11 @@ module PPrint =
   /// newline characters.  For example, `txt "hello"` renders to `hello`.
   val txt: string -> Doc
 
-  /// `fmt ...` is equivalent to `txt (sprintf ...)`.  For example, to format an
-  /// integer `i`, one could write `fmt "%d" i`.
+  /// `fmt ...` is equivalent to `txt <| sprintf ...`.  For example, to format
+  /// an integer `i`, one could write `fmt "%d" i`.
   val fmt: Printf.StringFormat<'a, Doc> -> 'a
 
-  /// `nest n doc` renders document `doc` indented by `n` more columns.  See
+  /// `doc |> nest n` renders document `doc` indented by `n` more columns.  See
   /// also: `gnest` and `nestBy`.
 #if DOC
   ///
@@ -171,8 +171,8 @@ module PPrint =
 #endif
   val nest: numCols: int -> (Doc -> Doc)
 
-  /// `nestBy prefix doc` renders document `doc` with given prefix added after
-  /// line breaks.  See also: `nest`.
+  /// `doc |> nestBy prefix` renders document `doc` with given prefix added
+  /// after line breaks.  See also: `nest`.
 #if DOC
   ///
   /// For example
@@ -274,8 +274,9 @@ module PPrint =
 #endif
   val group: Doc -> Doc
 
-  /// `gnest n doc` is equivalent to `nest n (group doc)` which is equivalent to
-  /// `group (nest n doc)`.  `nest` is frequently combined with `group`.
+  /// `doc |> gnest n` is equivalent to `doc |> group |> nest n` which is
+  /// equivalent to `doc |> nest n |> group`.  `nest` is frequently combined
+  /// with `group`.
   val gnest: numCols: int -> (Doc -> Doc)
 
   /// Used to specify alternative documents.  The `wide` document is added to
@@ -354,14 +355,14 @@ module PPrint =
   /// create a document to render.
   val nesting: (int -> Doc) -> Doc
 
-  /// `indent n doc` indents `doc` by `n` columns.
+  /// `doc |> indent n` indents `doc` by `n` columns.
   val indent: int -> Doc -> Doc
 
-  /// `hang n doc` renders `doc` with nesting level set to the current column
+  /// `doc |> hang n` renders `doc` with nesting level set to the current column
   /// plus `n`.
   val hang: int -> Doc -> Doc
 
-  /// `align doc` renders `doc` with the nesting level set to the current
+  /// `doc |> align` renders `doc` with the nesting level set to the current
   /// column.
 #if DOC
   ///
@@ -388,7 +389,7 @@ module PPrint =
   ///
   /// For example
   ///
-  ///> width << txt "foo" <| fun n ->
+  ///> width <| txt "foo" <| fun n ->
   ///>   [txt "bar"; txt "baz"; txt "foobar"]
   ///>   |> punctuate comma
   ///>   |> vsep
@@ -402,35 +403,35 @@ module PPrint =
   ///>     foobar)
   ///
   /// Note that `align` can produce the above layout more directly, but other
-  /// effects can be achieved with width.
+  /// effects can be achieved with `width`.
 #endif
   val width: Doc -> (int -> Doc) -> Doc
 
-  /// `fillBreak width doc` first renders `doc` and then appends spaces until
+  /// `doc |> fillBreak width` first renders `doc` and then appends spaces until
   /// the width of the output is at least `width`.  If the width is already more
   /// than `width`, the nesting level is increased by `width` and a `line` is
   /// appended after `doc`.
   val fillBreak: width: int -> Doc -> Doc
 
-  /// `fill width doc` first renders `doc` and then appends spaces until the
+  /// `doc |> fill width` first renders `doc` and then appends spaces until the
   /// width is at least `width`.
   val fill: width: int -> Doc -> Doc
 
   // == Sequence Combinators ==
 
-  /// `joinSep sep` is equivalent to `joinWith (fun l r -> l <^> sep <^> r)`.
+  /// `joinSep sep` is equivalent to `joinWith <| fun l r -> l <^> sep <^> r`.
   val joinSep: Doc -> seq<Doc> -> Doc
 
   /// Concatenate a sequence of documents using the given binary operator.
   val joinWith: (Doc -> Doc -> Doc) -> seq<Doc> -> Doc
 
-  /// `sep docs` is equivalent to `group (vsep docs)`.
+  /// `docs |> sep` is equivalent to `docs |> vsep |> group`.
   val sep: seq<Doc> -> Doc
 
-  /// `cat docs` is equivalent to `group (vcat docs)`.
+  /// `docs |> cat` is equivalent to `docs |> vcat |> group`.
   val cat: seq<Doc> -> Doc
 
-  /// `punctuate punc docs` concatenates `punc` to the right of each document
+  /// `docs |> punctuate punc` concatenates `punc` to the right of each document
   /// in `docs` except the last one.
 #if DOC
   ///
@@ -498,25 +499,25 @@ module PPrint =
 
   // == Bracketing Combinators ==
 
-  /// `enclose (lhs, rhs) doc` is equivalent to `lhs <^> doc <^> rhs`
+  /// `doc |> enclose (lhs, rhs)` is equivalent to `lhs <^> doc <^> rhs`
   val enclose: Doc * Doc -> Doc -> Doc
 
-  /// `squotes doc` is equivalent to `enclose (squote, squote) doc`.
+  /// `squotes doc` is equivalent to `enclose lrsquote doc`.
   val squotes: Doc -> Doc
 
-  /// `dquotes doc` is equivalent to `enclose (dquote, dquote) doc`.
+  /// `dquotes doc` is equivalent to `enclose lrdquote doc`.
   val dquotes: Doc -> Doc
 
-  /// `parens doc` is equivalent to `enclose (lparen, rparen) doc`.
+  /// `parens doc` is equivalent to `enclose lrparen doc`.
   val parens: Doc -> Doc
 
-  /// `angles doc` is equivalent to `enclose (langle, rangle) doc`.
+  /// `angles doc` is equivalent to `enclose lrangle doc`.
   val angles: Doc -> Doc
 
-  /// `braces doc` is equivalent to `enclose (lbrace, rbrace) doc`.
+  /// `braces doc` is equivalent to `enclose lrbrace doc`.
   val braces: Doc -> Doc
 
-  /// `brackets doc` is equivalent to `enclose (lbracket, rbracket) doc`.
+  /// `brackets doc` is equivalent to `enclose lrbracket doc`.
   val brackets: Doc -> Doc
 
   // == Bracketing Pairs ==
