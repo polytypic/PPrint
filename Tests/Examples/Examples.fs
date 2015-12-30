@@ -2,17 +2,10 @@
 
 open PPrint
 
-type Foo = Foo of Foo: int * Bar: bool * Baz: ref<unit>
-
-type FoBaBaz = {Foo: int; Bar: bool; Baz: ref<unit>}
-
-type Fuu = {Fuu: bool}
-type Bar = Bar of int * float
-         | Baz
-         | Fuu of Fuu
-
 [<EntryPoint>]
-let main args =
+let main _ =
+  let inline (^) x = x
+
   let result = ref 0
 
   let chk limit doc expected =
@@ -28,17 +21,17 @@ let main args =
   chr 'x' === "x"
   txt "example" === "example"
   fmt "%d" 101 === "101"
-  nest 1 (parens (vsep (punctuate comma [txt "x"; txt "y"; txt "z"]))) ===
+  nest 1 ^ parens ^ vsep ^ punctuate comma [txt "x"; txt "y"; txt "z"] ===
     "(x,\n y,\n z)"
   enclose (txt "(* ", line <^> txt " *)")
-    (nestBy " * " (vsep [txt "a"; txt "b"; txt "c"])) ===
+    ^ nestBy " * " ^ vsep [txt "a"; txt "b"; txt "c"] ===
     "(* a\n * b\n * c\n *)"
-  nest 2 (hcat [txt "a"; line; txt "b"]) === "a\n  b"
-  group (nest 2 (hcat [txt "a"; line; txt "b"])) === "a b"
-  nest 2 (hcat [txt "a"; linebreak; txt "b"]) === "a\n  b"
-  group (nest 2 (hcat [txt "a"; linebreak; txt "b"])) === "ab"
+  nest 2 ^ hcat [txt "a"; line; txt "b"] === "a\n  b"
+  group ^ nest 2 ^ hcat [txt "a"; line; txt "b"] === "a b"
+  nest 2 ^ hcat [txt "a"; linebreak; txt "b"] === "a\n  b"
+  group ^ nest 2 ^ hcat [txt "a"; linebreak; txt "b"] === "ab"
   txt "a" <.> txt "b" === "a\nb"
-  group (txt "a" <.> txt "b") === "a b"
+  txt "a" <.> txt "b" |> group === "a b"
 
   let wide = txt "\\\"a\\nb\\nc\\\""
   let narrow = vsep [txt "\"a\\n\""; txt "\"b\\n\""; txt "\"c\""]
@@ -51,16 +44,16 @@ let main args =
   vsep [txt "a"; txt "b"; txt "c"] === "a\nb\nc"
   hcat [txt "a"; txt "b"; txt "c"] === "abc"
 
-  width (txt "foo") (fun n -> 
-   nest (n+1)
-    (parens
-      (vsep
-        (punctuate comma
-          [txt "bar"; txt "baz"; txt "foobar"])))) ===
-  "foo(bar,\n    baz,\n    foobar)"
+  width <| txt "foo" <| fun n ->
+       nest (n+1) ^
+        parens ^
+         vsep ^
+          punctuate comma ^
+           [txt "bar"; txt "baz"; txt "foobar"]
+  === "foo(bar,\n    baz,\n    foobar)"
 
   txt "foo" <^>
-  parens (align (vsep (punctuate comma [txt "bar"; txt "baz"; txt "foobar"])))
+  parens ^ align ^ vsep ^ punctuate comma [txt "bar"; txt "baz"; txt "foobar"]
   === "foo(bar,\n    baz,\n    foobar)"
 
   printfn "Done!"
