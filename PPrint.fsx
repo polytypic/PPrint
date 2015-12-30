@@ -1,6 +1,6 @@
-#I __SOURCE_DIRECTORY__
+#I "Libs/PPrint/bin/Debug"
 
-#r "Libs/PPrint.Pretty/bin/Release/PPrint.dll"
+#r "PPrint.dll"
 
 open System
 open PPrint
