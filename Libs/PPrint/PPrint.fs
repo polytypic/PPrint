@@ -28,12 +28,12 @@ module Consts =
   let inline joinWith d l r = JOIN (l, JOIN (d, r))
 
 type Doc with
-  static member (<^>) (l: Doc, r: Doc) = JOIN (l, r)
-  static member (<+>) (l: Doc, r: Doc) = joinWith space l r
-  static member (<.>) (l: Doc, r: Doc) = joinWith line l r
-  static member (</>) (l: Doc, r: Doc) = joinWith softline l r
-  static member (<..>) (l: Doc, r: Doc) = joinWith linebreak l r
-  static member (<//>) (l: Doc, r: Doc) = joinWith softbreak l r
+  static member (<^>) (l, r) = JOIN (l, r)
+  static member (<+>) (l, r) = joinWith space l r
+  static member (<.>) (l, r) = joinWith line l r
+  static member (</>) (l, r) = joinWith softline l r
+  static member (<..>) (l, r) = joinWith linebreak l r
+  static member (<//>) (l, r) = joinWith softbreak l r
 
 [<AutoOpen>]
 module Util =
