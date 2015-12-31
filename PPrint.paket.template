@@ -1,7 +1,7 @@
 type
         file
 version
-        1.4.4
+        1.4.5
 id
         PPrint
 summary
@@ -19,6 +19,7 @@ projectUrl
 description
         A pretty printing library for F# based on Wadler's and Leijen's work.
 releaseNotes
+        1.4.5: Performance improvements.
         1.4.4: Depend on older FSharp.Core.
         1.4.3: Actually specify the FSharp.Core dependency.
         1.4.2: Use FSharp.Core from NuGet.

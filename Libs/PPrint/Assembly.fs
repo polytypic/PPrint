@@ -8,7 +8,7 @@ open System.Runtime.InteropServices
 [<AutoOpen>]
 module AssemblyInfo =
   [<Literal>]
-  let Version = "1.4.4"
+  let Version = "1.4.5"
 
 [<assembly: AssemblyTitle("PPrint")>]
 [<assembly: AssemblyDescription("A pretty printing library for F# based on Wadler's and Leijen's work.")>]

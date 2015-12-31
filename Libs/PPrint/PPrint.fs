@@ -42,10 +42,6 @@ module Util =
   let inline flip f x y = f y x
   let inline force (s: Lazy<_>) = s.Force ()
 
-module Seq =
-  let revAppendToList xs ys =
-    Seq.fold (fun ys x -> x::ys) ys xs
-
 [<AutoOpen>]
 module PPrint =
   let delay th = LAZY ^ Lazy.Create th
@@ -130,28 +126,30 @@ module PPrint =
 
   let gnest n = group >> nest n
 
-  let joinWith bop xs =
-    match Seq.revAppendToList xs [] with
+  let inline joinWith' bop xs =
+    match Seq.fold (fun ys x -> x::ys) [] xs with
      | [] -> empty
      | x::xs -> List.fold (flip bop) x xs
-  let joinSep sep xs = xs |> joinWith ^ fun l r -> l <^> (sep <^> r)
-  let hsep xs = joinWith (<+>) xs
-  let hcat xs = joinWith (<^>) xs
-  let vsep xs = joinWith (<.>) xs
-  let vcat xs = joinWith (<..>) xs
-  let fillSep xs = joinWith (</>) xs
-  let fillCat xs = joinWith (<//>) xs
+  let joinWith bop xs = joinWith' bop xs
+  let joinSep sep xs = xs |> joinWith' ^ fun l r -> l <^> (sep <^> r)
+  let hsep xs = joinWith' (<+>) xs
+  let hcat xs = joinWith' (<^>) xs
+  let vsep xs = joinWith' (<.>) xs
+  let vcat xs = joinWith' (<..>) xs
+  let fillSep xs = joinWith' (</>) xs
+  let fillCat xs = joinWith' (<//>) xs
 
   let sep xs = group ^ vsep xs
   let cat xs = group ^ vcat xs
 
-  let enclose (l, r) d = l <^> (d <^> r)
-  let squotes d = enclose lrsquote d
-  let dquotes d = enclose lrdquote d
-  let parens d = enclose lrparen d
-  let angles d = enclose lrangle d
-  let braces d = enclose lrbrace d
-  let brackets d = enclose lrbracket d
+  let inline enclose' (l: Doc, r: Doc) d = l <^> (d <^> r)
+  let enclose (l, r) d = enclose' (l, r) d
+  let squotes d = enclose' lrsquote d
+  let dquotes d = enclose' lrdquote d
+  let parens d = enclose' lrparen d
+  let angles d = enclose' lrangle d
+  let braces d = enclose' lrbrace d
+  let brackets d = enclose' lrbracket d
 
   type t =
    | NIL
@@ -163,64 +161,73 @@ module PPrint =
     abstract Line: unit -> unit
     abstract Write: string -> unit
     abstract User: obj -> unit
-    default this.Line () = this.Write "\n"
-    default this.User _ = ()
+    default t.Line () = t.Write "\n"
+    default t.User _ = ()
 
-  let outputWithActions (actions: Actions) maxCols doc =
-    let rec layout t =
-      match t with
-       | NIL -> ()
-       | PRINT (str, doc) ->
-         actions.Write str
-         layout ^ force doc
-       | OBJ (obj, doc) ->
-         actions.User obj
-         layout ^ force doc
-       | LINEFEED (prefix, doc) ->
-         actions.Line ()
-         actions.Write prefix
-         layout ^ force doc
+  let rec output (actions: Actions) doc =
+    match force doc with
+     | NIL -> ()
+     | PRINT (str, doc) ->
+       actions.Write str
+       output actions doc
+     | OBJ (obj, doc) ->
+       actions.User obj
+       output actions doc
+     | LINEFEED (prefix, doc) ->
+       actions.Line ()
+       actions.Write prefix
+       output actions doc
 
-    let fits usedCols doc =
+  let rec fits maxColsOr0 usedCols doc =
+    maxColsOr0 = 0 ||
+    usedCols <= maxColsOr0 &&
+    match force doc with
+     | NIL | LINEFEED _ -> true
+     | OBJ (_, doc) ->
+       fits maxColsOr0 usedCols doc
+     | PRINT (str, doc) ->
+       fits maxColsOr0 (usedCols + str.Length) doc
+
+  type Docs =
+    | Done
+    | Docs of string * Doc * Docs
+
+  let rec layout maxColsOr0 usedCols = function
+    | Done -> NIL
+    | Docs (prefix, doc, rest) ->
+      match doc with
+       | LAZY doc ->
+         layout maxColsOr0 usedCols ^ Docs (prefix, force doc, rest)
+       | EMPTY ->
+         layout maxColsOr0 usedCols rest
+       | JOIN (lhs, rhs) ->
+         layout maxColsOr0 usedCols ^
+         Docs (prefix, lhs, Docs (prefix, rhs, rest))
+       | NEST (txt, doc) ->
+         layout maxColsOr0 usedCols ^ Docs (prefix + txt, doc, rest)
+       | TEXT str ->
+         PRINT (str, lazy layout maxColsOr0 (usedCols + str.Length) rest)
+       | USER obj ->
+         OBJ (obj, lazy layout maxColsOr0 usedCols rest)
+       | LINE _ ->
+         LINEFEED (prefix, lazy layout maxColsOr0 prefix.Length rest)
+       | CHOICE (wide, narrow) ->
+         let wide = layout maxColsOr0 usedCols ^ Docs (prefix, wide, rest)
+         if fits maxColsOr0 usedCols ^ lazy wide
+         then wide
+         else layout maxColsOr0 usedCols ^ Docs (prefix, narrow, rest)
+       | COLUMN f ->
+         layout maxColsOr0 usedCols ^ Docs (prefix, f usedCols, rest)
+       | NESTING f ->
+         layout maxColsOr0 usedCols ^ Docs (prefix, f prefix.Length, rest)
+
+  let outputWithActions actions maxCols doc =
+    let maxColsOr0 =
       match maxCols with
-       | None -> true
-       | Some maxCols ->
-         let rec lp usedCols doc =
-           usedCols <= maxCols &&
-           match force doc with
-            | NIL | LINEFEED _ -> true
-            | OBJ (_, doc) -> lp usedCols doc
-            | PRINT (str, doc) -> lp (usedCols + String.length str) doc
-         lp usedCols ^ lazy doc
-
-    let rec best usedCols = function
-      | [] -> NIL
-      | (prefix, doc)::rest ->
-        match doc with
-         | LAZY doc ->
-           best usedCols ^ (prefix, force doc)::rest
-         | EMPTY ->
-           best usedCols rest
-         | JOIN (lhs, rhs) ->
-           best usedCols ^ (prefix, lhs)::(prefix, rhs)::rest
-         | NEST (txt, doc) ->
-           best usedCols ^ (prefix + txt, doc)::rest
-         | TEXT str ->
-           PRINT (str, lazy best (usedCols + String.length str) rest)
-         | USER obj ->
-           OBJ (obj, lazy best usedCols rest)
-         | LINE _ ->
-           LINEFEED (prefix, lazy best (String.length prefix) rest)
-         | CHOICE (wide, narrow) ->
-           let wide = best usedCols ^ (prefix, wide)::rest
-           if fits usedCols wide
-           then wide
-           else best usedCols ^ (prefix, narrow)::rest
-         | COLUMN f ->
-           best usedCols ^ (prefix, f usedCols)::rest
-         | NESTING f ->
-           best usedCols ^ (prefix, f (String.length prefix))::rest
-    layout ^ best 0 [("", doc)]
+       | None -> 0
+       | Some n ->
+         if n <= 0 then failwithf "maxCols: %d" n else n
+    output actions ^ lazy layout maxColsOr0 0 (Docs ("", doc, Done))
 
   let inline outputWithFun write maxCols doc =
     outputWithActions
