@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Root", "Root", "{43B5134E-8
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 		PPrint.fsx = PPrint.fsx
+		PPrint.paket.template = PPrint.paket.template
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{43B5134E-89E6-411E-A492-6FDA8BD441FF}"
