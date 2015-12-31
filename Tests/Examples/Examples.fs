@@ -1,5 +1,6 @@
 // Copyright (C) by Vesa Karvonen
 
+open System.Diagnostics
 open PPrint
 
 [<EntryPoint>]
@@ -57,4 +58,13 @@ let main _ =
   === "foo(bar,\n    baz,\n    foobar)"
 
   printfn "Done!"
+
+  for i=1 to 9 do
+    let start = Stopwatch.StartNew ()
+    let x = txt "x"
+    Seq.init (1 <<< i*2) ^ fun _ -> x
+    |> fillCat
+    |> PPrint.outputWithFun ignore (Some 40)
+    printfn "Bench %d: %A" i start.Elapsed
+
   !result
