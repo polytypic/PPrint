@@ -65,7 +65,6 @@ font-weight: bold;
                    <b>-&gt;</b> doc<b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
                    <b>-&gt;</b> unit
   <b>val</b> <a id="dec:val PPrint.PPrint.render" href="#def:val PPrint.PPrint.render">render</a><b>:</b> maxCols<b>:</b> option<b>&lt;</b>int<b>&gt;</b> <b>-&gt;</b> doc<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> string
-  <b>val</b> <a id="dec:val PPrint.PPrint.println" href="#def:val PPrint.PPrint.println">println</a><b>:</b> maxCols<b>:</b> option<b>&lt;</b>int<b>&gt;</b> <b>-&gt;</b> doc<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> unit
   <b>val</b> <a id="dec:val PPrint.PPrint.empty" href="#def:val PPrint.PPrint.empty">empty</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.chr" href="#def:val PPrint.PPrint.chr">chr</a><b>:</b> char <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.txt" href="#def:val PPrint.PPrint.txt">txt</a><b>:</b> string <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
@@ -209,9 +208,6 @@ b
 <pre><b>val</b> <a id="def:val PPrint.PPrint.render" href="#dec:val PPrint.PPrint.render">render</a><b>:</b> maxCols<b>:</b> option<b>&lt;</b>int<b>&gt;</b> <b>-&gt;</b> doc<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> string
 </pre>
 <div class="nested"><p> Renders the document as a string.</div>
-<pre><b>val</b> <a id="def:val PPrint.PPrint.println" href="#dec:val PPrint.PPrint.println">println</a><b>:</b> maxCols<b>:</b> option<b>&lt;</b>int<b>&gt;</b> <b>-&gt;</b> doc<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> unit
-</pre>
-<div class="nested"><p> Writes the document to standard output with a newline.</div>
 <pre><b>val</b> <a id="def:val PPrint.PPrint.empty" href="#dec:val PPrint.PPrint.empty">empty</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
 </pre>
 <div class="nested"><p> The <code><a href="#def:val PPrint.PPrint.empty">empty</a></code> document is equivalent to <code><a href="#def:val PPrint.PPrint.txt">txt</a>&nbsp;""</code>.</div>
