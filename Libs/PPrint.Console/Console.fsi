@@ -2,6 +2,7 @@
 
 namespace PPrint
 
+/// PPrint extensions for printing to console.
 [<AutoOpen>]
 module Console =
   /// Writes the document to standard output with a newline.
