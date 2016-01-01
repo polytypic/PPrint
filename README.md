@@ -3,6 +3,7 @@
 
 Docs:
 * [PPrint reference](http://polytypic.github.io/PPrint/PPrint.html)
+* [PPrint.Console reference](http://polytypic.github.io/PPrint/PPrint.Console.html)
 
 Background:
 * [A prettier printer](http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf)
