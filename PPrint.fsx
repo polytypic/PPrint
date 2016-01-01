@@ -1,5 +1,4 @@
-#I "Libs/PPrint/bin/Debug"
-#I "Libs/PPrint.Console/bin/Debug"
+#I "Tests/Examples/bin/Debug"
 
 #r "PPrint.dll"
 #r "PPrint.Console.dll"
