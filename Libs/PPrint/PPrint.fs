@@ -37,7 +37,7 @@ type Doc with
 [<AutoOpen>]
 module Util =
   let inline (^) x = x
-  let inline K x _ = x
+  let inline constant x _ = x
   let inline flip f x y = f y x
   let inline force (s: Lazy<_>) = s.Force ()
 
@@ -67,6 +67,7 @@ module PPrint =
   let (langle,   rangle)   as lrangle   = (Text "<", Text ">")
   let (lbrace,   rbrace)   as lrbrace   = (Text "{", Text "}")
   let (lbracket, rbracket) as lrbracket = (Text "[", Text "]")
+
   let squote = Text "'"
   let lrsquote = (squote, squote)
   let dquote = Text "\""
@@ -105,7 +106,7 @@ module PPrint =
     width' d ^ fun w -> if p f w then t f else txt ^ spaces ^ f-w
 
   let fillBreak n d = mkFill (<) (flip nest linebreak) n d
-  let fill n d = mkFill (<=) (K empty) n d
+  let fill n d = mkFill (<=) (constant empty) n d
 
   let rec flatten doc = delay ^ fun () ->
     match doc with
