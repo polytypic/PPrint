@@ -2,7 +2,6 @@
 
 namespace PPrint
 
-open System
 open System.IO
 
 type Doc =
@@ -43,7 +42,7 @@ module Util =
 
 [<AutoOpen>]
 module PPrint =
-  let delay th = Lazy ^ Lazy.Create th
+  let delay th = Lazy ^ lazy th ()
 
   let empty = Empty
   let space = space
@@ -240,7 +239,3 @@ module PPrint =
     use tw = new StringWriter ()
     outputToWriter tw maxCols doc
     tw.ToString ()
-
-  let println maxCols doc =
-    outputWithFun Console.Write maxCols doc
-    Console.Write "\n"

@@ -128,9 +128,6 @@ module PPrint =
   /// Renders the document as a string.
   val render: maxCols: option<int> -> doc: Doc -> string
 
-  /// Writes the document to standard output with a newline.
-  val println: maxCols: option<int> -> doc: Doc -> unit
-
   // == Basic Combinators ==
 
   /// The `empty` document is equivalent to `txt ""`.
