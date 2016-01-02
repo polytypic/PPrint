@@ -17,13 +17,23 @@ else
   PAKET=.paket/paket.exe
 fi
 
+function run() {
+  if hash mono &> /dev/null ; then
+    mono "$1"
+  else
+    "$1"
+  fi
+}
+
 function build() {
   $BUILD /nologo /verbosity:quiet /p:Configuration=$2 $1
-  mono Tests/Examples/bin/$2/Examples.exe
 }
 
 for config in Debug Release ; do
   build $SOLUTION $config
+  for exe in Tests/*/bin/$config/*.exe ; do
+    run $exe
+  done
 done
 
 for template in *.paket.template ; do
