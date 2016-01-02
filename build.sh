@@ -1,13 +1,31 @@
-#!/bin/bash
+#!/bin/bash -e
 
-set -e
+SOLUTION=PPrint.sln
+
+if hash xbuild &> /dev/null ; then
+  BUILD=xbuild
+elif hash msbuild.exe &> /dev/null ; then
+  BUILD=msbuild.exe
+else
+  echo "Couldn't find build command."
+  exit 1
+fi
+
+if hash paket &> /dev/null ; then
+  PAKET=paket
+else
+  PAKET=.paket/paket.exe
+fi
 
 function build() {
-  xbuild /nologo /verbosity:quiet /p:Configuration=$2 $1
+  $BUILD /nologo /verbosity:quiet /p:Configuration=$2 $1
   mono Tests/Examples/bin/$2/Examples.exe
 }
 
-build PPrint.sln Debug
-build PPrint.sln Release
+for config in Debug Release ; do
+  build $SOLUTION $config
+done
 
-paket pack output . templatefile PPrint.paket.template
+for template in *.paket.template ; do
+  $PAKET pack output . templatefile PPrint.paket.template
+done
