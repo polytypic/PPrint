@@ -37,5 +37,5 @@ for config in Debug Release ; do
 done
 
 for template in *.paket.template ; do
-  $PAKET pack output . templatefile PPrint.paket.template
+  $PAKET pack output . templatefile $template
 done

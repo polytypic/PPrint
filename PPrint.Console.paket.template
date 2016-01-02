@@ -1,0 +1,32 @@
+type
+        file
+version
+        1.0.0
+id
+        PPrint.Console
+summary
+        PPrint extensions for printing to console.
+owners
+        Vesa Karvonen
+authors
+        Vesa Karvonen
+licenseUrl
+        https://github.com/VesaKarvonen/PPrint/blob/master/LICENSE.md
+requireLicenseAcceptance
+        false
+projectUrl
+        https://github.com/VesaKarvonen/PPrint
+description
+        PPrint extensions for printing to console.
+releaseNotes
+        1.0.0: Refactored to portable PPrint core lib and separate PPrint.Console lib.
+copyright
+        © Vesa Karvonen
+tags
+        F# fsharp text formatting layout
+dependencies
+        FSharp.Core >= 3.1.2.5
+        PPrint >= 2.0.0
+files
+        Libs/PPrint.Console/bin/Release/PPrint.Console.dll ==> lib/net45
+        Libs/PPrint.Console/bin/Release/PPrint.Console.xml ==> lib/net45

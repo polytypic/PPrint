@@ -38,7 +38,3 @@ dependencies
 files
         Libs/PPrint/bin/Release/PPrint.dll ==> lib/portable-net45+netcore45+wpa81+wp8
         Libs/PPrint/bin/Release/PPrint.xml ==> lib/portable-net45+netcore45+wpa81+wp8
-        Libs/PPrint/bin/Release/PPrint.dll                 ==> lib/net45
-        Libs/PPrint/bin/Release/PPrint.xml                 ==> lib/net45
-        Libs/PPrint.Console/bin/Release/PPrint.Console.dll ==> lib/net45
-        Libs/PPrint.Console/bin/Release/PPrint.Console.xml ==> lib/net45

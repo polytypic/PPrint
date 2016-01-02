@@ -44,6 +44,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.FSharp.Targets" />
   <ItemGroup>
+    <Compile Include="Assembly.fs" />
     <Compile Include="Console.fsi" />
     <Compile Include="Console.fs" />
   </ItemGroup>
