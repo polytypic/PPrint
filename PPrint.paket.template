@@ -5,7 +5,7 @@ version
 id
         PPrint
 summary
-        A pretty printing library for F# based on Wadler's and Leijen's work.
+        PPrint is a pretty printing combinator library for text documents that can be rendered to a desired maximum width.
 owners
         Vesa Karvonen
 authors

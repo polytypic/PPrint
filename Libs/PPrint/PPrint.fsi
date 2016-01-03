@@ -1,11 +1,12 @@
 // Copyright (C) by Vesa Karvonen
 
-/// A pretty printing library for F# based on Wadler's and Leijen's work.
+/// PPrint is a pretty printing combinator library for text documents that can
+/// be rendered to a desired maximum width.
 ///
-/// Philip Wadler's article ''A prettier printer'' is a good introduction to the
-/// motivation and basic usage of this library.  Daan Leijen's document
-/// ''PPrint, a prettier printer'' provides motivation for the additional
-/// primitives like `align`.
+/// PPrint is based on Wadler's and Leijen's work.  Philip Wadler's article ''A
+/// prettier printer'' is a good introduction to the motivation and basic usage
+/// of this library.  Daan Leijen's document ''PPrint, a prettier printer''
+/// provides motivation for several additional primitives like `align`.
 namespace PPrint
 
 open System.IO
