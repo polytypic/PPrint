@@ -87,7 +87,7 @@ type [<Sealed; NoEquality; NoComparison>] Doc =
 /// Operations on pretty print documents.
 [<AutoOpen>]
 module PPrint =
-  // == Rendering ==
+  //# Rendering
 
   /// Output actions.
   type [<AbstractClass>] Actions =
@@ -129,7 +129,7 @@ module PPrint =
   /// Renders the document as a string.
   val render: maxCols: option<int> -> doc: Doc -> string
 
-  // == Basic Combinators ==
+  //# Basic Combinators
 
   /// The `empty` document is equivalent to `txt ""`.
   val empty: Doc
@@ -332,7 +332,7 @@ module PPrint =
   /// `line`.
   val softbreak: Doc
 
-  // == User Defined Attributes ==
+  //# User Defined Attributes
 
   /// `user any` is equivalent to `empty` except that the created document
   /// carries the given user attribute object `any`.  The object is otherwise
@@ -343,7 +343,7 @@ module PPrint =
   /// special effects.
   val user: obj -> Doc
 
-  // == Alignment Combinators ==
+  //# Alignment Combinators
 
   /// `column f` calls `f` with the current column during rendering to create a
   /// document to render.
@@ -415,7 +415,7 @@ module PPrint =
   /// width is at least `width`.
   val fill: width: int -> Doc -> Doc
 
-  // == Sequence Combinators ==
+  //# Sequence Combinators
 
   /// `joinSep sep` is equivalent to `joinWith <| fun l r -> l <^> sep <^> r`.
   val joinSep: Doc -> seq<Doc> -> Doc
@@ -495,7 +495,7 @@ module PPrint =
   /// Concatenates the documents using `<//>`.
   val fillCat: seq<Doc> -> Doc
 
-  // == Bracketing Combinators ==
+  //# Bracketing Combinators
 
   /// `doc |> enclose (lhs, rhs)` is equivalent to `lhs <^> doc <^> rhs`
   val enclose: Doc * Doc -> Doc -> Doc
@@ -518,7 +518,7 @@ module PPrint =
   /// `brackets doc` is equivalent to `enclose lrbracket doc`.
   val brackets: Doc -> Doc
 
-  // == Bracketing Pairs ==
+  //# Bracketing Pairs
 
   /// Equivalent to `(squote, squote)`
   val lrsquote: Doc * Doc
@@ -538,7 +538,7 @@ module PPrint =
   /// Equivalent to `(lbracket, rbracket)`
   val lrbracket: Doc * Doc
 
-  // == Character Documents ==
+  //# Character Documents
 
   /// Equivalent to `txt "("`.
   val lparen: Doc
