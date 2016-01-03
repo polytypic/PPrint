@@ -133,7 +133,7 @@ font-weight: bold;
 <h2>Description</h2>
 <pre><b>namespace</b> <a id="def:namespace PPrint" href="#dec:namespace PPrint">PPrint</a>
 </pre>
-<div class="nested"><p> A pretty printing library for F# based on Wadler's and Leijen's work.</p><p> Philip Wadler's article ''A prettier printer'' is a good introduction to the motivation and basic usage of this library.  Daan Leijen's document ''PPrint, a prettier printer'' provides motivation for the additional primitives like <code><a href="#def:val PPrint.PPrint.align">align</a></code>.<pre><b>[&lt;</b>Sealed; NoEquality; NoComparison<b>&gt;]</b> 
+<div class="nested"><p> PPrint is a pretty printing combinator library for text documents that can be rendered to a desired maximum width.</p><p> PPrint is based on Wadler's and Leijen's work.  Philip Wadler's article ''A prettier printer'' is a good introduction to the motivation and basic usage of this library.  Daan Leijen's document ''PPrint, a prettier printer'' provides motivation for several additional primitives like <code><a href="#def:val PPrint.PPrint.align">align</a></code>.<pre><b>[&lt;</b>Sealed; NoEquality; NoComparison<b>&gt;]</b> 
 <b>type</b> <a id="def:type PPrint.Doc" href="#dec:type PPrint.Doc">Doc</a> <b>=</b>
 </pre>
 <div class="nested"><p> Represents a document that can be rendered to a given maximum width.<pre><b>static</b> <b>member</b> (<a id="def:static member PPrint.Doc.&lt;^&gt;" href="#dec:static member PPrint.Doc.&lt;^&gt;">&lt;^&gt;</a>)<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>*</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
