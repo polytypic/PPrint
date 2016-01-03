@@ -12,6 +12,10 @@ background: #f7f7f7;
 font-family: "Lucida Console", Monaco, monospace;
 font-size: 72%;
 }
+pre h3 {
+display: inline-block;
+margin: 1em 0em 0.5em 0em;
+}
 code {
 border: 1px solid #e0e0e0;
 border-radius: 3px;
@@ -44,7 +48,8 @@ font-weight: bold;
 </pre>
 <pre><b>[&lt;</b>AutoOpen<b>&gt;]</b>
 <b>module</b> <a id="dec:module PPrint.PPrint" href="#def:module PPrint.PPrint">PPrint</a> <b>=</b>
-<h3>  Rendering</h3>  <b>[&lt;</b>AbstractClass<b>&gt;]</b> 
+  <h3>Rendering</h3>
+  <b>[&lt;</b>AbstractClass<b>&gt;]</b> 
   <b>type</b> <a id="dec:type PPrint.PPrint.Actions" href="#def:type PPrint.PPrint.Actions">Actions</a> <b>=</b>
     <b>new</b><b>:</b> unit <b>-&gt;</b> <a href="#def:type PPrint.PPrint.Actions">Actions</a>
     <b>abstract</b> <a id="dec:abstract PPrint.PPrint.Actions.Line" href="#def:abstract PPrint.PPrint.Actions.Line">Line</a><b>:</b> unit <b>-&gt;</b> unit
@@ -65,7 +70,8 @@ font-weight: bold;
                    <b>-&gt;</b> doc<b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
                    <b>-&gt;</b> unit
   <b>val</b> <a id="dec:val PPrint.PPrint.render" href="#def:val PPrint.PPrint.render">render</a><b>:</b> maxCols<b>:</b> option<b>&lt;</b>int<b>&gt;</b> <b>-&gt;</b> doc<b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> string
-<h3>  Basic Combinators</h3>  <b>val</b> <a id="dec:val PPrint.PPrint.empty" href="#def:val PPrint.PPrint.empty">empty</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <h3>Basic Combinators</h3>
+  <b>val</b> <a id="dec:val PPrint.PPrint.empty" href="#def:val PPrint.PPrint.empty">empty</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.chr" href="#def:val PPrint.PPrint.chr">chr</a><b>:</b> char <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.txt" href="#def:val PPrint.PPrint.txt">txt</a><b>:</b> string <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.fmt" href="#def:val PPrint.PPrint.fmt">fmt</a><b>:</b> Printf<b>.</b>StringFormat<b>&lt;</b><i>'a</i>, <a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <i>'a</i>
@@ -79,8 +85,10 @@ font-weight: bold;
   <b>val</b> <a id="dec:val PPrint.PPrint.delay" href="#def:val PPrint.PPrint.delay">delay</a><b>:</b> (unit <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>) <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.softline" href="#def:val PPrint.PPrint.softline">softline</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.softbreak" href="#def:val PPrint.PPrint.softbreak">softbreak</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
-<h3>  User Defined Attributes</h3>  <b>val</b> <a id="dec:val PPrint.PPrint.user" href="#def:val PPrint.PPrint.user">user</a><b>:</b> obj <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
-<h3>  Alignment Combinators</h3>  <b>val</b> <a id="dec:val PPrint.PPrint.column" href="#def:val PPrint.PPrint.column">column</a><b>:</b> (int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>) <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <h3>User Defined Attributes</h3>
+  <b>val</b> <a id="dec:val PPrint.PPrint.user" href="#def:val PPrint.PPrint.user">user</a><b>:</b> obj <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <h3>Alignment Combinators</h3>
+  <b>val</b> <a id="dec:val PPrint.PPrint.column" href="#def:val PPrint.PPrint.column">column</a><b>:</b> (int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>) <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.nesting" href="#def:val PPrint.PPrint.nesting">nesting</a><b>:</b> (int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>) <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.indent" href="#def:val PPrint.PPrint.indent">indent</a><b>:</b> int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.hang" href="#def:val PPrint.PPrint.hang">hang</a><b>:</b> int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
@@ -88,7 +96,8 @@ font-weight: bold;
   <b>val</b> <a id="dec:val PPrint.PPrint.width" href="#def:val PPrint.PPrint.width">width</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> (int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>) <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.fillBreak" href="#def:val PPrint.PPrint.fillBreak">fillBreak</a><b>:</b> <a href="#def:val PPrint.PPrint.width">width</a><b>:</b> int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.fill" href="#def:val PPrint.PPrint.fill">fill</a><b>:</b> <a href="#def:val PPrint.PPrint.width">width</a><b>:</b> int <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
-<h3>  Sequence Combinators</h3>  <b>val</b> <a id="dec:val PPrint.PPrint.joinSep" href="#def:val PPrint.PPrint.joinSep">joinSep</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <h3>Sequence Combinators</h3>
+  <b>val</b> <a id="dec:val PPrint.PPrint.joinSep" href="#def:val PPrint.PPrint.joinSep">joinSep</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.joinWith" href="#def:val PPrint.PPrint.joinWith">joinWith</a><b>:</b> (<a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>) <b>-&gt;</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.sep" href="#def:val PPrint.PPrint.sep">sep</a><b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.cat" href="#def:val PPrint.PPrint.cat">cat</a><b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
@@ -99,20 +108,23 @@ font-weight: bold;
   <b>val</b> <a id="dec:val PPrint.PPrint.hcat" href="#def:val PPrint.PPrint.hcat">hcat</a><b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.vcat" href="#def:val PPrint.PPrint.vcat">vcat</a><b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.fillCat" href="#def:val PPrint.PPrint.fillCat">fillCat</a><b>:</b> seq<b>&lt;</b><a href="#def:type PPrint.Doc">Doc</a><b>&gt;</b> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
-<h3>  Bracketing Combinators</h3>  <b>val</b> <a id="dec:val PPrint.PPrint.enclose" href="#def:val PPrint.PPrint.enclose">enclose</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>*</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <h3>Bracketing Combinators</h3>
+  <b>val</b> <a id="dec:val PPrint.PPrint.enclose" href="#def:val PPrint.PPrint.enclose">enclose</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>*</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.squotes" href="#def:val PPrint.PPrint.squotes">squotes</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.dquotes" href="#def:val PPrint.PPrint.dquotes">dquotes</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.parens" href="#def:val PPrint.PPrint.parens">parens</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.angles" href="#def:val PPrint.PPrint.angles">angles</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.braces" href="#def:val PPrint.PPrint.braces">braces</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.brackets" href="#def:val PPrint.PPrint.brackets">brackets</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>-&gt;</b> <a href="#def:type PPrint.Doc">Doc</a>
-<h3>  Bracketing Pairs</h3>  <b>val</b> <a id="dec:val PPrint.PPrint.lrsquote" href="#def:val PPrint.PPrint.lrsquote">lrsquote</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>*</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <h3>Bracketing Pairs</h3>
+  <b>val</b> <a id="dec:val PPrint.PPrint.lrsquote" href="#def:val PPrint.PPrint.lrsquote">lrsquote</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>*</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.lrdquote" href="#def:val PPrint.PPrint.lrdquote">lrdquote</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>*</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.lrparen" href="#def:val PPrint.PPrint.lrparen">lrparen</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>*</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.lrangle" href="#def:val PPrint.PPrint.lrangle">lrangle</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>*</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.lrbrace" href="#def:val PPrint.PPrint.lrbrace">lrbrace</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>*</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.lrbracket" href="#def:val PPrint.PPrint.lrbracket">lrbracket</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a> <b>*</b> <a href="#def:type PPrint.Doc">Doc</a>
-<h3>  Character Documents</h3>  <b>val</b> <a id="dec:val PPrint.PPrint.lparen" href="#def:val PPrint.PPrint.lparen">lparen</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
+  <h3>Character Documents</h3>
+  <b>val</b> <a id="dec:val PPrint.PPrint.lparen" href="#def:val PPrint.PPrint.lparen">lparen</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.rparen" href="#def:val PPrint.PPrint.rparen">rparen</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.langle" href="#def:val PPrint.PPrint.langle">langle</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
   <b>val</b> <a id="dec:val PPrint.PPrint.rangle" href="#def:val PPrint.PPrint.rangle">rangle</a><b>:</b> <a href="#def:type PPrint.Doc">Doc</a>
