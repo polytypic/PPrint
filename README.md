@@ -15,7 +15,7 @@ rendered to a desired maximum width.
 
 ### Example
 
-Here is an example of how one could define the function
+Here is an example of how one could define a function with signature
 
 ```fsharp
 module Json =
@@ -85,7 +85,7 @@ let json = JsonValue.Parse """
 """
 ```
 
-We can render it to different desired maximum widths.  For example,
+we can render it to different desired maximum widths.  For example,
 
 ```fsharp
 json |> Json.pretty |> println ^ Some 40
